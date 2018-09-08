@@ -19,10 +19,26 @@ import (
 )
 
 func main() {
-	nums := []int{0, 1, 2, 2, 3, 0, 4, 2}
+	nums := []int{1, 2}
 	fmt.Println(maxSubArray(nums))
 }
 
 func maxSubArray(nums []int) int {
+	// dp[i] means the max sum of sub array that end with nums[i]
+	sum := make([]int, len(nums))
+	sum[0] = nums[0]
+	for i := 1; i < len(nums); i++ {
+		sum[i] = max(sum[i-1]+nums[i], nums[i])
+	}
+	return max(sum...)
+}
 
+func max(nums ...int) int {
+	n := nums[0]
+	for _, v := range nums {
+		if n < v {
+			n = v
+		}
+	}
+	return n
 }
