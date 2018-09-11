@@ -22,7 +22,6 @@ import (
 )
 
 func main() {
-	fmt.Println(3 ^ 6)
 	grid := [][]int{
 		[]int{1, 3, 1},
 		[]int{1, 5, 1},
