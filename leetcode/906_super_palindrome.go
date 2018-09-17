@@ -29,17 +29,35 @@ import (
 )
 
 func main() {
-	fmt.Println(checkPalin("2002"))
-	fmt.Println(superpalindromesInRange("4", "100000000"))
+	// fmt.Println(checkSumV2("131"))
+	fmt.Println(superpalindromesInRange("444", "100220"))
 }
 
+// found, every num should be in [0, 1, 2, 3]
 func superpalindromesInRange(L string, R string) int {
 	cnt := 0
+	// l, _ := strconv.Atoi(L)
+	// r, _ := strconv.Atoi(R)
 	llen, rlen := len(L), len(R)
-	for i := llen; i <= (rlen+1)/2; i++ {
-
+	// cacl num whose length is len(L)
+	for i := (llen+1)/2 + 1; i <= rlen/2; i++ {
+		if i%2 == 0 {
+			cnt++
+		} else {
+			cnt += 3
+		}
+		cnt += pow2((i - 1) / 2)
+		fmt.Println(i, cnt)
 	}
 	return cnt
+}
+
+func pow2(n int) int {
+	x := 1
+	for i := 0; i < n; i++ {
+		x *= 2
+	}
+	return x
 }
 
 func checkPalin(s string) bool {
@@ -59,6 +77,15 @@ func checkSum(n int) bool {
 	for n != 0 {
 		i := n % 10
 		n = n / 10
+		sum += i * i
+	}
+	return sum < 10
+}
+
+func checkSumV2(s string) bool {
+	sum := 0
+	for i := 0; i < len(s); i++ {
+		i := int(s[i]) - 48
 		sum += i * i
 	}
 	return sum < 10
