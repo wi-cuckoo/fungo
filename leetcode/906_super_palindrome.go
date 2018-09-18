@@ -26,30 +26,56 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 )
 
 func main() {
+	fmt.Println(mirror("ab", false))
 	// fmt.Println(checkSumV2("131"))
-	fmt.Println(superpalindromesInRange("444", "100220"))
+	fmt.Println(superpalindromesInRange("100000000", "12345654321"))
 }
 
-// found, every num should be in [0, 1, 2, 3]
+// found, every num's sqrt should be in [0, 1, 2, 3]
 func superpalindromesInRange(L string, R string) int {
 	cnt := 0
-	// l, _ := strconv.Atoi(L)
-	// r, _ := strconv.Atoi(R)
+	l, _ := strconv.Atoi(L)
+	r, _ := strconv.Atoi(R)
 	llen, rlen := len(L), len(R)
+	k, w := (llen+1)/2, (llen-1)/4
+	for i := 0; i < pow2(w); i++ {
+		s := fmt.Sprintf(fmt.Sprintf("%%.%db", w), i)
+		s = "1" + mirror(s, k%2 == 1) + "1"
+		v, _ := strconv.Atoi(s)
+		fmt.Println(s, v, v*v, l, r)
+		if v*v >= l && v*v <= r {
+			cnt++
+		}
+	}
 	// cacl num whose length is len(L)
-	for i := (llen+1)/2 + 1; i <= rlen/2; i++ {
+	for i := (llen + 3) / 2; i <= rlen/2; i++ {
 		if i%2 == 0 {
 			cnt++
 		} else {
 			cnt += 3
 		}
 		cnt += pow2((i - 1) / 2)
-		fmt.Println(i, cnt)
 	}
 	return cnt
+}
+
+// eg: abc, false will be abccbe, true will be abcba
+func mirror(s string, flag bool) string {
+	l := 2 * len(s)
+	if flag {
+		l--
+	}
+	res := make([]byte, l)
+	for i, j := 0, l-1; i <= j; {
+		res[i], res[j] = s[i], s[i]
+		i++
+		j--
+	}
+	return string(res)
 }
 
 func pow2(n int) int {
