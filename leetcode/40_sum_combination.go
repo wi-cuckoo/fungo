@@ -32,6 +32,7 @@ package main
 
 import (
 	"fmt"
+	"sort"
 )
 
 func main() {
@@ -42,10 +43,28 @@ func main() {
 
 func combinationSum(candidates []int, target int) [][]int {
 	res := make([][]int, 0)
+	sort.Ints(candidates)
 	backtrack(candidates, target, 0, []int{}, &res)
 	return res
 }
 
 func backtrack(candidates []int, target, start int, maybe []int, res *[][]int) {
-
+	// fmt.Println(maybe, target)
+	if target < 0 {
+		return
+	}
+	if target == 0 {
+		*res = append(*res, maybe)
+		return
+	}
+	for i := start; i < len(candidates); i++ {
+		if i > start && candidates[i] == candidates[i-1] {
+			continue
+		}
+		c := candidates[i]
+		tmp := make([]int, len(maybe))
+		copy(tmp, maybe)
+		tmp = append(tmp, c)
+		backtrack(candidates, target-c, i+1, tmp, res)
+	}
 }
