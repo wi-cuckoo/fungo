@@ -15,7 +15,7 @@ const banner = `
                           /____/  hello, my lord! 
 `
 
-func main() {
+func banner() {
 	fmt.Println("\033[H\033[2J")
 	fmt.Println(banner)
 }
