@@ -17,3 +17,15 @@ func TestQuickTest(t *testing.T) {
 		}
 	}
 }
+
+// TestSelectSort ...
+func TestSelectSort(t *testing.T) {
+	nums := []int{3, 2, 4, 8, 1, 9}
+	SelectSort(nums)
+	t.Log("sorted: ", nums)
+	for i, v := range []int{1, 2, 3, 4, 8, 9} {
+		if nums[i] != v {
+			t.Errorf("index %d should be %d", i, v)
+		}
+	}
+}
