@@ -2,18 +2,18 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 )
 
 func main() {
-	fmt.Println("")
-	http.ListenAndServe(":3000", nil)
+	nums := make([]int, 0, 10)
+	nums = append(nums, []int{3, 2, 4}...)
+	fmt.Printf("nums: %v, cap: %d, addr: %p \n", nums, cap(nums), nums)
+	push(nums)
+	fmt.Printf("nums: %v, cap: %d, addr: %p \n", nums, cap(nums), nums)
 }
 
-func jiechen(n int) int {
-	x := 1
-	for i := 2; i <= n; i++ {
-		x *= i
-	}
-	return x
+func push(nums []int) {
+	fmt.Printf("push nums: %v, len: %d, cap: %d, addr: %p \n", nums, len(nums), cap(nums), nums)
+	nums = append(nums, 1)
+	fmt.Printf("push nums: %v, len: %d, cap: %d, addr: %p \n", nums, len(nums), cap(nums), nums)
 }
