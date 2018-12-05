@@ -38,3 +38,14 @@ func reverseList2(head *ListNode) *ListNode {
 	}
 	return p
 }
+
+func isPalindrome(head *ListNode) bool {
+	tail := reverseList2(head)
+	for tail != nil && head != nil {
+		if tail.Val != head.Val {
+			return false
+		}
+		tail, head = tail.Next, head.Next
+	}
+	return true
+}

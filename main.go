@@ -5,11 +5,7 @@ import (
 )
 
 func main() {
-	nums := make([]int, 0, 10)
-	nums = append(nums, []int{3, 2, 4}...)
-	fmt.Printf("nums: %v, cap: %d, addr: %p \n", nums, cap(nums), nums)
-	push(nums)
-	fmt.Printf("nums: %v, cap: %d, addr: %p \n", nums, cap(nums), nums)
+	fmt.Println(1 / 3)
 }
 
 func push(nums []int) {
