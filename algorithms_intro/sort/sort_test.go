@@ -29,3 +29,9 @@ func TestSelectSort(t *testing.T) {
 		}
 	}
 }
+
+func TestShuffle(t *testing.T) {
+	nums := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
+	shuffle(nums)
+	t.Log(nums)
+}
