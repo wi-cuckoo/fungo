@@ -15,24 +15,9 @@
 你能尝试使用一趟扫描实现吗？
 */
 
-package main
+package zero
 
-import (
-	"fmt"
-)
-
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
-
-func (l *ListNode) Print() {
-	if l == nil {
-		return
-	}
-	fmt.Print(l.Val, " ")
-	l.Next.Print()
-}
+import "fmt"
 
 func main() {
 	l1 := &ListNode{

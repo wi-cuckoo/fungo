@@ -12,16 +12,7 @@
 如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	nums := []int{1, 2}
-	fmt.Println(maxSubArray(nums))
-}
+package zero
 
 func maxSubArray(nums []int) int {
 	// dp[i] means the max sum of sub array that end with nums[i]

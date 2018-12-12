@@ -25,15 +25,7 @@
 输入: m = 7, n = 3
 输出: 28
 */
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	fmt.Println(uniquePathsV2(51, 9))
-}
+package zero
 
 // long time to say
 func uniquePaths(m int, n int) int {

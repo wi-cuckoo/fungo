@@ -26,20 +26,7 @@
 1. 向右 -> 向右 -> 向下 -> 向下
 2. 向下 -> 向下 -> 向右 -> 向右
 */
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	grid := [][]int{
-		[]int{0, 0, 0},
-		[]int{0, 1, 0},
-		[]int{0, 0, 0},
-	}
-	fmt.Println(uniquePathsWithObstacles(grid))
-}
+package zero
 
 func uniquePathsWithObstacles(obstacleGrid [][]int) int {
 	if obstacleGrid[0][0] == 1 {

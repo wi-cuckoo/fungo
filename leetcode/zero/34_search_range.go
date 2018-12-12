@@ -15,16 +15,7 @@
 输出: [-1,-1]
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	nums := []int{5, 6, 7, 7, 7, 8, 10, 11}
-	fmt.Println(searchRangeV2(nums, 11))
-}
+package zero
 
 func searchRange(nums []int, target int) []int {
 	p1, p2 := -1, -1

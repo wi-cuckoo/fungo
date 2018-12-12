@@ -11,11 +11,9 @@
 ```
 */
 
-package main
+package zero
 
-import (
-	"fmt"
-)
+import "fmt"
 
 type ListNode struct {
 	Val  int

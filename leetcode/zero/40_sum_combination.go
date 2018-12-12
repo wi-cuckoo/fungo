@@ -28,18 +28,9 @@ candidates 中的每个数字在每个组合中只能使用一次。
 ]
 */
 
-package main
+package zero
 
-import (
-	"fmt"
-	"sort"
-)
-
-func main() {
-	candidates := []int{2, 5, 2, 1, 2}
-	target := 5
-	fmt.Println(combinationSum(candidates, target))
-}
+import "sort"
 
 func combinationSum(candidates []int, target int) [][]int {
 	res := make([][]int, 0)

@@ -26,17 +26,7 @@ candidates 中的数字可以无限制重复被选取。
 ]
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	candidates := []int{42, 26, 36, 38, 35, 41, 20, 47, 45, 23, 33, 39, 25, 43, 29, 31, 28, 48, 21, 46, 22, 30, 37, 32, 44, 40}
-	target := 55
-	fmt.Println(combinationSum(candidates, target))
-}
+package zero
 
 var result = make([][]int, 0)
 

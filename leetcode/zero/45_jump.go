@@ -19,5 +19,8 @@
 package zero
 
 func jump(nums []int) int {
+	if len(nums) < 2 {
+		return 0
+	}
 	return 0
 }

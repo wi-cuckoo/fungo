@@ -1,14 +1,4 @@
-package main
-
-import "fmt"
-
-func main() {
-	matrix := [][]int{
-		{1},
-		{3},
-	}
-	fmt.Println(searchMatrix(matrix, 3))
-}
+package zero
 
 func searchMatrix(matrix [][]int, target int) bool {
 	// 处理一下异常情况

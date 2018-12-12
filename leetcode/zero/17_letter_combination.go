@@ -13,18 +13,7 @@
 尽管上面的答案是按字典序排列的，但是你可以任意选择答案输出的顺序。
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	for _, c := range "234" {
-		fmt.Printf("%d\t", c)
-	}
-	fmt.Println(letterCombinations(""))
-}
+package zero
 
 var letters = [8][]string{
 	[]string{"a", "b", "c"},

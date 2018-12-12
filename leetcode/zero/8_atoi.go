@@ -43,15 +43,7 @@
      因此返回 INT_MIN (−231) 。
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	fmt.Println(myAtoi(" 01-2147483649words and 987"))
-}
+package zero
 
 func myAtoi(str string) int {
 	var MAX = 1<<31 - 1

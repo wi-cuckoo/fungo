@@ -15,20 +15,7 @@
 解释: 因为路径 1→3→1→1→1 的总和最小。
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	grid := [][]int{
-		[]int{1, 3, 1},
-		[]int{1, 5, 1},
-		[]int{4, 2, 1},
-	}
-	fmt.Println(minPathSum(grid))
-}
+package zero
 
 // f(m, n) = MIN(f(m, n-1), f(m-1, n)) + (m, n)
 func minPathSum(grid [][]int) int {

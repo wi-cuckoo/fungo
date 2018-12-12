@@ -12,15 +12,7 @@
 ]
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	fmt.Println(generateParenthesis(3))
-}
+package zero
 
 func generateParenthesis(n int) []string {
 	res := make([]string, 0)

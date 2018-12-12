@@ -20,15 +20,9 @@
      请注意，答案必须是一个子串，"pwke" 是一个子序列 而不是子串。
 */
 
-package main
+package zero
 
-import (
-	"fmt"
-)
-
-func main() {
-	fmt.Println(lengthOfLongestSubstring("pwwkew"))
-}
+import "fmt"
 
 func lengthOfLongestSubstring(s string) int {
 	if len(s) == 0 {
