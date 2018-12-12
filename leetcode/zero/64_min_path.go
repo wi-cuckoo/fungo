@@ -38,10 +38,3 @@ func minPathSum(grid [][]int) int {
 	}
 	return grid[len(grid)-1][len(grid[0])-1]
 }
-
-func min(x, y int) int {
-	if x < y {
-		return x
-	}
-	return y
-}

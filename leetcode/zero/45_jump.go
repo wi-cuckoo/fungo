@@ -18,9 +18,37 @@
 
 package zero
 
+import (
+	"fmt"
+)
+
 func jump(nums []int) int {
 	if len(nums) < 2 {
 		return 0
 	}
-	return 0
+	step, pos := 0, 0
+	for {
+		step++
+		next := nums[pos]
+		if next >= len(nums)-pos-1 {
+			return step
+		}
+		nextPos := next + pos
+
+		// 找出相比 nextPos 更优的下一个跳跃点
+		longer := 0
+		for i := pos + 1; i <= nextPos; i++ {
+			dis := nums[i] - nums[nextPos] - (nextPos - i)
+			if dis >= longer {
+				longer = dis
+				pos = i
+			}
+		}
+		fmt.Println("find most expected next pos", pos, nums[pos])
+		// if nums[pos] < nums[nextPos]+nextPos-pos {
+		// 	pos = nextPos
+		// }
+		// fmt.Println("selected next pos", pos, nums[pos])
+	}
+	return step
 }
