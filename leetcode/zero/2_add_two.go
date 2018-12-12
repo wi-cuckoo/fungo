@@ -13,22 +13,7 @@
 
 package zero
 
-import "fmt"
-
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
-
-func (l *ListNode) Print() {
-	if l == nil {
-		return
-	}
-	fmt.Println(l.Val)
-	l.Next.Print()
-}
-
-func main() {
+func test() {
 	l1 := &ListNode{
 		Val: 7,
 		Next: &ListNode{

@@ -32,14 +32,14 @@ package zero
 
 import "sort"
 
-func combinationSum(candidates []int, target int) [][]int {
+func combinationSumX(candidates []int, target int) [][]int {
 	res := make([][]int, 0)
 	sort.Ints(candidates)
-	backtrack(candidates, target, 0, []int{}, &res)
+	backtrackS(candidates, target, 0, []int{}, &res)
 	return res
 }
 
-func backtrack(candidates []int, target, start int, maybe []int, res *[][]int) {
+func backtrackS(candidates []int, target, start int, maybe []int, res *[][]int) {
 	// fmt.Println(maybe, target)
 	if target < 0 {
 		return
@@ -56,6 +56,6 @@ func backtrack(candidates []int, target, start int, maybe []int, res *[][]int) {
 		tmp := make([]int, len(maybe))
 		copy(tmp, maybe)
 		tmp = append(tmp, c)
-		backtrack(candidates, target-c, i+1, tmp, res)
+		backtrackS(candidates, target-c, i+1, tmp, res)
 	}
 }

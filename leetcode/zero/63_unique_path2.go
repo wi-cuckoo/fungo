@@ -56,7 +56,7 @@ func uniquePathsWithObstacles(obstacleGrid [][]int) int {
 	return obstacleGrid[len(obstacleGrid)-1][len(obstacleGrid[0])-1]
 }
 
-func uniquePathsV2(m int, n int) int {
+func uniquePaths2(m int, n int) int {
 	if n == 1 || m == 1 {
 		return 1
 	}
