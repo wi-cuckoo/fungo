@@ -15,16 +15,7 @@
 输出: 49
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	nums := []int{1, 8, 6, 2, 5, 4, 8, 3, 7}
-	fmt.Println(maxArea(nums))
-}
+package zero
 
 func maxArea(height []int) int {
 	l, r := 0, len(height)-1
