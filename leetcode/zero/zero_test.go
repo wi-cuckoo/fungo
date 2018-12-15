@@ -36,3 +36,25 @@ func TestJump(t *testing.T) {
 	}
 	t.Log(step)
 }
+
+func TestSetZeroes(t *testing.T) {
+	matrix := [][]int{
+		{0, 1, 2, 0},
+		{3, 4, 5, 2},
+		{1, 3, 1, 5},
+	}
+	setZeroesV2(matrix)
+	expected := [][]int{
+		{0, 0, 0, 0},
+		{0, 4, 5, 0},
+		{0, 3, 1, 0},
+	}
+	for i := 0; i < len(matrix); i++ {
+		for j := 0; j < len(matrix[i]); j++ {
+			if matrix[i][j] != expected[i][j] {
+				t.Error(matrix[i][j], "should be", expected[i][j])
+			}
+		}
+	}
+	t.Log(matrix)
+}
