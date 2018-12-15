@@ -16,3 +16,19 @@ func TestCoinChange(t *testing.T) {
 		t.Error("count should be 20")
 	}
 }
+
+func TestLengthOfLIS(t *testing.T) {
+	nums := []int{10, 9, 2, 5, 3, 7, 101, 18}
+	l := lengthOfLIS(nums)
+	if l != 4 {
+		t.Error("length should be 4")
+	}
+	t.Log(l)
+
+	nums = []int{3, 5, 6, 2, 5, 4, 19, 5, 6, 7, 12}
+	l = lengthOfLISV2(nums)
+	if l != 6 {
+		t.Error("length should be 6")
+	}
+	t.Log(l)
+}
