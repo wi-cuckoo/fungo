@@ -17,16 +17,7 @@
 1 <= A.length <= 5000
 0 <= A[i] <= 5000
 */
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	tree := []int{2, 4, 3, 1}
-	fmt.Println(sortArrayByParity(tree))
-}
+package nine
 
 func sortArrayByParity(A []int) []int {
 	x, y := 0, len(A)-1

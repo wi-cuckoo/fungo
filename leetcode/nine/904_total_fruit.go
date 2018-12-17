@@ -41,16 +41,7 @@
 1 <= tree.length <= 40000
 0 <= tree[i] < tree.length
 */
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	tree := []int{1, 2, 1}
-	fmt.Println(totalFruit(tree))
-}
+package nine
 
 func totalFruit(tree []int) int {
 	if len(tree) <= 2 {

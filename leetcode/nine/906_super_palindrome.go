@@ -22,18 +22,12 @@ L 和 R 是表示 [1, 10^18) 范围的整数的字符串。
 int(L) <= int(R)
 */
 
-package main
+package nine
 
 import (
 	"fmt"
 	"strconv"
 )
-
-func main() {
-	fmt.Println(mirror("ab", false))
-	// fmt.Println(checkSumV2("131"))
-	fmt.Println(superpalindromesInRange("100000000", "12345654321"))
-}
 
 // found, every num's sqrt should be in [0, 1, 2, 3]
 func superpalindromesInRange(L string, R string) int {

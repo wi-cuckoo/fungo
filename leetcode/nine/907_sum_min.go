@@ -20,16 +20,7 @@
 1 <= A[i] <= 30000
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	nums := []int{3, 1, 2, 4}
-	fmt.Println(sumSubarrayMins(nums))
-}
+package nine
 
 func sumSubarrayMins(A []int) int {
 	if len(A) == 0 {

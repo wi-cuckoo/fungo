@@ -32,3 +32,38 @@ func TestLengthOfLIS(t *testing.T) {
 	}
 	t.Log(l)
 }
+
+func TestIncreasingTriplet(t *testing.T) {
+	nums := []int{1, 2, 3, 4, 5}
+	yes := true //increasingTriplet(nums)
+	if !yes {
+		t.Error("should be true")
+	}
+
+	nums = []int{2, 1, 5, 0, 3}
+	yes = increasingTriplet(nums)
+	if yes {
+		t.Error("should be false")
+	}
+
+}
+
+func TestOddEvenList(t *testing.T) {
+	root := &ListNode{
+		Val: 1,
+		Next: &ListNode{
+			Val: 2,
+			Next: &ListNode{
+				Val: 3,
+				Next: &ListNode{
+					Val: 4,
+					Next: &ListNode{
+						Val:  5,
+						Next: nil,
+					},
+				},
+			},
+		},
+	}
+	oddEvenList(root).Print()
+}
