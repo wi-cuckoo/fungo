@@ -15,16 +15,7 @@
 输出: 4
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	nums := []int{4, 1, 2, 1, 2}
-	fmt.Println(singleNumber(nums))
-}
+package one
 
 func singleNumber(nums []int) int {
 	x := nums[0]

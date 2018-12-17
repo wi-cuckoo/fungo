@@ -17,25 +17,7 @@
 如果你可以只使用 O(n) 的额外空间（n 为三角形的总行数）来解决这个问题，那么你的算法会很加分。
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	// grid := [][]int{
-	// 	[]int{2},
-	// 	[]int{3, 4},
-	// 	[]int{6, 5, 7},
-	// 	[]int{4, 2, 1, 3},
-	// }
-	grid2 := [][]int{
-		[]int{-1},
-		[]int{-2, -3},
-	}
-	fmt.Println(minimumTotal(grid2))
-}
+package one
 
 func minimumTotal(triangle [][]int) int {
 	dp := make([]int, len(triangle))

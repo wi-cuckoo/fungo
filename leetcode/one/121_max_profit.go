@@ -17,19 +17,14 @@
 输出: 0
 解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。
 */
-package main
+package one
 
 import (
 	"fmt"
 	"math"
 )
 
-func main() {
-	nums := []int{2, 4, 1}
-	fmt.Println(maxProfitV2(nums))
-}
-
-func maxProfit(prices []int) int {
+func maxProfit1(prices []int) int {
 	if len(prices) < 2 {
 		return 0
 	}

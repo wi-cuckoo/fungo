@@ -22,17 +22,7 @@
 要求使用空间复杂度为 O(1) 的原地算法。
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	nums := []int{1, 2, 3, 4, 5, 6, 7}
-	rotateV2(nums, 3)
-	fmt.Println(nums)
-}
+package one
 
 // stupid way
 func rotate(nums []int, k int) {

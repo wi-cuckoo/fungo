@@ -14,17 +14,7 @@
 说明: 你算法的时间复杂度应为 O(log n) 。
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	fmt.Println(trailingZeroes(3))
-	fmt.Println(trailingZeroes(5))
-	fmt.Println(trailingZeroes(30))
-}
+package one
 
 // cacl count of five
 func trailingZeroes(n int) int {

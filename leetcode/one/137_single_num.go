@@ -15,27 +15,9 @@
 输出: 99
 */
 
-package main
+package one
 
-import (
-	"fmt"
-)
-
-func init() {
-	a, b := 1, 19
-	fmt.Println(a, b)
-	a = a ^ b
-	b = a ^ b
-	a = a ^ b
-	fmt.Println(a, b)
-}
-
-func main() {
-	nums := []int{-2, -2, 1, 1, -3, 1, -3, -3, -4, -2}
-	fmt.Println(singleNumber(nums))
-}
-
-func singleNumber(nums []int) int {
+func singleNumber2(nums []int) int {
 	m := 0
 	for i := 0; i < 32; i++ {
 		x := 0
