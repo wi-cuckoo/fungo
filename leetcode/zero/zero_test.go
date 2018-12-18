@@ -92,3 +92,49 @@ func TestGroupAnagrams(t *testing.T) {
 	res := groupAnagrams(strs)
 	t.Log(res)
 }
+
+func TestPermute(t *testing.T) {
+	nums := []int{1, 2, 3}
+	res := permute(nums)
+	if len(res) != 6 {
+		t.Error("length of result should 6, not", len(res))
+	}
+	t.Log(res)
+}
+
+func TestSubsets(t *testing.T) {
+	nums := []int{1, 2, 3}
+	res := subsets(nums)
+	if len(res) != 8 {
+		t.Error("length of result should 8, not", len(res))
+	}
+	t.Log(res)
+}
+
+func TestExist(t *testing.T) {
+	board := [][]byte{
+		{'A', 'B', 'C', 'E'},
+		{'S', 'F', 'C', 'S'},
+		{'A', 'D', 'E', 'E'},
+	}
+	if exist(board, "ABCCED") == false {
+		t.Error("ABCCED should be exist")
+	}
+
+	board = [][]byte{
+		{'a'},
+	}
+	if exist(board, "ab") {
+		t.Error("a should be not exist")
+	}
+}
+
+func TestSortColors(t *testing.T) {
+	nums := []int{2, 0, 2, 1, 1, 0}
+	sortColors(nums)
+	for i, v := range []int{0, 0, 1, 1, 2, 2} {
+		if nums[i] != v {
+			t.Errorf("nums[%d] should be %d, not %d", i, v, nums[i])
+		}
+	}
+}
