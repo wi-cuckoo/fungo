@@ -11,16 +11,7 @@
 你的算法应该具有线性时间复杂度。你能否仅使用常数空间复杂度来实现？
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	nums := []int{0, 1, 1, 2}
-	fmt.Println(singleNumber(nums))
-}
+package two
 
 func singleNumber(nums []int) []int {
 	xy := 0

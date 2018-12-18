@@ -35,3 +35,11 @@ func TestRob(t *testing.T) {
 		t.Error("rob result should be 4")
 	}
 }
+
+func TestFindKthLargest(t *testing.T) {
+	nums := []int{3, 2, 3, 1, 2, 4, 5, 5, 6}
+	k := findKthLargest(nums, 4)
+	if k != 4 {
+		t.Errorf("the 4th largest num should be 4, not %d", k)
+	}
+}

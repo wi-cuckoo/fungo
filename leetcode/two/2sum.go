@@ -1,14 +1,4 @@
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	nums := []int{3, 2, 4}
-	target := 6
-	fmt.Println(twoSumV3(nums, target))
-}
+package two
 
 // @n^2
 func twoSum(nums []int, target int) []int {

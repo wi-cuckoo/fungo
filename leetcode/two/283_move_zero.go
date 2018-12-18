@@ -11,17 +11,7 @@
 尽量减少操作次数。
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	nums := []int{0, 0, 1, 0, 0, 0, 0, 3, 0, 12}
-	moveZeroesV2(nums)
-	fmt.Println(nums)
-}
+package two
 
 func moveZeroes(nums []int) {
 	for {
