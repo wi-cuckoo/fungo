@@ -32,3 +32,19 @@ func sortColors(nums []int) {
 		index += count
 	}
 }
+
+func sortColorsV2(nums []int) {
+	i, j := 0, len(nums)-1
+	for k := 0; k <= j; k++ {
+		if nums[k] == 0 && i != k {
+			nums[k], nums[i] = nums[i], nums[k]
+			k-- // 如果交换成功再重新检查一下交换后得到的值
+			i++
+		}
+		if nums[k] == 2 && j != k {
+			nums[k], nums[j] = nums[j], nums[k]
+			k-- // 如果交换成功再重新检查一下交换后得到的值
+			j--
+		}
+	}
+}

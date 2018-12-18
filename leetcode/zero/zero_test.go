@@ -131,7 +131,7 @@ func TestExist(t *testing.T) {
 
 func TestSortColors(t *testing.T) {
 	nums := []int{2, 0, 2, 1, 1, 0}
-	sortColors(nums)
+	sortColorsV2(nums)
 	for i, v := range []int{0, 0, 1, 1, 2, 2} {
 		if nums[i] != v {
 			t.Errorf("nums[%d] should be %d, not %d", i, v, nums[i])
