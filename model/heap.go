@@ -12,7 +12,7 @@ func (h *Heap) Len() int {
 
 // Less compare two num
 func (h *Heap) Less(i, j int) bool {
-	return h.data[i] > h.data[j]
+	return h.data[i] < h.data[j]
 }
 
 // Swap two ele
@@ -30,6 +30,11 @@ func (h *Heap) Pop() interface{} {
 	x := h.data[h.Len()-1]
 	h.data = h.data[0 : h.Len()-1]
 	return x
+}
+
+// List return data
+func (h *Heap) List() []int {
+	return h.data
 }
 
 // NewHeap ...

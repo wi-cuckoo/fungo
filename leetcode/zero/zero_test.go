@@ -138,3 +138,31 @@ func TestSortColors(t *testing.T) {
 		}
 	}
 }
+
+func TestSearchMatrix(t *testing.T) {
+	matrix := [][]int{
+		{1, 3, 5, 7},
+		{10, 11, 16, 20},
+		{23, 30, 34, 50},
+	}
+	if !searchMatrix(matrix, 3) {
+		t.Error("3 should exist")
+	}
+
+	// if searchMatrix(matrix, 14) {
+	// 	t.Error("14 should not exist")
+	// }
+
+	// if !searchMatrix(matrix, 1) {
+	// 	t.Error("1 should exist")
+	// }
+
+	// if !searchMatrix(matrix, 10) {
+	// 	t.Error("14 should exist")
+	// }
+
+	matrix = [][]int{{1}}
+	if !searchMatrix(matrix, 1) {
+		t.Error("1 should  exist")
+	}
+}

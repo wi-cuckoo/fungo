@@ -2,10 +2,6 @@
 
 package main
 
-import (
-	"fmt"
-)
-
 const banner = `
     _______           ________     
    / ____(_)_______  / ____/ /_  __
@@ -14,8 +10,3 @@ const banner = `
 /_/   /_/_/   \___/_/   /_/\__, /  
                           /____/  hello, my lord! 
 `
-
-func banner() {
-	fmt.Println("\033[H\033[2J")
-	fmt.Println(banner)
-}

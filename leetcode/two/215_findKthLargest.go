@@ -17,11 +17,28 @@
 package two
 
 import (
+	"container/heap"
 	"sort"
+
+	"github.com/wi-cuckoo/fungo/model"
 )
 
 func findKthLargest(nums []int, k int) int {
 	sort.Ints(nums)
 
 	return nums[len(nums)-k]
+}
+
+func findKthLargestV2(nums []int, k int) int {
+	h := model.NewHeap(nums[0:k])
+	heap.Init(h)
+	topk := heap.Pop(h).(int)
+
+	for i := k; i < len(nums); i++ {
+		if nums[i] > topk {
+			heap.Push(h, nums[i])
+			topk = heap.Pop(h).(int)
+		}
+	}
+	return topk
 }
