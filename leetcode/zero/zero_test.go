@@ -166,3 +166,34 @@ func TestSearchMatrix(t *testing.T) {
 		t.Error("1 should  exist")
 	}
 }
+
+func TestMergeIntervals(t *testing.T) {
+	intervals := []Interval{
+		{1, 3},
+		{2, 6},
+		{8, 10},
+		{13, 18},
+	}
+	result := merge(intervals)
+	if len(result) != 3 {
+		t.Log(result)
+		t.Fatal("length of result should be 3, not", len(result))
+	}
+	expect := []Interval{
+		{1, 6},
+		{8, 10},
+		{13, 18},
+	}
+	for i, v := range expect {
+		if result[i] != v {
+			t.Errorf("result[%d] should be %+v, not %+v", i, v, result[i])
+		}
+	}
+}
+
+func TestSearchRotatedArray(t *testing.T) {
+	nums := []int{4, 5, 6, 7, 8, 1, 2, 3}
+	if search(nums, 4) != 0 {
+		t.Errorf("4 should be index with 0")
+	}
+}

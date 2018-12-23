@@ -21,3 +21,9 @@ func (l *ListNode) Print() {
 	fmt.Print(l.Val, " ")
 	l.Next.Print()
 }
+
+// Interval ...
+type Interval struct {
+	Start int
+	End   int
+}

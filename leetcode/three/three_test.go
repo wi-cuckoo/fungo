@@ -67,3 +67,9 @@ func TestOddEvenList(t *testing.T) {
 	}
 	oddEvenList(root).Print()
 }
+
+func TestTopKFrequent(t *testing.T) {
+	nums := []int{1, 1}
+	result := topKFrequent(nums, 1)
+	t.Log(result)
+}
