@@ -42,7 +42,7 @@ func TestFindKthLargest(t *testing.T) {
 	if k != 4 {
 		t.Errorf("the 4th largest num should be 4, not %d", k)
 	}
-
+	t.Log(nums)
 	k = findKthLargestV2(nums, 4)
 	if k != 4 {
 		t.Errorf("the 4th largest num should be 4, not %d", k)
