@@ -9,7 +9,7 @@ func TestHeap(t *testing.T) {
 	h := NewHeap(nums)
 	t.Log(h.List())
 	val := h.Pop()
-	if val.(int) != 1 {
+	if val != 1 {
 		t.Error("should be 1, not", val)
 	}
 	t.Log(h.List())
