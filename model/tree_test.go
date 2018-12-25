@@ -43,3 +43,11 @@ func TestPreOrderTraversal(t *testing.T) {
 	}
 	t.Log(nodes)
 }
+
+func TestInOrderTraversal(t *testing.T) {
+	nodes := tree.InOrderTraversal()
+	if len(nodes) != 5 {
+		t.Fatal("length of tree should be 5")
+	}
+	t.Log(nodes)
+}

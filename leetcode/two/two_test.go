@@ -3,6 +3,8 @@ package two
 import (
 	"fmt"
 	"testing"
+
+	"github.com/wi-cuckoo/fungo/model"
 )
 
 func TestReverseList(t *testing.T) {
@@ -64,4 +66,30 @@ func TestSearchMatrix(t *testing.T) {
 	if !searchMatrixV2(matrix, 5) {
 		t.Error("5 should be exist")
 	}
+}
+
+func TestKthSmallest(t *testing.T) {
+	var tree = &model.TreeNode{
+		Val: 5,
+		Left: &model.TreeNode{
+			Val: 3,
+			Left: &model.TreeNode{
+				Val: 2,
+				Left: &model.TreeNode{
+					Val: 1,
+				},
+			},
+			Right: &model.TreeNode{
+				Val: 4,
+			},
+		},
+		Right: &model.TreeNode{
+			Val: 6,
+		},
+	}
+	k := kthSmallest(tree, 3)
+	if k != 3 {
+		t.Error("k should be 3, not", k)
+	}
+	t.Log(k)
 }

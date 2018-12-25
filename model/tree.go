@@ -92,12 +92,11 @@ func (t *TreeNode) InOrderTraversal() []int {
 	}
 	nodes := []int{}
 	if t.Left != nil {
-		nodes = append(nodes, t.Left.PosOrderTraversal()...)
+		nodes = append(nodes, t.Left.InOrderTraversal()...)
 	}
 	nodes = append(nodes, t.Val)
 	if t.Right != nil {
-		nodes = append(nodes, t.Right.PosOrderTraversal()...)
+		nodes = append(nodes, t.Right.InOrderTraversal()...)
 	}
-
 	return nodes
 }
