@@ -31,3 +31,15 @@ func TestRob1(t *testing.T) {
 		t.Error("rob result should be 4")
 	}
 }
+
+func TestBuildTree1(t *testing.T) {
+	pre := []int{1, 2}
+	in := []int{1, 2}
+	tree := buildTree(pre, in)
+	for i, v := range tree.PreOrderTraversal() {
+		if pre[i] != v {
+			t.Errorf("pre[%d] should be %d, not %d", i, pre[i], v)
+		}
+	}
+	t.Log(tree.PreOrderTraversal())
+}

@@ -12,17 +12,9 @@
 输入: a = "1010", b = "1011"
 输出: "10101"
 */
-package main
+package leetcode
 
-import (
-	"fmt"
-	// "reflect"
-)
-
-func main() {
-	a, b := "11", "1"
-	fmt.Println(addBinary(a, b))
-}
+import "fmt"
 
 func addBinary(a string, b string) string {
 	long, short := a, b
