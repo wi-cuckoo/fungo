@@ -44,5 +44,9 @@ func levelOrder(root *model.TreeNode) [][]int {
 		nums = append(nums, levelNums)
 		queue = queue[ql:]
 	}
+	// 如果需要自底向上层次输出，加上这段代码
+	//for i := 0; i < len(nums)/2; i++ {
+	//	nums[i], nums[len(nums)-1-i] = nums[len(nums)-1-i], nums[i]
+	//}
 	return nums
 }
