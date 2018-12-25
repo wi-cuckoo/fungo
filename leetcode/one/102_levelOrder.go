@@ -20,13 +20,15 @@
 
 package one
 
+import "github.com/wi-cuckoo/fungo/model"
+
 // 使用广度优先搜索 BFS， 即可达到目的
-func levelOrder(root *TreeNode) [][]int {
+func levelOrder(root *model.TreeNode) [][]int {
 	if root == nil {
 		return [][]int{}
 	}
 	nums := [][]int{}
-	queue := []*TreeNode{root}
+	queue := []*model.TreeNode{root}
 	for len(queue) != 0 {
 		ql := len(queue)
 		levelNums := make([]int, ql)
