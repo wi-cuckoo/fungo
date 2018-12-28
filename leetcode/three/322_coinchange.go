@@ -17,24 +17,30 @@
 
 package three
 
-import (
-	"fmt"
-	"sort"
-)
+import "sort"
 
 func coinChange(coins []int, amount int) int {
+	if amount == 0 || len(coins) == 0 {
+		return 0
+	}
+	dp := make([]int, amount+1)
+	for i := 0; i <= amount; i++ {
+		dp[i] = amount + 1
+	}
 	sort.Ints(coins)
-	fmt.Println(coins)
-	count := 0
-	for i := len(coins) - 1; i >= 0; i-- {
-		count += amount / coins[i]
-		amount %= coins[i]
-		if amount == 0 {
-			break
+	for i := 1; i <= amount; i++ {
+		for j := 0; j < len(coins); j++ {
+			if i == coins[j] {
+				dp[i] = 1
+				continue
+			}
+			if i-coins[j] > 0 && dp[i-coins[j]]+1 < dp[i] {
+				dp[i] = dp[i-coins[j]] + 1
+			}
 		}
 	}
-	if amount != 0 {
+	if dp[amount] > amount {
 		return -1
 	}
-	return count
+	return dp[amount]
 }
