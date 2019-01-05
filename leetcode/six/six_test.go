@@ -17,3 +17,17 @@ func TestFindLengthOfLCIS(t *testing.T) {
 	}
 	t.Log(l)
 }
+
+func TestLeastInterval(t *testing.T) {
+	tasks := []byte{'A', 'A', 'A', 'B', 'B', 'B'}
+	x := leastInterval(tasks, 2)
+	if x != 8 {
+		t.Errorf("leastInterval should be 8, not %d", x)
+	}
+
+	tasks = []byte{'A', 'A', 'A', 'A', 'A', 'A', 'B', 'C', 'D', 'E', 'F', 'G'}
+	x = leastInterval(tasks, 2)
+	if x != 16 {
+		t.Errorf("leastInterval should be 16, not %d", x)
+	}
+}

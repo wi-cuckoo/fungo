@@ -43,3 +43,15 @@ func TestBuildTree1(t *testing.T) {
 	}
 	t.Log(tree.PreOrderTraversal())
 }
+
+func TestTitleToNumber(t *testing.T) {
+	s := "A"
+	if titleToNumber(s) != 1 {
+		t.Error(s + "should be 1")
+	}
+
+	s = "AB"
+	if titleToNumber(s) != 28 {
+		t.Error(s + "should be 28")
+	}
+}
