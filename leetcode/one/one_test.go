@@ -68,3 +68,8 @@ func TestEvalRPN(t *testing.T) {
 		}
 	}
 }
+
+func TestFractionToDecimal(t *testing.T) {
+	t.Log(fractionToDecimal(4, 9))
+	t.Log(fractionToDecimal(4, 333))
+}

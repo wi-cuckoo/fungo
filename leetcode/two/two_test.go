@@ -93,3 +93,16 @@ func TestKthSmallest(t *testing.T) {
 	}
 	t.Log(k)
 }
+
+func TestProductExceptSelf(t *testing.T) {
+	nums := make([]int, 74989)
+	for i := range nums {
+		if i%2 == 0 {
+			nums[i] = 1
+			continue
+		}
+		nums[i] = -1
+	}
+	x := productExceptSelf(nums)
+	t.Log(len(x))
+}
