@@ -55,3 +55,16 @@ func TestTitleToNumber(t *testing.T) {
 		t.Error(s + "should be 28")
 	}
 }
+
+func TestEvalRPN(t *testing.T) {
+	tokens := map[int][]string{
+		9:  {"2", "1", "+", "3", "*"},
+		22: {"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"},
+	}
+	for k, token := range tokens {
+		x := evalRPN(token)
+		if x != k {
+			t.Errorf("%v should be %d, not %d", token, k, x)
+		}
+	}
+}

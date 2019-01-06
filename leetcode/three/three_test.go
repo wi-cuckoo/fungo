@@ -73,3 +73,15 @@ func TestTopKFrequent(t *testing.T) {
 	result := topKFrequent(nums, 1)
 	t.Log(result)
 }
+
+func TestGetSum(t *testing.T) {
+	eg := [][]int{
+		{4, 8, 12},
+		{3, -2, 1},
+	}
+	for _, e := range eg {
+		if x := getSum(e[0], e[1]); x != e[2] {
+			t.Errorf("%d+%d should be %d, not %d", e[0], e[1], e[2], x)
+		}
+	}
+}

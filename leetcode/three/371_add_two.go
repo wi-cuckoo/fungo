@@ -13,5 +13,9 @@
 package three
 
 func getSum(a int, b int) int {
-	return 0
+	a, b = a^b, (a&b)<<1
+	for b != 0 {
+		a, b = a^b, (a&b)<<1
+	}
+	return a
 }
