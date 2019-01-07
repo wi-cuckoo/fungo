@@ -197,3 +197,22 @@ func TestSearchRotatedArray(t *testing.T) {
 		t.Errorf("4 should be index with 0")
 	}
 }
+
+func TestSpiralOrder(t *testing.T) {
+	matrix := [][]int{
+		{1, 3, 5},
+		// {10, 11, 16},
+		// {23, 30, 34},
+		// {7, 20, 50},
+	}
+	expect := []int{1, 3, 5} //, 16, 34, 50, 20, 7, 23, 10, 11, 30}
+	res := spiralOrder(matrix)
+	if len(res) != len(expect) {
+		t.Fatalf("length of result should be %d, not %d", len(expect), len(res))
+	}
+	for i, n := range expect {
+		if res[i] != n {
+			t.Errorf("res[%d] should be %d, not %d", i, n, res[i])
+		}
+	}
+}
