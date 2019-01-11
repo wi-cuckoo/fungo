@@ -17,16 +17,7 @@
 解释: 输入数组表示数字 4321。
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	nums := []int{9, 9, 9}
-	fmt.Println(plusOne(nums))
-}
+package zero
 
 func plusOne(digits []int) []int {
 	l := len(digits)

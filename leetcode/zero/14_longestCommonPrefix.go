@@ -17,16 +17,7 @@
 所有输入只包含小写字母 a-z
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	strs := []string{"acdw", "flow", "flight"}
-	fmt.Println(longestCommonPrefix(strs))
-}
+package zero
 
 func longestCommonPrefix(strs []string) string {
 	var res []byte

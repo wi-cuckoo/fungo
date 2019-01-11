@@ -10,17 +10,11 @@
 输入: "Hello World"
 输出: 5
 */
-package main
+package zero
 
 import (
-	"fmt"
 	"strings"
 )
-
-func main() {
-	s := "hello world  "
-	fmt.Println(lengthOfLastWordV2(s))
-}
 
 func lengthOfLastWord(s string) int {
 	arr := strings.Split(strings.TrimRight(s, " "), " ")

@@ -16,16 +16,7 @@
 输出: false
 解释: 从右向左读, 为 01 。因此它不是一个回文数。
 */
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	num := 3323233
-	fmt.Println(isPalindrome(num))
-}
+package zero
 
 func isPalindrome(num int) bool {
 	if num < 0 {

@@ -21,16 +21,7 @@ cost 的长度将会在 [2, 1000]。
 每一个 cost[i] 将会是一个Integer类型，范围为 [0, 999]。
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	nums := []int{1, 100, 1, 1, 1, 100, 1, 1, 100, 1}
-	fmt.Println(minCostClimbingStairs(nums))
-}
+package seven
 
 func minCostClimbingStairs(cost []int) int {
 	total := make([]int, len(cost))

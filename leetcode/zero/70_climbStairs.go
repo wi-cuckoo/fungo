@@ -21,16 +21,7 @@
 2.  1 阶 + 2 阶
 3.  2 阶 + 1 阶
 */
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	fmt.Println(climbStairs(10))
-	fmt.Println(climbStairsV2(10))
-}
+package zero
 
 var cache = map[int]int{}
 

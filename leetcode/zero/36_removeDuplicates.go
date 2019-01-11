@@ -34,16 +34,7 @@ for (int i = 0; i < len; i++) {
     print(nums[i]);
 }
 */
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	nums := []int{0, 0, 1, 1, 1, 2, 2, 3, 3, 4}
-	fmt.Println(removeDuplicates(nums))
-}
+package zero
 
 func removeDuplicates(nums []int) int {
 	if len(nums) < 2 {
@@ -57,7 +48,6 @@ func removeDuplicates(nums []int) int {
 		}
 		nums[n] = v
 		n++
-		fmt.Println(n, v, nums)
 	}
 	return n
 }

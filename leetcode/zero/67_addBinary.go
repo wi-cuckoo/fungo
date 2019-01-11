@@ -12,9 +12,7 @@
 输入: a = "1010", b = "1011"
 输出: "10101"
 */
-package leetcode
-
-import "fmt"
+package zero
 
 func addBinary(a string, b string) string {
 	long, short := a, b
@@ -28,7 +26,6 @@ func addBinary(a string, b string) string {
 	s := ""
 	for i := len(long) - 1; i >= 0; i-- {
 		sum := short[i] + long[i] + e
-		fmt.Println(short[i], long[i], e, sum)
 		switch sum {
 		case 144:
 			s = "0" + s
@@ -43,7 +40,6 @@ func addBinary(a string, b string) string {
 			s = "1" + s
 			e = '1'
 		}
-		fmt.Println(s)
 	}
 	if e == '1' {
 		s = "1" + s

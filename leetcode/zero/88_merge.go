@@ -13,24 +13,16 @@ nums2 = [2,5,6],       n = 3
 
 输出: [1,2,2,3,5,6]
 */
-package main
+package zero
 
 import (
-	"fmt"
 	"sort"
 )
 
-func main() {
-	nums1 := []int{1, 2, 3, 0, 0, 0}
-	nums2 := []int{2, 5, 6}
-	merge(nums1, 3, nums2, 3)
-}
-
 // simple version
-func merge(nums1 []int, m int, nums2 []int, n int) {
+func mergeArray(nums1 []int, m int, nums2 []int, n int) {
 	for i := m; i < m+n; i++ {
 		nums1[i] = nums2[i-m]
 	}
 	sort.Ints(nums1)
-	fmt.Println(nums1)
 }

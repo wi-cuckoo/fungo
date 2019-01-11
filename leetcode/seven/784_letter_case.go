@@ -17,15 +17,7 @@ S 的长度不超过12。
 S 仅由数字和字母组成。
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	fmt.Println(letterCasePermutation("123D45"))
-}
+package seven
 
 func letterCasePermutation(S string) []string {
 	res := make([]string, 0)

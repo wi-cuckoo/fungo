@@ -26,15 +26,11 @@
 n per n
 */
 
-package main
+package zero
 
 import (
 	"fmt"
 )
-
-func main() {
-	fmt.Println(countAndSayV2(6))
-}
 
 // for version
 func countAndSay(n int) string {
@@ -51,7 +47,6 @@ func countAndSay(n int) string {
 		var n byte
 		var m int
 		next := ""
-		fmt.Println(i, res)
 		for j := 0; j < len(res); j++ {
 			if m == 0 {
 				n, m = res[j], 1
