@@ -2,6 +2,8 @@ package zero
 
 import (
 	"testing"
+
+	"github.com/wi-cuckoo/fungo/model"
 )
 
 // TestIsValidSudoku ..
@@ -215,4 +217,32 @@ func TestSpiralOrder(t *testing.T) {
 			t.Errorf("res[%d] should be %d, not %d", i, n, res[i])
 		}
 	}
+}
+
+func TestMergeTwoLists(t *testing.T) {
+	l1 := &model.ListNode{
+		Val: 1,
+		Next: &model.ListNode{
+			Val: 2,
+			Next: &model.ListNode{
+				Val: 4,
+				Next: &model.ListNode{
+					Val:  5,
+					Next: nil,
+				},
+			},
+		},
+	}
+	l2 := &model.ListNode{
+		Val: 1,
+		Next: &model.ListNode{
+			Val: 3,
+			Next: &model.ListNode{
+				Val:  4,
+				Next: nil,
+			},
+		},
+	}
+	// mergeTwoLists(l1, l2).Print()
+	mergeTwoListsV2(l1, l2).Print()
 }
