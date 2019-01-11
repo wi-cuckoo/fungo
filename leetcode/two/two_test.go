@@ -106,3 +106,10 @@ func TestProductExceptSelf(t *testing.T) {
 	x := productExceptSelf(nums)
 	t.Log(len(x))
 }
+
+func TestCalculate(t *testing.T) {
+	s := " 3+5 / 2 + 23 - 100*23"
+	if calculateV2(s) != -2272 {
+		t.Error("fuck it")
+	}
+}
