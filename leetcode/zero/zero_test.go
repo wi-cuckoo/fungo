@@ -216,3 +216,11 @@ func TestSpiralOrder(t *testing.T) {
 		}
 	}
 }
+
+func TestFirstMissingPositive(t *testing.T) {
+	nums := []int{-1, 1, 1}
+	x := firstMissingPositive(nums)
+	if x != 3 {
+		t.Error("should be 3, not", x)
+	}
+}
