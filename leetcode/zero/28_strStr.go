@@ -18,17 +18,7 @@
 对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	haystack := "helso"
-	needle := "ll"
-	fmt.Println(strStr(haystack, needle))
-}
+package zero
 
 func strStr(haystack string, needle string) int {
 	nl := len(needle)

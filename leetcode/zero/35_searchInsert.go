@@ -21,16 +21,7 @@
 输出: 0
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	nums := []int{1}
-	fmt.Println(searchInsert(nums, 2))
-}
+package zero
 
 func searchInsert(nums []int, target int) int {
 	for i, v := range nums {

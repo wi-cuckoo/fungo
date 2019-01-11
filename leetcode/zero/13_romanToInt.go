@@ -41,16 +41,7 @@ C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
 输出: 1994
 解释: M = 1000, CM = 900, XC = 90, IV = 4.
 */
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	s := "MCMXCIV"
-	fmt.Println(romanToInt(s))
-}
+package zero
 
 func romanToInt(s string) int {
 	var common = map[string]int{

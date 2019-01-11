@@ -17,15 +17,7 @@
      由于返回类型是整数，小数部分将被舍去。
 */
 
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	fmt.Println(sqrt(307))
-}
+package zero
 
 func mySqrt(x int) int {
 	if x > 0 && x < 4 {
@@ -42,7 +34,6 @@ func mySqrt(x int) int {
 		}
 		high = i
 	}
-	fmt.Println(low, high)
 	for i := low + 1; i <= high; i++ {
 		if i*i > x {
 			return i - 1
@@ -54,7 +45,6 @@ func mySqrt(x int) int {
 func sqrt(x int) int {
 	n := x
 	for n*n > x {
-		fmt.Println(n)
 		n = (n + x/n) / 2
 	}
 	return n

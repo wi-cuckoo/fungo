@@ -36,7 +36,6 @@ func minCoin(n int) int {
 				min = v
 			}
 		}
-		fmt.Println(i, min)
 		dp = append(dp, min)
 	}
 	return dp[n]

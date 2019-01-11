@@ -28,16 +28,7 @@
 输入: "{[]}"
 输出: true
 */
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	s := "["
-	fmt.Println(isValid(s))
-}
+package zero
 
 func isValid(s string) bool {
 	if s == "" {
