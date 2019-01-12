@@ -21,3 +21,17 @@ func (l *ListNode) Array() []int {
 func (l *ListNode) Print() {
 	fmt.Println(l.Array())
 }
+
+// NewListNode help to build a linked nodes by array
+func NewListNode(nums []int) *ListNode {
+	head := &ListNode{}
+	p1 := head
+	for _, n := range nums {
+		n := &ListNode{
+			Val: n,
+		}
+		p1.Next = n
+		p1 = p1.Next
+	}
+	return head.Next
+}

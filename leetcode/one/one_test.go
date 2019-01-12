@@ -1,6 +1,10 @@
 package one
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/wi-cuckoo/fungo/model"
+)
 
 func TestListToArray(t *testing.T) {
 	head := &ListNode{
@@ -72,4 +76,9 @@ func TestEvalRPN(t *testing.T) {
 func TestFractionToDecimal(t *testing.T) {
 	t.Log(fractionToDecimal(4, 9))
 	t.Log(fractionToDecimal(4, 333))
+}
+
+func TestSortList(t *testing.T) {
+	head := model.NewListNode([]int{4, 2, 1, 3})
+	sortListV2(head).Print()
 }
