@@ -16,14 +16,16 @@ package zero
 import "fmt"
 
 func minWindow(s string, t string) string {
-	chars := [26]int{}
+	chars, cache := [26]int{}, [26]int{}
 	for _, c := range t {
-		chars[int(c-'A')]++
+		n := int(c - 'A')
+		chars[n]++
+		cache[n]++
 	}
 	l, r := -1, -1
 	total := len(t)
-	for i, c := range s {
-		n := int(c - 'A')
+	for i := 0; i < len(s) && total > 0; i++ {
+		n := int(s[i] - 'A')
 		if chars[n] == 0 {
 			continue
 		}
@@ -32,10 +34,7 @@ func minWindow(s string, t string) string {
 			l = i
 		}
 		total--
-		if total == 0 {
-			r = i
-			break
-		}
+		r = i
 	}
 	if r < 0 {
 		return ""

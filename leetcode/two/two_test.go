@@ -113,3 +113,10 @@ func TestCalculate(t *testing.T) {
 		t.Error("fuck it")
 	}
 }
+
+func TestMaxSlidingWindow(t *testing.T) {
+	nums := []int{1, 3, -1, -3, 5, 3, 6, 7}
+	k := 3
+	res := maxSlidingWindow(nums, k)
+	t.Log(res)
+}
