@@ -227,29 +227,21 @@ func TestFirstMissingPositive(t *testing.T) {
 	}
 }
 func TestMergeTwoLists(t *testing.T) {
-	l1 := &model.ListNode{
-		Val: 1,
-		Next: &model.ListNode{
-			Val: 2,
-			Next: &model.ListNode{
-				Val: 4,
-				Next: &model.ListNode{
-					Val:  5,
-					Next: nil,
-				},
-			},
-		},
-	}
-	l2 := &model.ListNode{
-		Val: 1,
-		Next: &model.ListNode{
-			Val: 3,
-			Next: &model.ListNode{
-				Val:  4,
-				Next: nil,
-			},
-		},
-	}
+	l1 := model.NewListNode([]int{1, 2, 4, 5})
+	l2 := model.NewListNode([]int{1, 3, 4})
 	// mergeTwoLists(l1, l2).Print()
 	mergeTwoListsV2(l1, l2).Print()
+}
+
+func TestMergeKLists(t *testing.T) {
+	lists := []*model.ListNode{
+		model.NewListNode([]int{1, 2, 4, 5}),
+		model.NewListNode([]int{2, 3, 9}),
+		model.NewListNode([]int{6, 8, 9}),
+	}
+	mergeKLists(lists).Print()
+}
+
+func TestMinWindow(t *testing.T) {
+	minWindow("KDMADBOBECODEBANC", "ABC")
 }

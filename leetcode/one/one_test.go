@@ -79,6 +79,6 @@ func TestFractionToDecimal(t *testing.T) {
 }
 
 func TestSortList(t *testing.T) {
-	head := model.NewListNode([]int{4, 2, 1, 3})
+	head := model.NewListNode([]int{-1, 5, 3, 4, 0})
 	sortListV2(head).Print()
 }

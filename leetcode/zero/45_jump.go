@@ -18,11 +18,30 @@
 
 package zero
 
-import (
-	"fmt"
-)
-
+// 贪心解法
 func jump(nums []int) int {
+	if len(nums) < 2 {
+		return 0
+	}
+
+	start, end, steps := 0, 0, 0
+	for end < len(nums)-1 {
+		steps++
+		farthest := end
+		for i := start; i < end+1; i++ {
+			if nums[i]+i > farthest {
+				farthest = nums[i] + i
+			}
+		}
+		start = end + 1
+		end = farthest
+	}
+
+	return steps
+}
+
+// 动态规划解法
+func jumpV2(nums []int) int {
 	if len(nums) < 2 {
 		return 0
 	}
@@ -31,7 +50,7 @@ func jump(nums []int) int {
 		step++
 		next := nums[pos]
 		if next >= len(nums)-pos-1 {
-			return step
+			break
 		}
 		nextPos := next + pos
 
@@ -44,11 +63,6 @@ func jump(nums []int) int {
 				pos = i
 			}
 		}
-		fmt.Println("find most expected next pos", pos, nums[pos])
-		// if nums[pos] < nums[nextPos]+nextPos-pos {
-		// 	pos = nextPos
-		// }
-		// fmt.Println("selected next pos", pos, nums[pos])
 	}
 	return step
 }
