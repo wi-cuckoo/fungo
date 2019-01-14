@@ -82,3 +82,11 @@ func TestSortList(t *testing.T) {
 	head := model.NewListNode([]int{-1, 5, 3, 4, 0})
 	sortListV2(head).Print()
 }
+
+func TestMaxProduct(t *testing.T) {
+	nums := []int{7, -2, -4}
+	max := maxProduct(nums)
+	if max != 56 {
+		t.Errorf("max should be %d, not %d", 56, max)
+	}
+}
