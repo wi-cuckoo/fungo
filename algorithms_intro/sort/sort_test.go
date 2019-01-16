@@ -8,15 +8,19 @@ import (
 
 func TestQuickTest(t *testing.T) {
 	nums := []int{3, 2, 4, 5, 1, 9}
-	sorted := QuickSort(nums)
-	t.Log("sorted: ", sorted)
-	if len(sorted) != 6 {
-		t.Fatal("sort result length incorrect")
-	}
+	QuickSortV2(nums)
 	for i, v := range []int{1, 2, 3, 4, 5, 9} {
-		if sorted[i] != v {
+		if nums[i] != v {
 			t.Errorf("index %d should be %d", i, v)
 		}
+	}
+}
+
+// 测一把两种快排的性能
+func BenchmarkQuickSort(t *testing.B) {
+	for i := 0; i < t.N; i++ {
+		nums := []int{3, 2, 4, 5, 1, 9}
+		QuickSortV2(nums)
 	}
 }
 
@@ -24,10 +28,44 @@ func TestQuickTest(t *testing.T) {
 func TestSelectSort(t *testing.T) {
 	nums := []int{3, 2, 4, 8, 1, 9}
 	SelectSort(nums)
-	t.Log("sorted: ", nums)
 	for i, v := range []int{1, 2, 3, 4, 8, 9} {
 		if nums[i] != v {
-			t.Errorf("index %d should be %d", i, v)
+			t.Errorf("index %d should be %d, not %d", i, v, nums[i])
+		}
+	}
+}
+
+// TestBubbleSort ...
+func TestBubbleSort(t *testing.T) {
+	nums := []int{3, 2, 4, 8, 1, 9}
+	BubbleSort(nums)
+	for i, v := range []int{1, 2, 3, 4, 8, 9} {
+		if nums[i] != v {
+			t.Errorf("index %d should be %d, not %d", i, v, nums[i])
+		}
+	}
+}
+
+func TestInsertSort(t *testing.T) {
+	nums := []int{3, 2, 4, 8, 1, 9}
+	InsertSort(nums)
+	for i, v := range []int{1, 2, 3, 4, 8, 9} {
+		if nums[i] != v {
+			t.Errorf("index %d should be %d, not %d", i, v, nums[i])
+		}
+	}
+}
+
+func TestMerge(t *testing.T) {
+	t.Log(merge([]int{1, 3, 6}, []int{2, 4, 5, 10}))
+}
+
+func TestMergeSort(t *testing.T) {
+	nums := []int{3, 2, 4, 8, 1, 9}
+	nums = MergeSort(nums)
+	for i, v := range []int{1, 2, 3, 4, 8, 9} {
+		if nums[i] != v {
+			t.Errorf("index %d should be %d, not %d", i, v, nums[i])
 		}
 	}
 }
