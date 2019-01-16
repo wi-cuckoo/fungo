@@ -84,8 +84,8 @@ func TestSortList(t *testing.T) {
 }
 
 func TestMaxProduct(t *testing.T) {
-	nums := []int{7, -2, -4}
-	max := maxProduct(nums)
+	nums := []int{7, -2, -4, 0, -19}
+	max := maxProductV2(nums)
 	if max != 56 {
 		t.Errorf("max should be %d, not %d", 56, max)
 	}
