@@ -2,6 +2,8 @@ package sort
 
 import (
 	"testing"
+
+	"github.com/wi-cuckoo/fungo/model"
 )
 
 func TestQuickTest(t *testing.T) {
@@ -34,4 +36,21 @@ func TestShuffle(t *testing.T) {
 	nums := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
 	shuffle(nums)
 	t.Log(nums)
+}
+
+func TestQuickSortList(t *testing.T) {
+	head := &model.ListNode{
+		Val: 3,
+		Next: &model.ListNode{
+			Val: 2,
+			Next: &model.ListNode{
+				Val: 5,
+				Next: &model.ListNode{
+					Val:  4,
+					Next: nil,
+				},
+			},
+		},
+	}
+	QuickSortList(head).Print()
 }
