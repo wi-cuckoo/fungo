@@ -165,3 +165,13 @@ func merge(left []int, right []int) []int {
 	}
 	return res
 }
+
+// HeapSort 堆排序
+func HeapSort(nums []int) []int {
+	res := make([]int, len(nums))
+	h := model.NewHeap(nums)
+	for i := 0; i < len(res); i++ {
+		res[i] = h.Pop()
+	}
+	return res
+}

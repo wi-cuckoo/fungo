@@ -70,6 +70,15 @@ func TestMergeSort(t *testing.T) {
 	}
 }
 
+func TestHeapSort(t *testing.T) {
+	nums := []int{3, 2, 4, 8, 1, 9}
+	nums = HeapSort(nums)
+	for i, v := range []int{1, 2, 3, 4, 8, 9} {
+		if nums[i] != v {
+			t.Errorf("index %d should be %d, not %d", i, v, nums[i])
+		}
+	}
+}
 func TestShuffle(t *testing.T) {
 	nums := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
 	shuffle(nums)
