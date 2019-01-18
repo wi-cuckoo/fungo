@@ -1,6 +1,8 @@
 package three
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestCoinChange(t *testing.T) {
 	coins := []int{1, 2, 5}
@@ -82,6 +84,18 @@ func TestGetSum(t *testing.T) {
 	for _, e := range eg {
 		if x := getSum(e[0], e[1]); x != e[2] {
 			t.Errorf("%d+%d should be %d, not %d", e[0], e[1], e[2], x)
+		}
+	}
+}
+
+func TestIsPerfectSquare(t *testing.T) {
+	nums := make([]bool, 101)
+	for i := 0; i <= 10; i++ {
+		nums[i*i] = true
+	}
+	for i, n := range nums {
+		if isPerfectSquare(i) != n {
+			t.Errorf("%d should be %v square", i, n)
 		}
 	}
 }
