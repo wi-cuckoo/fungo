@@ -13,18 +13,16 @@
 
 package zero
 
-import "fmt"
-
 func minWindow(s string, t string) string {
-	chars, cache := [26]int{}, [26]int{}
+	chars, cache := [128]int{}, [128]int{}
 	for _, c := range t {
-		n := int(c - 'A')
+		n := int(c)
 		chars[n]++
 		cache[n]++
 	}
 	l, r, total := -1, -1, len(t)
 	for i := 0; i < len(s) && total > 0; i++ {
-		n := int(s[i] - 'A')
+		n := s[i]
 		if chars[n] == 0 {
 			continue
 		}
@@ -35,14 +33,15 @@ func minWindow(s string, t string) string {
 		total--
 		r = i
 	}
-	if r < 0 {
+
+	if total > 0 {
 		return ""
 	}
 	// 经过第一次从左至右循环，我们找到了第一个包含所有T的子串，但并非答案
 	min := s[l : r+1]
 	// 重新计算第一个待选区间的目标字符个数
-	for _, c := range s[l : r+1] {
-		n := int(c - 'A')
+	for i := l; i <= r; i++ {
+		n := int(s[i])
 		if cache[n] > 0 {
 			chars[n]++
 		}
@@ -51,8 +50,8 @@ func minWindow(s string, t string) string {
 	for valid := true; valid; {
 		// 以min串左边开始向右滑动，检测到min不合法后停止
 		var c byte
-		for valid = true; valid; l++ {
-			n := int(s[l] - 'A')
+		for ; valid; l++ {
+			n := s[l]
 			if cache[n] == 0 {
 				continue
 			}
@@ -62,11 +61,14 @@ func minWindow(s string, t string) string {
 				c, valid = s[l], false
 			}
 		}
-		fmt.Println(s[l:r], l, r, c, chars)
-		// 以min串右边向右滑动，使得min合法为止
-		i := r
-		for i++; i < len(s) && !valid; i++ {
-			n := int(s[i] - 'A')
+		if len(s[l-1:r+1]) < len(min) {
+			min = s[l-1 : r+1]
+		}
+		// fmt.Println(s[l:r+1], l, r, c)
+		// 以min串右起第一个字符向右滑动，使得min合法为止
+		i := r + 1
+		for ; i < len(s) && !valid; i++ {
+			n := s[i]
 			if cache[n] == 0 {
 				continue
 			}
@@ -78,12 +80,12 @@ func minWindow(s string, t string) string {
 		if !valid {
 			l--
 		} else {
-			r = i
+			r = i - 1
 		}
-		fmt.Println(valid, s[l:r], l, r, chars)
+		// fmt.Println(valid, s[l:r+1], l, r)
 		// 计算最新的min
-		if len(s[l:r]) < len(min) {
-			min = s[l:r]
+		if len(s[l:r+1]) < len(min) {
+			min = s[l : r+1]
 		}
 	}
 

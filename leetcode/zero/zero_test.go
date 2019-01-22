@@ -243,6 +243,8 @@ func TestMergeKLists(t *testing.T) {
 }
 
 func TestMinWindow(t *testing.T) {
-	s := minWindow("KBMADBOBECODEBAN", "ABC")
-	t.Log(s)
+	// s := minWindow("KBMADBOBECODEBACVV", "ABC")
+	// t.Log(s)
+
+	t.Log(minWindow("cabwefgewcwaefgcf", "cae"))
 }
