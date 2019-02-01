@@ -248,3 +248,7 @@ func TestMinWindow(t *testing.T) {
 
 	t.Log(minWindow("cabwefgewcwaefgcf", "cae"))
 }
+
+func TestRestoreIPAddresses(t *testing.T) {
+	t.Log(restoreIPAddresses("172162541"))
+}

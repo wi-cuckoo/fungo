@@ -18,7 +18,7 @@
 
 package five
 
-// 利用hash算法比对，优化点：可以缩小待比较空间，比如用双指针减少不必比较的子串
+// 利用hash算法比对，优化点：可以缩小待比较空间，比如用双指针减少不必比较的子串·
 func checkInclusion(s1 string, s2 string) bool {
 	table := [26]int{}
 	for _, c := range s1 {
