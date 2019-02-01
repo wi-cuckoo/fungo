@@ -252,3 +252,10 @@ func TestMinWindow(t *testing.T) {
 func TestRestoreIPAddresses(t *testing.T) {
 	t.Log(restoreIPAddresses("172162541"))
 }
+
+func TestMultiply(t *testing.T) {
+	if s := multiply("99", "99"); s != "56088" {
+		t.Error("123*456 should be 56088, not", s)
+	}
+
+}
