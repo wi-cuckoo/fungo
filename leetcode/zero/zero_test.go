@@ -259,3 +259,8 @@ func TestMultiply(t *testing.T) {
 	}
 
 }
+
+func TestGetPermutation(t *testing.T) {
+	t.Log(getPermutation(3, 6))
+	t.Log(getPermutation(4, 9))
+}
