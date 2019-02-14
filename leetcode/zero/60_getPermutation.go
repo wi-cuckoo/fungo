@@ -47,7 +47,7 @@ func getPermutation(n int, k int) string {
 		// fmt.Printf("total=%d k=%d i=%d t=%d idx=%d\n ", total, k, i, t, idx)
 		res = append(res, nums[idx])
 		total, k = t, k-t*idx
-		nums = append(nums[0:idx], nums[idx+1:]...)
+		nums = append(nums[0:idx], nums[idx+1:]...) // 这个操作比较费时，需要优化哈
 	}
 	return string(res)
 }
