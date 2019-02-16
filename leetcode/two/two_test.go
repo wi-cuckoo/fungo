@@ -120,3 +120,15 @@ func TestMaxSlidingWindow(t *testing.T) {
 	res := maxSlidingWindow(nums, k)
 	t.Log(res)
 }
+
+func TestMaximalSquare(t *testing.T) {
+	matrix := [][]byte{
+		{'1', '0', '1', '0', '0'},
+		{'1', '0', '0', '1', '1'},
+		{'1', '1', '1', '1', '1'},
+		{'1', '0', '1', '1', '1'},
+	}
+	if m := maximalSquare(matrix); m != 9 {
+		t.Errorf("the maximalSquare should be 4, not %d", m)
+	}
+}
