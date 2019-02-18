@@ -23,40 +23,54 @@ m = 2
 
 package four
 
+/*
+ * 注：分割分数即是各子数组和的最大值中最小的辣一个
+ * 1. 将 n 个数划分为 n 段，分割分数即为 n 个正整数的最大值
+ * 2. 将 n 个数划分为 1 段，分割分数即为 n 个正整数的和
+ * 3. 将 n 个数划分为 m 段，则分割分数一定介于最大值与和之间。因此采用二分查找，
+ * 	  每次取一个值对序列进行划分，若能划分出m 段，使得每段的和都小于这个数值，则满
+ *    足划分，反之不满足，直至找到一个最小的满足划分的值为止。
+ */
+
 func splitArray(nums []int, m int) int {
-	s := 0
+	l, r := 0, 0 // 分别表示划分为n段和1段时的分割分数
 	for _, n := range nums {
-		s += n
+		if n > l {
+			l = n
+		}
+		r += n
 	}
-	avg := s/m + s%m
-	max, c := 0, 0
-	s = 0
-	for _, n := range nums {
-		if s+n < avg && c < m {
-			s += n
+
+	for l < r {
+		// 这里使用二分法，从最大与最小分割分数中间值开始探索
+		mid := (r + l) / 2
+		// 判断数组能不能被划分为m段，并且每段大小不高于 mid 值
+		// 如果能，则继续降低预期值，注意不能 r = mid-1 是因为无法
+		// 确保减一后的数组还满足划分不
+		// 如果不能满足，则从mid到r之间寻找，即 l = mid+1
+		if fuck(nums, mid, m) {
+			r = mid
 			continue
 		}
-		if s > max {
-			max = s
-		}
-		c++
-		s = n
+		l = mid + 1
 	}
-	if s > max {
-		max = s
-	}
-	s, c = 0, 0
-	for i := len(nums) - 1; i >= 0; i-- {
-		n := nums[i]
-		if s+n < avg && c < m {
-			s += n
+
+	return l
+}
+
+func fuck(nums []int, mid, m int) bool {
+	cnt, sum := 0, 0
+	for i := 0; i < len(nums); i++ {
+		if sum+nums[i] > mid {
+			sum = nums[i]
+			cnt++
+			// 当分了 m 段后sum有剩余则划分不成功
+			if cnt > m-1 {
+				return false
+			}
 			continue
 		}
-		if s > max {
-			max = s
-		}
-		c++
-		s = n
+		sum += nums[i]
 	}
-	return avg
+	return true
 }
