@@ -7,13 +7,13 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-// 实现广度优先搜索
+// BFS 实现广度优先搜索
 func (t *TreeNode) BFS() []int {
 	if t == nil {
 		return []int{}
 	}
 	nodes := []int{}
-	queue := []*TreeNode{t} // 使用堆列来协助遍历
+	queue := []*TreeNode{t} // 使用队列来协助遍历
 	for len(queue) > 0 {
 		l := len(queue)
 		for i := 0; i < l; i++ {
@@ -30,13 +30,13 @@ func (t *TreeNode) BFS() []int {
 	return nodes
 }
 
-// 实现深度优先搜索
+// DFS 实现深度优先搜索
 func (t *TreeNode) DFS() []int {
 	if t == nil {
 		return []int{}
 	}
 	nodes := []int{}
-	stack := []*TreeNode{t}
+	stack := []*TreeNode{t} // 使用栈来协助遍历
 	for len(stack) > 0 {
 		// 父节点出栈
 		p := stack[len(stack)-1]
@@ -52,7 +52,7 @@ func (t *TreeNode) DFS() []int {
 	return nodes
 }
 
-// 实现前序遍历 - 递归版本
+// PreOrderTraversal 实现前序遍历 - 递归版本
 func (t *TreeNode) PreOrderTraversal() []int {
 	if t == nil {
 		return []int{}
@@ -68,7 +68,7 @@ func (t *TreeNode) PreOrderTraversal() []int {
 	return nodes
 }
 
-// 实现后序遍历 - 递归版本
+// PosOrderTraversal 实现后序遍历 - 递归版本
 func (t *TreeNode) PosOrderTraversal() []int {
 	if t == nil {
 		return []int{}
@@ -85,7 +85,7 @@ func (t *TreeNode) PosOrderTraversal() []int {
 	return nodes
 }
 
-// 实现中序遍历 - 递归版本
+// InOrderTraversal 实现中序遍历 - 递归版本
 func (t *TreeNode) InOrderTraversal() []int {
 	if t == nil {
 		return []int{}
