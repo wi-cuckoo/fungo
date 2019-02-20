@@ -14,6 +14,11 @@
 
 package zero
 
+// 中心扩散算法
+// 记录下其长度并与之前得到的最大长度比较，最终值为所需解
+// 找到形如 bb 型或 aba 型字符串，向两边扩展
+// 时间复杂度 O(N^2)，空间复杂度 O(1)
+
 func longestPalindrome(s string) string {
 	l := len(s)
 	if l < 2 {
