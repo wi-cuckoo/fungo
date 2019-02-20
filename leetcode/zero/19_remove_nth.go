@@ -17,33 +17,9 @@
 
 package zero
 
-import "fmt"
-
-func main() {
-	l1 := &ListNode{
-		Val: 1,
-		Next: &ListNode{
-			Val: 2,
-			Next: &ListNode{
-				Val: 4,
-				Next: &ListNode{
-					Val:  5,
-					Next: nil,
-				},
-			},
-		},
-	}
-	l2 := &ListNode{
-		Val: 1,
-		Next: &ListNode{
-			Val:  2,
-			Next: nil,
-		},
-	}
-	removeNthFromEnd(l1, 1).Print()
-	fmt.Println("")
-	removeNthFromEnd(l2, 2).Print()
-}
+// 双指针，开始时p1,p2都指向头节点
+// 让 p2 指针先向前走 n+1 步，然后 p1, p2 同时开始走
+// 当 p2 到达末尾节点时，p1节点的下一个节点就是需要删除的
 
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	p1, p2 := head, head
@@ -58,7 +34,7 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 		}
 		p1, p2 = p1.Next, p2.Next
 	}
-	fmt.Println(p1.Val, p2.Val, n)
+	// fmt.Println(p1.Val, p2.Val, n)
 	if n != 0 {
 		return head.Next
 	}

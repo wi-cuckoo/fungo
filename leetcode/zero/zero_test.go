@@ -264,3 +264,11 @@ func TestGetPermutation(t *testing.T) {
 	t.Log(getPermutation(3, 6))
 	t.Log(getPermutation(4, 9))
 }
+
+func TestSearch(t *testing.T) {
+	nums := []int{4, 5, 6, 7, 0, 1, 2}
+	if i := search(nums, 3); i != -1 {
+		t.Errorf("target 3 should be at %d, not %d\n", -1, i)
+	}
+	t.Log(search([]int{5, 1, 3, 4}, 3))
+}

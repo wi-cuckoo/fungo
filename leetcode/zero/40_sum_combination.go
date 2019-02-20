@@ -49,6 +49,7 @@ func backtrackS(candidates []int, target, start int, maybe []int, res *[][]int) 
 		return
 	}
 	for i := start; i < len(candidates); i++ {
+		// 避免重复解
 		if i > start && candidates[i] == candidates[i-1] {
 			continue
 		}

@@ -17,6 +17,10 @@
 
 package zero
 
+// 二分法
+// 先用普通二分查找找到target出现的位置，可能是好几个位置的其中一个，记为 p
+// 从 p 位置分别向左和向右寻找相同的数，记最左与最右达到的位置为 p1, p2，答案即是 [p1, p2]
+
 func searchRange(nums []int, target int) []int {
 	p1, p2 := -1, -1
 	for i := 0; i < len(nums); i++ {

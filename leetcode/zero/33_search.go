@@ -21,21 +21,34 @@
 
 package zero
 
-import "fmt"
+// 把数组一分为二，其中一个有序另一个可能有序也可能部分有序，分别为 L1， L2
+// 对有序数组L1判定目标值是否在序列中，如果在则用二分查找之
+// 如不在, 则继续将L2重复上述步骤
 
 func search(nums []int, target int) int {
 	l, r := 0, len(nums)-1
-	for l < r {
-		if nums[l] < nums[r] {
-			break
-		}
-		mid := (l + r) / 2
-		if nums[l] < nums[mid] {
-			l = mid + 1
-		} else {
-			r = mid - 1
-		}
+	return searchWidth(nums, l, r, target)
+}
+
+func searchWidth(nums []int, l, r, target int) int {
+	// fmt.Println(l, r, nums)
+	if l > r {
+		return -1
 	}
-	fmt.Println(l, r)
-	return -1
+	mid := (l + r) / 2
+	if nums[mid] == target {
+		return mid
+	}
+	// nums[mid:high] 是有序的
+	if nums[mid] < nums[r] {
+		if nums[mid] < target && target <= nums[r] {
+			return searchWidth(nums, mid+1, r, target)
+		}
+		return searchWidth(nums, l, mid-1, target)
+	}
+	// nums[l:mid]是有序的
+	if nums[l] <= target && target < nums[mid] {
+		return searchWidth(nums, l, mid-1, target)
+	}
+	return searchWidth(nums, mid+1, r, target)
 }

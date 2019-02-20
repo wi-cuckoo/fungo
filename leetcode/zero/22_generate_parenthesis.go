@@ -14,6 +14,11 @@
 
 package zero
 
+// 回溯法
+// 用变量 l, r 分别记录左右括号的数量
+// 当 l < n 的时候可以给待选字符串加一个左括号；当 r < n 的时候可以给其加一个右括号
+// 只要在序列保持有效的情况下，添加的括号都是成立的
+
 func generateParenthesis(n int) []string {
 	res := make([]string, 0)
 	backtrackGen("", 0, 0, n, &res)
