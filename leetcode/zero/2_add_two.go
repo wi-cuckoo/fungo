@@ -13,20 +13,9 @@
 
 package zero
 
-func test() {
-	l1 := &ListNode{
-		Val: 7,
-		Next: &ListNode{
-			Val:  4,
-			Next: nil,
-		},
-	}
-	l2 := &ListNode{
-		Val:  4,
-		Next: nil,
-	}
-	addTwoNumbersV2(l1, l2).Print()
-}
+/*
+ 比较直观，注意边界条件就行
+*/
 
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	res := &ListNode{}

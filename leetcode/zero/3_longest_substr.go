@@ -28,9 +28,11 @@ func lengthOfLongestSubstring(s string) int {
 	if len(s) == 0 {
 		return 0
 	}
+	// cache 记录某个字符最近一次出现的位置
 	cache := map[byte]int{
 		s[0]: 0,
 	}
+	// dp 每一项都是一个两位数组，记录以 s[i] 字母结尾的最长无重复子串的首位索引
 	dp := make([][]int, len(s))
 	dp[0] = []int{0, 0}
 	for i := 1; i < len(s); i++ {

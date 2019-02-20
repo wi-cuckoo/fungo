@@ -26,6 +26,10 @@ var letters = [8][]string{
 	[]string{"w", "x", "y", "z"},
 }
 
+// 回溯法
+// 1. 建立一个数字到字母的映射关系 letters
+// 2. 依次递归 digits 每个数字，找出其可能的字母
+// 3. 当递归完后将字母搜集起来就行了
 var combinations = make([]string, 0)
 
 func letterCombinations(digits string) []string {
