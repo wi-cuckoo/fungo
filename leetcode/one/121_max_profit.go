@@ -73,6 +73,9 @@ func max(nums ...int) int {
 	return n
 }
 
+// 1. 维护一个最低买入价与每次卖出得到的最高利润
+// 2. 当前股价低于最低价时更新最低价
+// 3. 当前卖出价格减去买入的最低价结果大于维护的最高利润，则更新该最高利润
 func maxProfitV2(nums []int) int {
 	minPrice, maxProfit := math.MaxInt32, 0
 	for _, p := range nums {

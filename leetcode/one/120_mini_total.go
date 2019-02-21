@@ -19,6 +19,13 @@
 
 package one
 
+// 动态规划
+// f(x) = min(f(m), f(n)) (m, n 分别为当前位置上一排的相邻节点，每一排的最左与最右特殊)
+// 1. 维护一个长度为三角形边长的 dp 数组，显然 dp[0] = triangle[0][0]
+// 2. 从第二行起，考虑某一行 i，该行长度为 lt = len(triangle[i])
+//    - 保存 dp[0] 之后，更新 dp[lt-1] 与 dp[0], 分别等于上一行的两边dp值加上当前两边值
+//    - 从该行 1...lt-1 遍历，依次根据状态转移方程推导出各点的 dp 值
+// 3. 检查 dp 数组中最小值即为答案
 func minimumTotal(triangle [][]int) int {
 	dp := make([]int, len(triangle))
 	dp[0] = triangle[0][0]

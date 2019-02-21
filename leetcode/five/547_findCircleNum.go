@@ -29,6 +29,11 @@ N 在[1,200]的范围内。
 
 package five
 
+// 并查集基础
+// 1. 初始化一个并查集对象，遍历所有学生，将互为朋友的同学调用 Join 方法连接起来
+// 2. 再依次遍历所有同学，调用 Find 方法找到其与其他共同的朋友，将该朋友标记为 1
+// 3. 统计数组中被标记为 1 的个数即为答案
+
 func findCircleNum(M [][]int) int {
 	circle := NewFriendCircle(len(M))
 	for i := 0; i < len(M); i++ {
@@ -76,8 +81,9 @@ func (fc *FriendCircle) Find(n int) int {
 	}
 	// 此时 ta 就是最终那个点，需要把这条链上所有节点指向 ta
 	// 压缩路径
-	for i := n; i != ta; i = fc.nums[i] {
-		fc.nums[i] = ta
+	for i := n; i != ta; {
+		j := fc.nums[i]
+		fc.nums[i], i = ta, j
 	}
 	return ta
 }

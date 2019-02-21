@@ -29,6 +29,11 @@ package one
 
 import "fmt"
 
+// 一分为二，考虑第i天前后各进行一次交易能获得的最大利润
+// 1. 取两个数组 left，right
+//    * left 表示从左往右看第 i 天内进行一次交易能获得的最大利润
+//    * right 表示从右往左看第 i 天后进行一次交易能获得的最大利润
+// 2. 重新从第一天开始遍历，将每天前后两次交易利润加起来，最终得到最大的总利润
 func maxProfit3(prices []int) int {
 	if len(prices) == 0 {
 		return 0

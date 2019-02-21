@@ -17,6 +17,13 @@ package zero
 
 import "sort"
 
+// 排序就完事了
+// 1. 根据区间的 Start 值对整个 intervals 排序
+// 2. 考虑第一个区间 p 和第二个区间 q, 首先有 p.Start <= q.Start
+//    - 当 p.End < q.Start 时，说明两区间没有重叠，则将 p 区间加入解集
+//    - 当 p.End >= q.Start 时，说明区间重叠，则更新 p.End = q.End 合并两区间为
+//    - 重复上述比较
+
 func merge(intervals []Interval) []Interval {
 	if len(intervals) < 2 {
 		return intervals
