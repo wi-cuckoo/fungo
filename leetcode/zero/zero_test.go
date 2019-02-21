@@ -272,3 +272,11 @@ func TestSearch(t *testing.T) {
 	}
 	t.Log(search([]int{5, 1, 3, 4}, 3))
 }
+
+func TestTrap(t *testing.T) {
+	height := []int{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}
+	if w := trap(height); w != 6 {
+		t.Errorf("water should be %d, not %d", 6, w)
+	}
+	t.Log(trap([]int{2, 0, 2}))
+}

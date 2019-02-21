@@ -24,6 +24,9 @@ import "github.com/wi-cuckoo/fungo/model"
 ]
 */
 
+// 还是借助队列进行广度优先遍历，即层级遍历
+// 需要注意的是录入结果集的时候需要变换顺序，顺序->逆序->顺序这样交替进行
+
 func zigzagLevelOrder(root *model.TreeNode) [][]int {
 	if root == nil {
 		return [][]int{}

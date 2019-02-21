@@ -1,8 +1,12 @@
 package zero
 
-import "strings"
+import (
+	"path/filepath"
+	"strings"
+)
 
 func simplifyPath(path string) string {
+	filepath.Abs(path)
 	segs := strings.Split(path, "/")
 	stack := make([]string, 0, len(segs))
 	abs := ""
