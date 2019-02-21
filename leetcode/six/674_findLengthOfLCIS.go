@@ -17,7 +17,13 @@
 
 package six
 
+// 数组遍历即可
+// 通过判断 nums[i] 与 nums[i-1]大小关系，确立每一段连续递增序列长度
+// 最后得出最大值
 func findLengthOfLCIS(nums []int) int {
+	if len(nums) == 0 {
+		return 0
+	}
 	length, tmpLen := 0, 1
 	for i := 1; i < len(nums); i++ {
 		if nums[i] > nums[i-1] {
