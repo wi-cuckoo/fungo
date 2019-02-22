@@ -2,6 +2,8 @@ package three
 
 import (
 	"testing"
+
+	"github.com/wi-cuckoo/fungo/model"
 )
 
 func TestCoinChange(t *testing.T) {
@@ -51,22 +53,7 @@ func TestIncreasingTriplet(t *testing.T) {
 }
 
 func TestOddEvenList(t *testing.T) {
-	root := &ListNode{
-		Val: 1,
-		Next: &ListNode{
-			Val: 2,
-			Next: &ListNode{
-				Val: 3,
-				Next: &ListNode{
-					Val: 4,
-					Next: &ListNode{
-						Val:  5,
-						Next: nil,
-					},
-				},
-			},
-		},
-	}
+	root := model.NewListNode([]int{1, 2, 3, 4, 5})
 	oddEvenList(root).Print()
 }
 
@@ -98,4 +85,17 @@ func TestIsPerfectSquare(t *testing.T) {
 			t.Errorf("%d should be %v square", i, n)
 		}
 	}
+}
+
+func TestMaxEnvelopes(t *testing.T) {
+	envelopes := [][]int{
+		{5, 4},
+		{6, 4},
+		{6, 7},
+		{2, 3},
+	}
+	t.Log(maxEnvelopes(envelopes))
+
+	envelopes = [][]int{{1, 3}, {3, 5}, {6, 7}, {6, 8}, {8, 4}, {9, 5}}
+	t.Log(maxEnvelopes(envelopes))
 }

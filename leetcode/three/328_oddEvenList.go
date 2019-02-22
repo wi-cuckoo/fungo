@@ -18,7 +18,11 @@
 */
 package three
 
-func oddEvenList(head *ListNode) *ListNode {
+import (
+	"github.com/wi-cuckoo/fungo/model"
+)
+
+func oddEvenList(head *model.ListNode) *model.ListNode {
 	if head == nil {
 		return head
 	}

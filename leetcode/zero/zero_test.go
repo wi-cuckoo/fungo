@@ -280,3 +280,17 @@ func TestTrap(t *testing.T) {
 	}
 	t.Log(trap([]int{2, 0, 2}))
 }
+
+func TestSqrt(t *testing.T) {
+	pairs := map[int]int{
+		1:   1,
+		3:   1,
+		4:   2,
+		101: 10,
+	}
+	for k, v := range pairs {
+		if m := sqrt2(k); m != v {
+			t.Errorf("sqrt(%d) should be %d, not %d\n", k, v, m)
+		}
+	}
+}
