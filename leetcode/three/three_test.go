@@ -99,3 +99,9 @@ func TestMaxEnvelopes(t *testing.T) {
 	envelopes = [][]int{{1, 3}, {3, 5}, {6, 7}, {6, 8}, {8, 4}, {9, 5}}
 	t.Log(maxEnvelopes(envelopes))
 }
+
+func TestValidUtf8(t *testing.T) {
+	if validUtf8([]int{240, 162, 138, 147, 145}) {
+		t.Error("should be false, fuck")
+	}
+}
