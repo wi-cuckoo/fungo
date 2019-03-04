@@ -27,7 +27,47 @@
 
 package zero
 
-func fullJustify(words []string, maxWidth int) []string {
+import "strings"
 
-	return []string{}
+func fullJustify(words []string, maxWidth int) []string {
+	lines := make([]string, 0)
+	width, left := 0, 0
+	for i := 0; i < len(words); i++ {
+		width += len(words[i])
+		space := i - left
+		// 如果加上该单词长度超出，则不能加上这个逼
+		if width+space > maxWidth {
+			lines = append(lines, jbspace(words[left:i], width-len(words[i]), maxWidth))
+			width, left = len(words[i]), i
+		}
+	}
+	if left < len(words) {
+		last := strings.Join(words[left:], " ")
+		lines = append(lines, last+nbspace(maxWidth-len(last)))
+	}
+	return lines
+}
+
+func jbspace(s []string, w, mw int) string {
+	if len(s) == 1 {
+		return s[0] + nbspace(mw-w)
+	}
+	n := (mw - w) / (len(s) - 1)
+	m := (mw - w) % (len(s) - 1)
+	ns, ts := nbspace(n), ""
+	for i := 0; i < len(s)-1; i++ {
+		ts += s[i] + ns
+		if i < m {
+			ts += " "
+		}
+	}
+	return ts + s[len(s)-1]
+}
+
+func nbspace(n int) string {
+	s := ""
+	for i := 0; i < n; i++ {
+		s += " "
+	}
+	return s
 }

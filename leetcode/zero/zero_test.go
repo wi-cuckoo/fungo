@@ -1,6 +1,7 @@
 package zero
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/wi-cuckoo/fungo/model"
@@ -292,5 +293,14 @@ func TestSqrt(t *testing.T) {
 		if m := sqrt2(k); m != v {
 			t.Errorf("sqrt(%d) should be %d, not %d\n", k, v, m)
 		}
+	}
+}
+
+func TestFullJustify(t *testing.T) {
+	// words := []string{"This", "is", "an", "example", "of", "text", "justification."}
+	words := []string{"What", "must", "be", "acknowledgment", "shall", "be"}
+	// words := []string{"Science", "is", "what", "we", "understand", "well", "enough", "to", "explain", "to", "a", "computer.", "Art", "is", "everything", "else", "we", "do"}
+	for _, s := range fullJustify(words, 16) {
+		fmt.Println(s)
 	}
 }

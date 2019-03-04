@@ -22,6 +22,8 @@
 
 package nine
 
+// 归纳法可以知道每个元素 A[i] 被加入到最终结果的次数为
+// 其左邻居中大于它、右邻居中不小于它的元素长度 left 、 right （包括自身）的乘积
 func sumSubarrayMins(A []int) int {
 	if len(A) == 0 {
 		return 0
