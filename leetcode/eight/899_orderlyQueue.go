@@ -33,6 +33,7 @@ package eight
 
 // 当 k=1 时，相当于从 i 处把字符串分隔再交换顺序拼接起来，因而选择最小字符出现的地方分隔
 // 当 k>1 时，字符串可以通过操作得到任意序列，因为按字符从小到大排列即可
+// 备注：k>1时获得任意序列的原理需要推导一下
 func orderlyQueue(S string, K int) string {
 	min := 'z' + 1
 	chars := [26]int{}
