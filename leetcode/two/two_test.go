@@ -137,3 +137,8 @@ func TestGetSkyline(t *testing.T) {
 	bs := [][]int{{2, 9, 10}, {3, 7, 15}, {5, 12, 12}, {15, 20, 10}, {19, 24, 8}}
 	t.Log(getSkyline(bs))
 }
+
+func TestRemoveElements(t *testing.T) {
+	head := model.NewListNode([]int{1, 2, 6, 3, 4, 6, 6, 7})
+	removeElementsV2(head, 6).Print()
+}
