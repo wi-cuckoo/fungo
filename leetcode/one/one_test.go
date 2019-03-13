@@ -90,3 +90,8 @@ func TestMaxProduct(t *testing.T) {
 		t.Errorf("max should be %d, not %d", 56, max)
 	}
 }
+
+func TestCanCompleteCircuit(t *testing.T) {
+	gas, cost := []int{5, 8, 2, 8}, []int{6, 5, 6, 6}
+	t.Log(canCompleteCircuit(gas, cost) == 3)
+}
