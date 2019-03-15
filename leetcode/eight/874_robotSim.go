@@ -68,3 +68,41 @@ func strWithout3a3b(A int, B int) string {
 	}
 	return string(buf)
 }
+
+func strWithout3a3bV2(A int, B int) string {
+	buf := make([]byte, 0, A+B)
+	for A > 0 || B > 0 {
+		var writeA bool
+		if len(buf) >= 2 && buf[len(buf)-1] == buf[len(buf)-2] {
+			writeA = buf[len(buf)-1] == 'b'
+		} else {
+			writeA = A >= B
+		}
+		if writeA {
+			buf = append(buf, 'a')
+			A--
+		} else {
+			buf = append(buf, 'b')
+			B--
+		}
+	}
+	return string(buf)
+}
+
+// https://leetcode-cn.com/problems/maximize-sum-of-array-after-k-negations/
+func largestSumAfterKNegations(A []int, K int) int {
+	for ; K > 0; K-- {
+		t := 0
+		for i := 1; i < len(A); i++ {
+			if A[i] > A[t] {
+				t = i
+			}
+		}
+		A[t] = -A[t]
+	}
+	sum := 0
+	for _, n := range A {
+		sum += n
+	}
+	return sum
+}
