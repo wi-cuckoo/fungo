@@ -1,15 +1,18 @@
 package main
 
 import (
-	"fmt"
+	"github.com/containerd/cgroups"
+	specs "github.com/opencontainers/runtime-spec/specs-go"
 )
 
 func main() {
-	fmt.Println(1 / 3)
-}
-
-func push(nums []int) {
-	fmt.Printf("push nums: %v, len: %d, cap: %d, addr: %p \n", nums, len(nums), cap(nums), nums)
-	nums = append(nums, 1)
-	fmt.Printf("push nums: %v, len: %d, cap: %d, addr: %p \n", nums, len(nums), cap(nums), nums)
+	shares := uint64(1)
+	_, err := cgroups.New(cgroups.V1, cgroups.StaticPath("/magic"), &specs.LinuxResources{
+		CPU: &specs.LinuxCPU{
+			Shares: &shares,
+		},
+	})
+	if err != nil {
+		panic(err)
+	}
 }
