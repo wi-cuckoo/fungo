@@ -60,7 +60,10 @@ func (g *group) Stop(name string) error {
 	}
 	if procs, err := ctrl.Processes(cgroups.Cpu, false); err == nil {
 		for _, p := range procs {
-			syscall.Kill(p.Pid, syscall.SIGQUIT)
+			if e := syscall.Kill(p.Pid, syscall.SIGQUIT); e != nil {
+				syscall.Kill(p.Pid, syscall.SIGKILL) // kill -9 pid
+			}
+
 		}
 	}
 	return ctrl.Delete()
