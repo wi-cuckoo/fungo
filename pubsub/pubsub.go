@@ -11,6 +11,9 @@ var ErrNotFound = errors.New("topic not found")
 // ErrTimeout is returned when publish timeout
 var ErrTimeout = errors.New("publish timeout")
 
+// ErrCtxDone is returned when publish timeout
+var ErrCtxDone = errors.New("context done")
+
 // Message defines a published message.
 type Message struct {
 	// ID identifies this message.

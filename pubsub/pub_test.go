@@ -67,7 +67,5 @@ func TestPubsub(t *testing.T) {
 		}
 	}
 
-	// <-time.After(time.Second * 3)
-
 	wg.Wait()
 }

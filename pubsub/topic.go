@@ -30,6 +30,7 @@ func (t *topic) publish(ctx context.Context, m Message) error {
 		select {
 		case s.ch <- m:
 		case <-ctx.Done():
+			return ErrCtxDone
 		case <-time.After(time.Microsecond * 100):
 			err = ErrTimeout
 		}
