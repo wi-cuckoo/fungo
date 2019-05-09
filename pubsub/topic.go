@@ -28,9 +28,9 @@ func (t *topic) publish(ctx context.Context, m Message) error {
 	defer t.Unlock()
 	for s := range t.subs {
 		select {
-		case s.receiver <- m:
+		case s.ch <- m:
 		case <-ctx.Done():
-		case <-time.After(time.Microsecond * 5):
+		case <-time.After(time.Microsecond * 100):
 			err = ErrTimeout
 		}
 	}

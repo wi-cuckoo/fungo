@@ -23,19 +23,21 @@ type Message struct {
 	Labels map[string]string `json:"labels,omitempty"`
 }
 
+// Unsubscribe to sub
+type Unsubscribe func()
+
 // Publisher defines a mechanism for communicating messages from a group
 // of senders, called publishers, to a group of consumers.
 type Publisher interface {
 	// Create creates the named topic.
-	Create(c context.Context, topic string)
-
-	// Publish publishes the message.
-	Publish(c context.Context, topic string, message Message) error
-
-	// Subscribe subscribes to the topic. The Receiver function is a callback
-	// function that receives published messages.
-	Subscribe(topic string) (<-chan Message, error)
+	Create(topic string)
 
 	// Remove removes the named topic.
-	Remove(c context.Context, topic string)
+	Remove(topic string)
+
+	// Publish publishes the message.
+	Publish(ctx context.Context, topic string, message Message) error
+
+	// Subscribe subscribes to the topic
+	Subscribe(topic string) (<-chan Message, Unsubscribe, error)
 }

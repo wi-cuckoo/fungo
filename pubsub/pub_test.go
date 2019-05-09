@@ -22,9 +22,10 @@ func TestPubsub(t *testing.T) {
 	defer cancel()
 
 	broker := New()
-	broker.Create(ctx, testTopic)
+	broker.Create(testTopic)
 
-	sub1, _ := broker.Subscribe(testTopic)
+	sub1, unsub1, _ := broker.Subscribe(testTopic)
+	defer unsub1()
 	wg.Add(1)
 	go func() {
 		var cnt int
@@ -41,7 +42,8 @@ func TestPubsub(t *testing.T) {
 		}
 		wg.Done()
 	}()
-	sub2, _ := broker.Subscribe(testTopic)
+	sub2, unsub2, _ := broker.Subscribe(testTopic)
+	defer unsub2()
 	wg.Add(1)
 	go func() {
 		var cnt int

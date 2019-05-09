@@ -5,8 +5,10 @@ import (
 	"sync"
 )
 
+const defaulSubQueue = 100
+
 type subscriber struct {
-	receiver chan Message
+	ch chan Message
 }
 
 type publisher struct {
@@ -22,7 +24,7 @@ func New() Publisher {
 	}
 }
 
-func (p *publisher) Create(ctx context.Context, desc string) {
+func (p *publisher) Create(desc string) {
 	p.Lock()
 	if _, ok := p.topics[desc]; !ok {
 		p.topics[desc] = newtopic(desc)
@@ -40,22 +42,27 @@ func (p *publisher) Publish(ctx context.Context, dest string, message Message) e
 	return t.publish(ctx, message)
 }
 
-func (p *publisher) Subscribe(dest string) (<-chan Message, error) {
+func (p *publisher) Subscribe(dest string) (<-chan Message, Unsubscribe, error) {
 	p.Lock()
 	t, ok := p.topics[dest]
 	p.Unlock()
 	if !ok {
-		return nil, ErrNotFound
+		return nil, nil, ErrNotFound
 	}
 	s := &subscriber{
-		receiver: make(chan Message, 100),
+		ch: make(chan Message, defaulSubQueue),
 	}
 	t.subscribe(s)
 
-	return s.receiver, nil
+	unsub := func() {
+		t.unsubscribe(s)
+		close(s.ch)
+	}
+
+	return s.ch, unsub, nil
 }
 
-func (p *publisher) Remove(ctx context.Context, dest string) {
+func (p *publisher) Remove(dest string) {
 	p.Lock()
 	t, ok := p.topics[dest]
 	if ok {
