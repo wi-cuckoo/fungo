@@ -14,6 +14,15 @@ var ErrTimeout = errors.New("publish timeout")
 // ErrCtxDone is returned when publish timeout
 var ErrCtxDone = errors.New("context done")
 
+// ErrExisted ....
+var ErrExisted = errors.New("portal has existed")
+
+// ErrFullChan ....
+var ErrFullChan = errors.New("portal channel is full")
+
+// ErrNoReceiver ....
+var ErrNoReceiver = errors.New("portal receiver has gone")
+
 // Message defines a published message.
 type Message struct {
 	// ID identifies this message.
