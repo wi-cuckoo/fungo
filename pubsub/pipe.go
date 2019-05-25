@@ -37,7 +37,7 @@ func (t *trans) Issue(ctx context.Context, id string, payload Payload) error {
 	if !ok {
 		return ErrNotFound
 	}
-	time.Sleep(time.Millisecond * 100)
+	// time.Sleep(time.Millisecond * 100)
 	select {
 	case <-p.done:
 		return ErrNoReceiver

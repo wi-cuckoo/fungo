@@ -42,6 +42,10 @@ func TestRegNotify(t *testing.T) {
 
 	ti := time.NewTimer(time.Second * 2)
 	ch, _ := rn.Register(context.Background(), "test-portal")
+
+	if _, err := rn.Register(context.Background(), "test-portal"); err != ErrExisted {
+		t.Fatal("can't be register more than once")
+	}
 	for {
 		select {
 		case p, ok := <-ch:
