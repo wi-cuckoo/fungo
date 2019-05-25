@@ -11,10 +11,14 @@ func TestRegNotify(t *testing.T) {
 	rn := NewRegNotify()
 
 	go func() {
+		cnt := 0
 		for i := 0; ; i++ {
 			err := rn.Issue(context.Background(), "test-portal", fmt.Sprintf("G1 fuck %d", i))
 			if err != nil {
 				fmt.Println("G1 issue payload err:", err.Error())
+				cnt++
+			}
+			if cnt >= 2 {
 				break
 			}
 			time.Sleep(time.Millisecond)
@@ -22,10 +26,14 @@ func TestRegNotify(t *testing.T) {
 	}()
 
 	go func() {
+		cnt := 0
 		for i := 0; ; i++ {
 			err := rn.Issue(context.Background(), "test-portal", fmt.Sprintf("G2 fuck %d", i))
 			if err != nil {
 				fmt.Println("G2 issue payload err:", err.Error())
+				cnt++
+			}
+			if cnt >= 2 {
 				break
 			}
 		}
