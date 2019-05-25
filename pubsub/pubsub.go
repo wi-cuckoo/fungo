@@ -44,3 +44,17 @@ type Publisher interface {
 	// Subscribe subscribes to the topic
 	Subscribe(topic string) (<-chan Message, Unsubscribe, error)
 }
+
+// Payload data
+type Payload interface{}
+
+// RegNotify register portal and wait notify
+// tips: just for one receiver, multi senders
+type RegNotify interface {
+	// Register portal
+	Register(c context.Context, portal string) (<-chan Payload, error)
+	// Issue payload to the portal
+	Issue(c context.Context, portal string, p Payload) error
+	// Unregister
+	Unregister(c context.Context, portal string) error
+}
