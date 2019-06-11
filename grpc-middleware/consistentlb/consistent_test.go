@@ -83,17 +83,45 @@ func TestWithMutliServers(t *testing.T) {
 	for i := 0; i < total; i++ {
 		resolvedAddrs = append(resolvedAddrs, resolver.Address{Addr: test.addresses[i]})
 	}
-	r.UpdateState(resolver.State{Addresses: resolvedAddrs})
+	r.UpdateState(resolver.State{Addresses: resolvedAddrs[:total-1]})
 
 	// get the consistent match
 	cstt := consistent.New()
-	cstt.Set(test.addresses)
+	cstt.Set(test.addresses[:total-1])
 	match, _ := cstt.Get(hashElt)
 
 	var p peer.Peer
 	if _, err := testc.EmptyCall(context.Background(), &testpb.Empty{}, grpc.Peer(&p)); err != nil {
 		t.Fatalf("EmptyCall() = _, %v, want _, <nil>", err)
 	}
+	t.Logf("[INIT] peer=%s, expect=%s", p.Addr.String(), match)
+	if p.Addr.String() != match {
+		t.Fatalf("the match address should be %s, not %s", match, p.Addr.String())
+	}
+
+	// add node
+	r.UpdateState(resolver.State{Addresses: resolvedAddrs})
+	cstt.Set(test.addresses)
+	match, _ = cstt.Get(hashElt)
+
+	var p1 peer.Peer
+	if _, err := testc.EmptyCall(context.Background(), &testpb.Empty{}, grpc.Peer(&p1)); err != nil {
+		t.Fatalf("EmptyCall() = _, %v, want _, <nil>", err)
+	}
+	t.Logf("[ADD] peer=%s, expect=%s", p1.Addr.String(), match)
+	if p1.Addr.String() != match {
+		t.Fatalf("the match address should be %s, not %s", match, p1.Addr.String())
+	}
+
+	// remove node
+	r.UpdateState(resolver.State{Addresses: resolvedAddrs[:total-2]})
+	cstt.Set(test.addresses[:total-2])
+	match, _ = cstt.Get(hashElt)
+
+	if _, err := testc.EmptyCall(context.Background(), &testpb.Empty{}, grpc.Peer(&p)); err != nil {
+		t.Fatalf("EmptyCall() = _, %v, want _, <nil>", err)
+	}
+	t.Logf("[REMOVE] peer=%s, expect=%s", p.Addr.String(), match)
 	if p.Addr.String() != match {
 		t.Fatalf("the match address should be %s, not %s", match, p.Addr.String())
 	}
@@ -142,7 +170,6 @@ type testServer struct {
 }
 
 func (s *testServer) EmptyCall(ctx context.Context, in *testpb.Empty) (*testpb.Empty, error) {
-	fmt.Println("fuck EmptyCall")
 	return &testpb.Empty{}, nil
 }
 
