@@ -13,8 +13,8 @@ import (
 
 var hashElt string
 
-// consistentBalancerName is the name of the consistent balancer.
-const consistentBalancerName = "consistent"
+// BalancerName is the name of the consistent balancer.
+const BalancerName = "consistent"
 
 func newconsistentBuilder() balancer.Builder {
 	return &consistentBuilder{}
@@ -30,7 +30,7 @@ func (*consistentBuilder) Build(cc balancer.ClientConn, opt balancer.BuildOption
 }
 
 func (*consistentBuilder) Name() string {
-	return consistentBalancerName
+	return BalancerName
 }
 
 type consistentBalancer struct {
@@ -51,9 +51,7 @@ func (b *consistentBalancer) HandleResolvedAddrs(addrs []resolver.Address, err e
 	}
 	b.ct.Set(tmpAddrs)
 	target, _ := b.ct.Get(hashElt)
-	newAddrs := []resolver.Address{
-		{Addr: target},
-	}
+	newAddrs := []resolver.Address{{Addr: target}}
 	if b.sc != nil {
 		b.sc.UpdateAddresses(newAddrs)
 		b.sc.Connect()
