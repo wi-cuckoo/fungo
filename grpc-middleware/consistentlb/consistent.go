@@ -2,7 +2,6 @@ package consistentlb
 
 import (
 	"context"
-	"fmt"
 	"os"
 
 	"google.golang.org/grpc/balancer"
@@ -35,9 +34,9 @@ func (*consistentBuilder) Name() string {
 }
 
 type consistentBalancer struct {
-	cc     balancer.ClientConn
-	sc     balancer.SubConn
-	ct     *consistent.Consistent
+	cc balancer.ClientConn
+	sc balancer.SubConn
+	ct *consistent.Consistent
 }
 
 func (b *consistentBalancer) HandleResolvedAddrs(addrs []resolver.Address, err error) {
@@ -52,7 +51,6 @@ func (b *consistentBalancer) HandleResolvedAddrs(addrs []resolver.Address, err e
 	}
 	b.ct.Set(tmpAddrs)
 	target, _ := b.ct.Get(hashElt)
-	fmt.Println(tmpAddrs, target, b.sc)
 	if b.sc != nil {
 		b.sc.UpdateAddresses([]resolver.Address{{Addr: target}})
 		b.sc.Connect()
