@@ -38,7 +38,6 @@ type consistentBalancer struct {
 	cc     balancer.ClientConn
 	sc     balancer.SubConn
 	ct     *consistent.Consistent
-	target string
 }
 
 func (b *consistentBalancer) HandleResolvedAddrs(addrs []resolver.Address, err error) {
@@ -54,12 +53,10 @@ func (b *consistentBalancer) HandleResolvedAddrs(addrs []resolver.Address, err e
 	b.ct.Set(tmpAddrs)
 	target, _ := b.ct.Get(hashElt)
 	fmt.Println(tmpAddrs, target, b.sc)
-	if target == b.target {
-		return
-	}
-	b.target = target
 	if b.sc != nil {
-		b.cc.RemoveSubConn(b.sc)
+		b.sc.UpdateAddresses([]resolver.Address{{Addr: target}})
+		b.sc.Connect()
+		return
 	}
 	b.sc, err = b.cc.NewSubConn([]resolver.Address{{Addr: target}}, balancer.NewSubConnOptions{})
 	if err != nil {

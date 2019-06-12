@@ -55,7 +55,7 @@ func TestWithOneServer(t *testing.T) {
 	}
 }
 
-func TestWithMutliServers(t *testing.T) {
+func TestWithMultiServers(t *testing.T) {
 	r, cleanup := manual.GenerateAndRegisterManualResolver()
 	defer cleanup()
 
@@ -104,13 +104,12 @@ func TestWithMutliServers(t *testing.T) {
 	cstt.Set(test.addresses)
 	match, _ = cstt.Get(hashElt)
 
-	var p1 peer.Peer
-	if _, err := testc.EmptyCall(context.Background(), &testpb.Empty{}, grpc.Peer(&p1)); err != nil {
+	if _, err := testc.EmptyCall(context.Background(), &testpb.Empty{}, grpc.Peer(&p), grpc.WaitForReady(true)); err != nil {
 		t.Fatalf("EmptyCall() = _, %v, want _, <nil>", err)
 	}
-	t.Logf("[ADD] peer=%s, expect=%s", p1.Addr.String(), match)
-	if p1.Addr.String() != match {
-		t.Fatalf("the match address should be %s, not %s", match, p1.Addr.String())
+	t.Logf("[ADD] peer=%s, expect=%s", p.Addr.String(), match)
+	if p.Addr.String() != match {
+		t.Fatalf("the match address should be %s, not %s", match, p.Addr.String())
 	}
 
 	// remove node
@@ -118,7 +117,7 @@ func TestWithMutliServers(t *testing.T) {
 	cstt.Set(test.addresses[:total-2])
 	match, _ = cstt.Get(hashElt)
 
-	if _, err := testc.EmptyCall(context.Background(), &testpb.Empty{}, grpc.Peer(&p)); err != nil {
+	if _, err := testc.EmptyCall(context.Background(), &testpb.Empty{}, grpc.Peer(&p), grpc.WaitForReady(true)); err != nil {
 		t.Fatalf("EmptyCall() = _, %v, want _, <nil>", err)
 	}
 	t.Logf("[REMOVE] peer=%s, expect=%s", p.Addr.String(), match)
