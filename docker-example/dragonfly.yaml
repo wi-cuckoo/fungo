@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  dragonfly-supernode:
+    image: dragonflyoss/supernode:0.3.0
+    ports:
+      - 8001:8001
+      - 8002:8002
+    entrypoint:
+      - /root/start.sh
+      - -Dsupernode.advertiseIp=127.0.0.1
+  
