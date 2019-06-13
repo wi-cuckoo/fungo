@@ -9,8 +9,8 @@ require (
 	github.com/gin-gonic/gin v1.4.0
 	github.com/godbus/dbus v0.0.0-20190413140323-8e900ab0295c // indirect
 	github.com/gogo/protobuf v1.2.1 // indirect
+	github.com/hashicorp/consul/api v1.1.0
 	github.com/opencontainers/runtime-spec v0.1.2-0.20190408193819-a1b50f621a48
-	github.com/pkg/errors v0.8.1 // indirect
 	golang.org/x/sys v0.0.0-20190318195719-6c81ef8f67ca // indirect
 	google.golang.org/grpc v1.21.1
 	stathat.com/c/consistent v1.0.0
