@@ -2,23 +2,32 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
+	"time"
+
+	"github.com/urfave/cli"
 )
 
-const banner = `
-    _______           ________     
-   / ____(_)_______  / ____/ /_  __
-  / /_  / / ___/ _ \/ /_  / / / / /
- / __/ / / /  /  __/ __/ / / /_/ / 
-/_/   /_/_/   \___/_/   /_/\__, /  
-                          /____/  hello, my lord! 
-`
+const file = "~/.poems"
 
-func init() {
-	fmt.Fprint(os.Stdout, "\033c")
-	// filepath.Walk("~/.poems", nil)
-}
+var flags = []cli.Flag{}
 
 func main() {
-	fmt.Fprintln(os.Stdout, banner)
+	app := cli.NewApp()
+	app.Name = "leo"
+	app.Usage = "I'm a poet"
+	app.Action = pick
+
+	if err := app.Run(os.Args); err != nil {
+		fmt.Fprintln(os.Stdout, err.Error())
+	}
+}
+
+func pick(c *cli.Context) {
+}
+
+func init() {
+	rand.Seed(time.Now().Unix())
+	fmt.Fprint(os.Stdout, "\033c")
 }

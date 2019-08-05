@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: deployment-example
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: vega
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: ["sh", "-c", "echo $SECRET_USER"]
+        env:
+        - name: SECRET_USER
+          valueFrom:
+            secretKeyRef:
+              name: secret-example
+              key: user
