@@ -36,12 +36,12 @@ func searchV2(nums []int, target, l, r int) int {
 		return 0
 	}
 	mid := (l + r) / 2
-	if target < nums[mid] {
+	switch {
+	case target < nums[mid]:
 		return searchV2(nums, target, l, mid-1)
-	} else if target > nums[mid] {
+	case target > nums[mid]:
 		return searchV2(nums, target, mid+1, r)
-	} else {
+	default:
 		return mid
 	}
-	return 0
 }

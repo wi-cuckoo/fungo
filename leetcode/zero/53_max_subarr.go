@@ -14,6 +14,8 @@
 
 package zero
 
+import "math"
+
 func maxSubArray(nums []int) int {
 	// dp[i] means the max sum of sub array that end with nums[i]
 	sum := make([]int, len(nums))
@@ -32,4 +34,41 @@ func max(nums ...int) int {
 		}
 	}
 	return n
+}
+
+// solution by divide-and-conquer
+func maxSubArrayV2(nums []int) int {
+	if len(nums) < 1 {
+		return math.MinInt32
+	}
+	if len(nums) == 1 {
+		return nums[0]
+	}
+	mid := (len(nums) - 1) / 2
+	left := maxSubArrayV2(nums[:mid])
+	right := maxSubArrayV2(nums[mid+1:])
+	midSum := maxSubArrayCrossMid(mid, nums)
+	return max(left, right, midSum)
+}
+
+func maxSubArrayCrossMid(mid int, nums []int) int {
+	lsum, rsum := math.MinInt32, math.MinInt32
+	sum := 0
+	for i := mid; i >= 0; i-- {
+		sum += nums[i]
+		if lsum < sum {
+			lsum = sum
+		}
+	}
+	sum = 0
+	for i := mid + 1; i < len(nums); i++ {
+		sum += nums[i]
+		if rsum < sum {
+			rsum = sum
+		}
+	}
+	if rsum < 0 {
+		return lsum
+	}
+	return lsum + rsum
 }

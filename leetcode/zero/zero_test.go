@@ -304,3 +304,13 @@ func TestFullJustify(t *testing.T) {
 		fmt.Println(s)
 	}
 }
+
+func TestMaxSubArray(t *testing.T) {
+	nums := []int{-2, 1, -3, 4, -1, 2, 1, -5, 4}
+	// if n := maxSubArray(nums); n != 6 {
+	// 	t.Error("max sub array sum should be 6, not", n)
+	// }
+	if n := maxSubArrayV2(nums); n != 6 {
+		t.Error("max sub array sum should be 6, not", n)
+	}
+}
