@@ -1,4 +1,4 @@
-package main
+package greed
 
 import (
 	"fmt"
@@ -14,7 +14,8 @@ type rrange struct {
 	start, end int
 }
 
-func main() {
+// GroupTrain ...
+func GroupTrain() {
 	buf := []byte("aacbbdcd")
 	table := [26]*rrange{}
 	for i, b := range buf {
