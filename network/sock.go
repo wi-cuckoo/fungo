@@ -1,4 +1,4 @@
-package main
+package network
 
 import (
 	"fmt"
@@ -17,7 +17,7 @@ func init() {
 	}
 }
 
-func main() {
+func socket() {
 
 	addr := net.UnixAddr{
 		Name: sock,

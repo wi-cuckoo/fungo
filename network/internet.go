@@ -1,11 +1,11 @@
-package main
+package network
 
 import (
 	"fmt"
 	"net"
 )
 
-func main() {
+func lookup() {
 	res, err := net.LookupHost("beibei.com")
 	if err != nil {
 		fmt.Println(err.Error())
