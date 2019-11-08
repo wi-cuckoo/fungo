@@ -1,0 +1,30 @@
+# my global config
+global:
+  scrape_interval:     15s
+  evaluation_interval: 30s
+  # scrape_timeout is set to the global default (10s).
+
+scrape_configs:
+- job_name: cruiser-openapi
+
+  honor_labels: true
+  # scrape_interval is defined by the configured global (15s).
+  # scrape_timeout is defined by the global default (10s).
+
+  # metrics_path defaults to '/metrics'
+  # scheme defaults to 'http'.
+
+  static_configs:
+  - targets: ['10.1.61.135:9090']
+
+- job_name: cruiser-channel
+
+  honor_labels: true
+  # scrape_interval is defined by the configured global (15s).
+  # scrape_timeout is defined by the global default (10s).
+
+  # metrics_path defaults to '/metrics'
+  # scheme defaults to 'http'.
+
+  static_configs:
+  - targets: ['10.1.61.135:9090', '10.1.61.131:9090']

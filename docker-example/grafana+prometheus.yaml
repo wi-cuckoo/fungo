@@ -1,0 +1,18 @@
+version: '3'
+services:
+  grafana:
+    image: grafana/grafana:latest
+    networks:
+    - default
+    environment:
+    - GF_DATABASE_URL=root:fhI5xQ]xy215SCj1[PRtt2[ZVEieuu08@tcp(10.1.61.107:3306)/cruiser_gf
+    ports:
+    - "3000:3000"
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+    - "9090:9090"
+    networks:
+    - default
+    volumes:
+    - ./prometheus.yaml:/etc/prometheus/prometheus.yml
