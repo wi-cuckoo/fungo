@@ -1,8 +1,12 @@
 package network
 
 import (
+	"bufio"
+	"errors"
 	"fmt"
+	"io"
 	"net"
+	"strconv"
 	"time"
 )
 
@@ -13,7 +17,6 @@ func Serve(addr string) {
 		panic(err)
 	}
 	fmt.Println("serve on ", ln.Addr().String())
-	time.Sleep(time.Minute * 5)
 	for {
 		conn, err := ln.Accept()
 		if err != nil {
@@ -29,16 +32,43 @@ func serveCon(conn net.Conn) {
 	// 此时如果客户端主动发起关闭，服务端将进入 CLOSE_WAIT 状态，而客户端处于 FIN_WAIT 状态
 	// 对于 FIN_WAIT 会有一个超时时间，超时后关闭，而服务端会一直保持，除非跟着进程一起凉凉
 	defer conn.Close()
+
+	rb := bufio.NewReader(conn)
 	for {
-		buf := make([]byte, 1<<9)
-		_, err := conn.Read(buf)
-		if err != nil {
-			fmt.Println("conn.Read err:", err.Error())
+		c, err := rb.ReadByte()
+		if err != nil || c != '$' {
 			break
 		}
-		conn.Write([]byte("ojbk\n"))
+		// read int
+		b, err := rb.ReadBytes('\r')
+		if err != nil {
+			break
+		}
+		fmt.Println("read data len:", b)
+		n, _ := ParseInt64(b[:len(b)-1])
+		buf := make([]byte, n+1)
+		if _, err := io.ReadFull(rb, buf); err != nil {
+			break
+		}
+		fmt.Println("recv ", len(buf), string(buf))
+		// conn.Write([]byte("ojbk\n"))
 		// break // 主动退出模拟服务端主动关闭链接，即主动发出FIN，收到 ACK 后进入 TIME_WAIT 状态
 	}
+}
+
+// ParseInt64 ...
+func ParseInt64(bs []byte) (int64, error) {
+	var n int64
+	if len(bs) == 0 || bs[0] == '0' {
+		return n, errors.New("invalid byte")
+	}
+	for i := 0; i < len(bs); i++ {
+		if bs[i] < '0' || bs[i] > '9' {
+			return n, errors.New("invalid byte")
+		}
+		n = n*10 + int64(bs[i]-'0')
+	}
+	return n, nil
 }
 
 // Dial TCP Server
@@ -48,4 +78,17 @@ func Dial(addr string) {
 		panic(err)
 	}
 	defer con.Close()
+
+	str := "strconv.Atoi(string(b))"
+	wb := bufio.NewWriter(con)
+	for i := 0; i < 4; i++ {
+		wb.WriteByte('$')
+		n := len(str) - i
+		wb.Write([]byte(strconv.FormatInt(int64(n), 10)))
+		wb.WriteByte('\r')
+		wb.Write([]byte(str[:n]))
+		wb.WriteByte('\r')
+		wb.Flush()
+	}
+	time.Sleep(time.Minute)
 }
