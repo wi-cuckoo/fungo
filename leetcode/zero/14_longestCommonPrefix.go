@@ -1,3 +1,5 @@
+package zero
+
 /*
 编写一个函数来查找字符串数组中的最长公共前缀。
 
@@ -17,7 +19,8 @@
 所有输入只包含小写字母 a-z
 */
 
-package zero
+// 简单，找出最短的那个字符串，然后迭代它
+// 每迭代一个字符，检查其他字符串在相应位置的字符是否一致，直到不一致或者迭代完为止
 
 func longestCommonPrefix(strs []string) string {
 	var res []byte
