@@ -1,3 +1,5 @@
+package zero
+
 /*
 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
 
@@ -21,22 +23,21 @@
 输出: 0
 */
 
-package zero
+// 简单使用二分查找，找到了则结束
+// 找不到的话，最后的 l 就是可以插入的位置
 
 func searchInsert(nums []int, target int) int {
-	for i, v := range nums {
-		if v == target {
-			return i
+	l, r := 0, len(nums)-1
+	for l <= r {
+		mid := (l + r) / 2
+		if nums[mid] == target {
+			return mid
 		}
-		if i == 0 {
-			if v > target {
-				return 0
-			}
-			continue
-		}
-		if nums[i-1] < target && v > target {
-			return i
+		if nums[mid] > target {
+			l = mid + 1
+		} else {
+			r = mid - 1
 		}
 	}
-	return len(nums)
+	return l
 }

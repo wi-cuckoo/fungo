@@ -1,3 +1,5 @@
+package zero
+
 /*
 合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。
 
@@ -12,11 +14,11 @@
 输出: 1->1->2->3->4->4->5->6
 */
 
-package zero
-
 import (
 	"github.com/wi-cuckoo/fungo/model"
 )
+
+// 好吧，采用分而治之的办法，时间复杂度为 O(N*logK), 其中N为所有节点总数，K为列表长度
 
 func mergeKLists(lists []*model.ListNode) *model.ListNode {
 	if len(lists) == 0 {

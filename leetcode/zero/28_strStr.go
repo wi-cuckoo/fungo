@@ -1,3 +1,5 @@
+package zero
+
 /*
 实现 strStr() 函数。
 
@@ -18,7 +20,7 @@
 对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。
 */
 
-package zero
+// 可能KMP算法效率高些，而golang自身实现的是 Robin-Karp 算法
 
 func strStr(haystack string, needle string) int {
 	nl := len(needle)

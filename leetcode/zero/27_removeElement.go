@@ -1,3 +1,5 @@
+package zero
+
 /*
 给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。
 
@@ -22,26 +24,41 @@
 
 你不需要考虑数组中超出新长度后面的元素。
 */
-package zero
+
+// 思路就是遍历数组，遇到与 val 值相等的将其与下一个
 
 func removeElement(nums []int, val int) int {
-	k := 0
-	for i, v := range nums {
-		// if the last element
-		if i == len(nums)-1 {
-			if v != val {
-				k++
-			}
-			break
+	r := len(nums) - 1
+	for i := 0; i <= r; i++ {
+		if nums[i] != val {
+			continue
 		}
-		// skip
-		if v == val {
-			if nums[i+1] == val {
-				continue
-			}
-			nums[i+1], nums[k] = nums[k], nums[i+1]
+		// 如果当前元素需要移除，则将其移至尾部
+		nums[i], nums[r] = nums[r], nums[i]
+		r--
+		if nums[i] == val {
+			i--
 		}
-		k++
 	}
-	return k
+	return r + 1
+
+	// k := 0
+	// for i, v := range nums {
+	// 	// if the last element
+	// 	if i == len(nums)-1 {
+	// 		if v != val {
+	// 			k++
+	// 		}
+	// 		break
+	// 	}
+	// 	// skip
+	// 	if v == val {
+	// 		if nums[i+1] == val {
+	// 			continue
+	// 		}
+	// 		nums[i+1], nums[k] = nums[k], nums[i+1]
+	// 	}
+	// 	k++
+	// }
+	// return k
 }

@@ -1,3 +1,5 @@
+package zero
+
 /*
 给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
 
@@ -34,7 +36,9 @@ for (int i = 0; i < len; i++) {
     print(nums[i]);
 }
 */
-package zero
+
+// 移除重复的意思就是用后面的不同元素覆盖当前重复的第二个到第n个元素
+// 注意是覆盖，不是替换，替换就会出问题
 
 func removeDuplicates(nums []int) int {
 	if len(nums) < 2 {

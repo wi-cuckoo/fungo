@@ -1,3 +1,5 @@
+package zero
+
 /*
 给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
 
@@ -26,9 +28,7 @@ candidates 中的数字可以无限制重复被选取。
 ]
 */
 
-package zero
-
-var result = make([][]int, 0)
+// 回溯法。相当于所有组合里面找出符合的解集
 
 func combinationSum(candidates []int, target int) [][]int {
 	res := make([][]int, 0)

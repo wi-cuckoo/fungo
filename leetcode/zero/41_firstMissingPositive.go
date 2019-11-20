@@ -1,3 +1,9 @@
+package zero
+
+import (
+	"math"
+)
+
 /*
 给定一个未排序的整数数组，找出其中没有出现的最小的正整数。
 
@@ -18,7 +24,7 @@
 你的算法的时间复杂度应为O(n)，并且只能使用常数级别的空间。
 */
 
-package zero
+//
 
 func firstMissingPositive(nums []int) int {
 	oneIdx, l := -1, len(nums) // l 表示正整数个数
@@ -65,5 +71,15 @@ func firstMissingPositive(nums []int) int {
 
 // 我真是傻逼，明明想到了与极限情况对比，还做了这么麻烦
 func firstMissingPositiveV2(nums []int) int {
+	min := math.MaxInt32
+	for i := 0; i < len(nums); i++ {
+		if n := nums[i]; 0 < n && n < min {
+			min = n
+		}
+	}
+	if min > 1 {
+		return 1
+	}
+
 	return 1
 }

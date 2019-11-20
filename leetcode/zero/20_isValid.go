@@ -1,3 +1,5 @@
+package zero
+
 /*
 给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。
 
@@ -28,19 +30,23 @@
 输入: "{[]}"
 输出: true
 */
-package zero
+
+// 用栈可解决
+// 遇到左括号 (,[,{ 入栈，遇到右括号出栈，并比较出栈的括号是否匹配当前的右括号，不满足则是无效字符串
+// 遍历完后，检查栈中是否剩余元素，剩则无效，反之就是有效字符串
 
 func isValid(s string) bool {
 	if s == "" {
 		return true
 	}
-	pair := map[rune]rune{
+	pair := map[byte]byte{
 		'(': ')',
 		'[': ']',
 		'{': '}',
 	}
-	cache := []rune{}
-	for _, c := range s {
+	cache := []byte{}
+	for i := 0; i < len(s); i++ {
+		c := s[i]
 		// push to stack
 		if _, ok := pair[c]; ok {
 			cache = append(cache, c)
