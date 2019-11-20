@@ -1,9 +1,5 @@
 package zero
 
-import (
-	"math"
-)
-
 /*
 给定一个未排序的整数数组，找出其中没有出现的最小的正整数。
 
@@ -71,15 +67,21 @@ func firstMissingPositive(nums []int) int {
 
 // 我真是傻逼，明明想到了与极限情况对比，还做了这么麻烦
 func firstMissingPositiveV2(nums []int) int {
-	min := math.MaxInt32
+	// 如果非要不占用额外空间，可以使用原地算法
+	table := make([]int, len(nums))
 	for i := 0; i < len(nums); i++ {
-		if n := nums[i]; 0 < n && n < min {
-			min = n
+		n := nums[i]
+		if n < 1 {
+			continue
+		}
+		if n <= len(table) {
+			table[n-1] = 1
 		}
 	}
-	if min > 1 {
-		return 1
+	for i, v := range table {
+		if v == 0 {
+			return i + 1
+		}
 	}
-
-	return 1
+	return len(table) + 1
 }
