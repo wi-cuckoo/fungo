@@ -1,3 +1,5 @@
+package zero
+
 /*
 给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。
 
@@ -12,8 +14,6 @@
 说明:
 尽管上面的答案是按字典序排列的，但是你可以任意选择答案输出的顺序。
 */
-
-package zero
 
 var letters = [8][]string{
 	[]string{"a", "b", "c"},
@@ -30,6 +30,7 @@ var letters = [8][]string{
 // 1. 建立一个数字到字母的映射关系 letters
 // 2. 依次递归 digits 每个数字，找出其可能的字母
 // 3. 当递归完后将字母搜集起来就行了
+
 var combinations = make([]string, 0)
 
 func letterCombinations(digits string) []string {

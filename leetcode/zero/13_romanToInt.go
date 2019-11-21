@@ -1,3 +1,5 @@
+package zero
+
 /*
 罗马数字包含以下七种字符：I， V， X， L，C，D 和 M。
 
@@ -41,7 +43,9 @@ C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
 输出: 1994
 解释: M = 1000, CM = 900, XC = 90, IV = 4.
 */
-package zero
+
+// 用一个表记录一些特殊对应关系
+// 然后可以查表来累加迭代中出现的字符串，注意处理首尾情况
 
 func romanToInt(s string) int {
 	var common = map[string]int{
