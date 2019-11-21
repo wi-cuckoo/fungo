@@ -314,3 +314,12 @@ func TestMaxSubArray(t *testing.T) {
 		t.Error("max sub array sum should be 6, not", n)
 	}
 }
+
+func TestPermuteUnique(t *testing.T) {
+	nums := []int{1, 2, 1}
+	res := permuteUnique(nums)
+	if len(res) != 3 {
+		t.Error("length of result should 6, not", len(res))
+	}
+	t.Log(res)
+}

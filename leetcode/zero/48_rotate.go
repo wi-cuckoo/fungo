@@ -1,3 +1,5 @@
+package zero
+
 /*
 给定一个 n × n 的二维矩阵表示一个图像。
 
@@ -22,23 +24,23 @@
   [8,5,2],
   [9,6,3]
 ]
-
 */
-
-package zero
 
 func rotate(matrix [][]int) {
 	n := len(matrix)
 	// 对角线交换值
+	// [1,2,3]		[9,6,3]
+	// [4,5,6]	=>	[8,5,2]
+	// [7,8,9]		[7,4,1]
 	for i := 0; i < n; i++ {
-		for j := 0; j < n; j++ {
-			if i+j == n-1 {
-				break
-			}
+		for j := 0; j < n-i; j++ {
 			matrix[i][j], matrix[n-j-1][n-i-1] = matrix[n-j-1][n-i-1], matrix[i][j]
 		}
 	}
 	// 上下对称交换值
+	// [9,6,3]		[7,4,1]
+	// [8,5,2]	=> 	[8,5,2]
+	// [7,4,1]		[9,6,3]
 	for i := 0; i < n/2; i++ {
 		matrix[i], matrix[n-i-1] = matrix[n-i-1], matrix[i]
 	}
