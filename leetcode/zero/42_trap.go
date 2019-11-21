@@ -1,3 +1,5 @@
+package zero
+
 /*
 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
 ![](https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/22/rainwatertrap.png)
@@ -10,11 +12,10 @@
 输出: 6
 */
 
-package zero
-
 // 采用层消法，老子取的名字
 // 除去首尾的 0，剩下的是有效接水的段。统计其中 0 的个数，即为最下一层可接水数
 // 将所有非零的柱子长度减一，递归进行下一轮统计
+
 func trap(height []int) int {
 	if len(height) <= 2 {
 		return 0
