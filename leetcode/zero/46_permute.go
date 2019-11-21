@@ -1,3 +1,5 @@
+package zero
+
 /*
 给定一个没有重复数字的序列，返回其所有可能的全排列。
 
@@ -15,27 +17,34 @@
 ]
 */
 
-package zero
+// 回溯法，每次只遍历未使用过的元素
 
 func permute(nums []int) [][]int {
 	if len(nums) == 0 {
 		return [][]int{}
 	}
 	res := make([][]int, 0)
-	backtrackPermute(nums, []int{}, &res)
+	visited := make([]int, len(nums))
+	target := make([]int, 0, len(nums))
+	backtrackPermute(nums, visited, target, &res)
 	return res
 }
 
-func backtrackPermute(nums []int, target []int, res *[][]int) {
-	if len(nums) == 0 {
-		*res = append(*res, target)
+func backtrackPermute(nums, visited, target []int, res *[][]int) {
+	if len(nums) == len(target) {
+		cp := make([]int, len(target))
+		copy(cp, target)
+		*res = append(*res, cp)
 		return
 	}
 	for i := 0; i < len(nums); i++ {
-		newNums := make([]int, len(nums)-1)
-		copy(newNums[0:i], nums[0:i])
-		copy(newNums[i:], nums[i+1:])
-		newTarget := append(target, nums[i])
-		backtrackPermute(newNums, newTarget, res)
+		if visited[i] == 1 {
+			continue
+		}
+		target = append(target, nums[i])
+		visited[i] = 1
+		backtrackPermute(nums, visited, target, res)
+		target = target[:len(target)-1]
+		visited[i] = 0
 	}
 }

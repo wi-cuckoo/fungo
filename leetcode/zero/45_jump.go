@@ -1,3 +1,5 @@
+package zero
+
 /*
 给定一个非负整数数组，你最初位于数组的第一个位置。
 
@@ -16,9 +18,7 @@
 假设你总是可以到达数组的最后一个位置。
 */
 
-package zero
-
-// 贪心解法
+// 贪心解法，每次在当前可跳范围内选择下一次能跳更远的点
 func jump(nums []int) int {
 	if len(nums) < 2 {
 		return 0

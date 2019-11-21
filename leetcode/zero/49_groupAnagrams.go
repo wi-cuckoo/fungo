@@ -1,5 +1,6 @@
-/*
+package zero
 
+/*
 给定一个字符串数组，将字母异位词组合在一起。字母异位词指字母相同，但排列不同的字符串。
 
 示例:
@@ -17,9 +18,10 @@
 不考虑答案输出的顺序。
 */
 
-package zero
-
 import "fmt"
+
+// 主要点在于为每个单词计算出唯一的key来提供分组依据
+// key的计算需要满足字母异位词的key是一致的
 
 func groupAnagrams(strs []string) [][]string {
 	cache := make(map[string][]string, 0)
@@ -30,7 +32,6 @@ func groupAnagrams(strs []string) [][]string {
 		}
 		cache[k] = append(cache[k], s)
 	}
-	fmt.Println(cache)
 	res := make([][]string, len(cache))
 	i := 0
 	for _, v := range cache {
