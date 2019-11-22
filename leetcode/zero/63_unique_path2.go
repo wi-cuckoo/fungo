@@ -26,7 +26,11 @@
 1. 向右 -> 向右 -> 向下 -> 向下
 2. 向下 -> 向下 -> 向右 -> 向右
 */
+
 package zero
+
+// 还是tmd动态规划，但需要处理一下障碍物
+// 处理也很简单就是把 obstacleGrid[i][j] == 1 的点其路径数设为 0
 
 func uniquePathsWithObstacles(obstacleGrid [][]int) int {
 	if obstacleGrid[0][0] == 1 {
@@ -54,23 +58,4 @@ func uniquePathsWithObstacles(obstacleGrid [][]int) int {
 	}
 	// fmt.Println(obstacleGrid)
 	return obstacleGrid[len(obstacleGrid)-1][len(obstacleGrid[0])-1]
-}
-
-func uniquePaths2(m int, n int) int {
-	if n == 1 || m == 1 {
-		return 1
-	}
-	dp := make([][]int, m) // 2-dimension arra
-	for i := 0; i < m; i++ {
-		dp[i] = make([]int, n)
-		dp[i][0] = 1
-		for j := 1; j < n; j++ {
-			if i == 0 {
-				dp[i][j] = 1
-				continue
-			}
-			dp[i][j] = dp[i-1][j] + dp[i][j-1]
-		}
-	}
-	return dp[m-1][n-1]
 }

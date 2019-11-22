@@ -25,8 +25,10 @@
 输入: m = 7, n = 3
 输出: 28
 */
+
 package zero
 
+// 1. 递归，我他妈都佩服我自己，三行代码
 // long time to say
 func uniquePaths(m int, n int) int {
 	if n == 1 || m == 1 {
@@ -35,6 +37,9 @@ func uniquePaths(m int, n int) int {
 	return uniquePaths(m, n-1) + uniquePaths(m-1, n)
 }
 
+// 2. 动态规划
+// 对于点 (i, j)，到达该点的路径取决于到达 (i, j-1) 和 (i-1, j) 的路径
+// 并且满足 f(i,j) = f(i,j-1)+f(i-1,j)
 func uniquePathsV2(m int, n int) int {
 	if n == 1 || m == 1 {
 		return 1

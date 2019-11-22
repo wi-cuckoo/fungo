@@ -10,6 +10,7 @@
 输入: "Hello World"
 输出: 5
 */
+
 package zero
 
 import (
@@ -25,7 +26,7 @@ func lengthOfLastWord(s string) int {
 func lengthOfLastWordV2(s string) int {
 	n := 0
 	for i := len(s) - 1; i >= 0; i-- {
-		if s[i] == 32 {
+		if s[i] == ' ' {
 			if n != 0 {
 				break
 			}
