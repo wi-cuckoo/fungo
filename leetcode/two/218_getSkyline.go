@@ -6,6 +6,7 @@
  右顶点，我们找出堆中相应的最顶点，然后移出左顶点，同时也意味着这个矩形的结束，为了区分左右顶点，我
  们以负数作为左顶点，正数作为右顶点
 */
+
 package two
 
 import (
@@ -86,3 +87,6 @@ func (p *pq) Remove(n int) {
 	}
 	p.nums = p.nums[1:]
 }
+
+// 2. divide-and-conquer
+//

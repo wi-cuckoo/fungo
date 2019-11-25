@@ -1,3 +1,5 @@
+package zero
+
 /*
 给定一个包含 m x n 个元素的矩阵（m 行, n 列），请按照顺时针螺旋顺序，返回矩阵中的所有元素。
 
@@ -20,8 +22,6 @@
 ]
 输出: [1,2,3,4,8,12,11,10,9,5,6,7]
 */
-
-package zero
 
 func spiralOrder(matrix [][]int) []int {
 	if len(matrix) == 0 || len(matrix[0]) == 0 {
