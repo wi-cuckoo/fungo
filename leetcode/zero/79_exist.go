@@ -20,6 +20,8 @@ board =
 
 package zero
 
+// 还是回溯法去找，不放过任何一种可能
+
 func exist(board [][]byte, word string) bool {
 	for i := 0; i < len(board); i++ {
 		for j := 0; j < len(board[i]); j++ {

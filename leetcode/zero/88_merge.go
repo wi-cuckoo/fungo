@@ -13,9 +13,11 @@ nums2 = [2,5,6],       n = 3
 
 输出: [1,2,2,3,5,6]
 */
+
 package zero
 
 import (
+	"math"
 	"sort"
 )
 
@@ -25,4 +27,29 @@ func mergeArray(nums1 []int, m int, nums2 []int, n int) {
 		nums1[i] = nums2[i-m]
 	}
 	sort.Ints(nums1)
+}
+
+// 双指针可解决，分别指向两个数组最末尾，每次取两个数组中最大值放到第一个数组最后面，然后指针前移
+func mergeArrayV2(nums1 []int, m int, nums2 []int, n int) {
+	t := m + n - 1
+	m--
+	n--
+	for t > -1 {
+		a, b := math.MinInt32, math.MinInt32
+		if m > -1 {
+			a = nums1[m]
+		}
+		if n > -1 {
+			b = nums2[n]
+		}
+		max := a
+		if b > max {
+			max = b
+			n--
+		} else {
+			m--
+		}
+		nums1[t] = max
+		t--
+	}
 }

@@ -13,6 +13,11 @@
 
 package zero
 
+// 双指针+滑动窗口
+// 1. 移动右指针 r，找到第一个包含 T 的子串为止，记为 min = S[l:r+1]
+// 2. 移动左指针 l，直到某个位置导致 S[l:r+1] 不合法为止，更新 min
+// 3. 接着移动右指针 r，重复步骤 1.
+
 func minWindow(s string, t string) string {
 	chars, cache := [128]int{}, [128]int{}
 	for _, c := range t {
@@ -61,6 +66,7 @@ func minWindow(s string, t string) string {
 				c, valid = s[l], false
 			}
 		}
+		// 注意：这里从 l-1 算起是因为上面循环退出前多执行了一次 l++
 		if len(s[l-1:r+1]) < len(min) {
 			min = s[l-1 : r+1]
 		}

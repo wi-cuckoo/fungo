@@ -33,6 +33,7 @@ func sortColors(nums []int) {
 	}
 }
 
+// 双指针即可，一个指向列表头，一个指向列表尾巴
 func sortColorsV2(nums []int) {
 	i, j := 0, len(nums)-1
 	for k := 0; k <= j; k++ {

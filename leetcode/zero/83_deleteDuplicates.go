@@ -17,6 +17,8 @@ import (
 	"github.com/wi-cuckoo/fungo/model"
 )
 
+// 链表操作，考察节点删除
+
 func deleteDuplicates(head *model.ListNode) *model.ListNode {
 	if head == nil || head.Next == nil {
 		return head

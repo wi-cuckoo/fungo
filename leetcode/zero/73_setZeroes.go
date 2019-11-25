@@ -60,6 +60,11 @@ func setZeroes(matrix [][]int) {
 	}
 }
 
+// 如果要使用原地算法，需要标记一下哪行哪列有零值
+// 1. 对于行，如果一行有零值，就将 matrix[i][0] 设为 0
+// 2. 对于列，如果一列有零值，就将 matrix[0][j] 设为 0
+// 3. 记录行列的时候别忘了如果是第一行或第一列也有零值，需要额外标记出来
+
 func setZeroesV2(matrix [][]int) {
 	firstRow, firstCol := false, false
 	for i := 0; i < len(matrix); i++ {

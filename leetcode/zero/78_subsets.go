@@ -21,6 +21,8 @@
 
 package zero
 
+// 回溯法+剪枝，没啥好说的
+
 func subsets(nums []int) [][]int {
 	res := [][]int{{}}
 	backtrackSubsets(nums, []int{}, &res)

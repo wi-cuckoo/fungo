@@ -18,7 +18,10 @@
 输出: 3
 解释: 它可以解码为 "BZ" (2 26), "VF" (22 6), 或者 "BBF" (2 2 6) 。
 */
+
 package zero
+
+// 动态规划解
 
 // be careful of zero and zero with zero, fuck
 func numDecodings(s string) int {

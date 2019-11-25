@@ -30,8 +30,8 @@ package zero
 
 import "math"
 
-//  ## 分析
-//  考虑word1[0:i]到word2[0:j]的编辑距离 i<len(word1),j<len(word2)
+//  ## 动态规划，分析
+//  考虑word1[0:i]到word2[0:j]的编辑距离，其中i<len(word1),j<len(word2)
 //  当word1[i] == word2[j] 时，则只需要计算 word1[i:] 到 Word2[j:]的编辑距离
 //  如果不相等，则需要操作一下，分三种情况
 //  1. 将word[i]改成word2[j]，则之后只需计算 word1[i+1:]到word2[j+1:]的编辑距离
