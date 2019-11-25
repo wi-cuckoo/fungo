@@ -12,6 +12,7 @@
 输入: a = "1010", b = "1011"
 输出: "10101"
 */
+
 package zero
 
 func addBinary(a string, b string) string {
