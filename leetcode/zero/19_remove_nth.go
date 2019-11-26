@@ -1,5 +1,7 @@
 package zero
 
+import "github.com/wi-cuckoo/fungo/model"
+
 /*
 给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
 
@@ -21,7 +23,7 @@ package zero
 // 让 p2 指针先向前走 n+1 步，然后 p1, p2 同时开始走
 // 当 p2 到达末尾节点时，p1节点的下一个节点就是需要删除的
 
-func removeNthFromEnd(head *ListNode, n int) *ListNode {
+func removeNthFromEnd(head *model.ListNode, n int) *model.ListNode {
 	p1, p2 := head, head
 	if p1 == nil {
 		return p1

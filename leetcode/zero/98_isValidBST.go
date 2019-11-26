@@ -28,6 +28,8 @@
 
 package zero
 
+import "github.com/wi-cuckoo/fungo/model"
+
 /**
  * Definition for a binary tree node.
  * type TreeNode struct {
@@ -36,7 +38,7 @@ package zero
  *     Right *TreeNode
  * }
  */
-func isValidBST(root *TreeNode) bool {
+func isValidBST(root *model.TreeNode) bool {
 	nums := make([]int, 0)
 	nums = midEach(root, nums)
 	for i := 1; i < len(nums); i++ {
@@ -50,7 +52,7 @@ func isValidBST(root *TreeNode) bool {
 // 判断是不是二叉搜索树使用中序遍历，判断遍历后的数组是不是有序就行了，我真的傻想了半天，忘了这茬
 // 使用递归的时候需要保存每个节点对应取值的上界和下界，因为右子树的所有节点值要大于左子树的节点值
 // 并不仅仅是左节点小于父节点，右节点大于父节点
-func midEach(root *TreeNode, nums []int) []int {
+func midEach(root *model.TreeNode, nums []int) []int {
 	if root == nil {
 		return nums
 	}

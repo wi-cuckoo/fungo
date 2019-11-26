@@ -13,14 +13,16 @@
 
 package zero
 
+import "github.com/wi-cuckoo/fungo/model"
+
 /*
  比较直观，注意边界条件就行
 */
 
-func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-	res := &ListNode{}
+func addTwoNumbers(l1 *model.ListNode, l2 *model.ListNode) *model.ListNode {
+	res := &model.ListNode{}
 	p, p1, p2 := res, l1, l2
-	last := &ListNode{}
+	last := &model.ListNode{}
 	e := 0 // for sum > 10
 	for p1 != nil && p2 != nil {
 		v := p1.Val + p2.Val + e
@@ -29,7 +31,7 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 			e = 1
 			v -= 10
 		}
-		p.Val, p.Next = v, &ListNode{}
+		p.Val, p.Next = v, &model.ListNode{}
 		p1, p2 = p1.Next, p2.Next
 		last, p = p, p.Next
 	}
@@ -44,20 +46,20 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 			e = 1
 			v -= 10
 		}
-		p.Val, p.Next = v, &ListNode{}
+		p.Val, p.Next = v, &model.ListNode{}
 		more = more.Next
 		last, p = p, p.Next
 	}
 	last.Next = nil
 	if e == 1 {
-		last.Next = &ListNode{Val: 1}
+		last.Next = &model.ListNode{Val: 1}
 	}
 	return res
 }
 
-func addTwoNumbersV2(l1 *ListNode, l2 *ListNode) *ListNode {
-	res := &ListNode{}
-	p, last := res, &ListNode{}
+func addTwoNumbersV2(l1 *model.ListNode, l2 *model.ListNode) *model.ListNode {
+	res := &model.ListNode{}
+	p, last := res, &model.ListNode{}
 	e := 0
 	for l1 != nil || l2 != nil || e != 0 {
 		v := e
@@ -70,7 +72,7 @@ func addTwoNumbersV2(l1 *ListNode, l2 *ListNode) *ListNode {
 			l2 = l2.Next
 		}
 		p.Val, e = v%10, v/10
-		p.Next = &ListNode{}
+		p.Next = &model.ListNode{}
 		last, p = p, p.Next
 	}
 	last.Next = nil

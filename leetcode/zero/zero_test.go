@@ -171,7 +171,7 @@ func TestSearchMatrix(t *testing.T) {
 }
 
 func TestMergeIntervals(t *testing.T) {
-	intervals := []Interval{
+	intervals := []model.Interval{
 		{1, 3},
 		{2, 6},
 		{8, 10},
@@ -182,7 +182,7 @@ func TestMergeIntervals(t *testing.T) {
 		t.Log(result)
 		t.Fatal("length of result should be 3, not", len(result))
 	}
-	expect := []Interval{
+	expect := []model.Interval{
 		{1, 6},
 		{8, 10},
 		{13, 18},

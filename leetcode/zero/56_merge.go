@@ -17,6 +17,8 @@ package zero
 
 import "sort"
 
+import "github.com/wi-cuckoo/fungo/model"
+
 // 排序就完事了
 // 1. 根据区间的 Start 值对整个 intervals 排序
 // 2. 考虑第一个区间 p 和第二个区间 q, 首先有 p.Start <= q.Start
@@ -24,14 +26,14 @@ import "sort"
 //    - 当 p.End >= q.Start 时，说明区间重叠，则更新 p.End = q.End 合并两区间为
 //    - 重复上述比较
 
-func merge(intervals []Interval) []Interval {
+func merge(intervals []model.Interval) []model.Interval {
 	if len(intervals) < 2 {
 		return intervals
 	}
 	sort.Slice(intervals, func(i, j int) bool {
 		return intervals[i].Start < intervals[j].Start
 	})
-	result := make([]Interval, 0)
+	result := make([]model.Interval, 0)
 	p := intervals[0]
 	for i := 1; i < len(intervals); i++ {
 		q := intervals[i]
