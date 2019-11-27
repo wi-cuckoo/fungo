@@ -24,5 +24,46 @@ package zero
 // 最后对比三种情况所获得的最大矩形面积，取最大值即可
 
 func largestRectangleArea(heights []int) int {
-	return 0
+	if len(heights) == 0 {
+		return 0
+	}
+	if len(heights) == 1 {
+		return heights[0]
+	}
+	mid := len(heights) / 2
+	left := largestRectangleArea(heights[:mid])
+	right := largestRectangleArea(heights[mid:])
+	cross := largestRectangleAreaCross(mid, heights)
+	for _, n := range [2]int{left, right} {
+		if n > cross {
+			cross = n
+		}
+	}
+	return cross
 }
+
+func largestRectangleAreaCross(mid int, heights []int) int {
+	// 如果只有两根柱子，而又要求是跨区域，则面积就是 2*min(heights)
+	lh := heights[mid-1]
+	max := 0
+	for i := mid - 1; i >= 0; i-- {
+		if heights[i] < lh {
+			lh = heights[i]
+		}
+		rh := lh
+		for j := mid; j < len(heights); j++ {
+			if heights[j] < rh {
+				rh = heights[j]
+			}
+			if area := (j - i + 1) * rh; area > max {
+				max = area
+			}
+		}
+	}
+	return max
+}
+
+// 另一种分治思路，找到最矮的柱子，则最大面积也存在三种分布情况
+// 1. 包含最矮柱子，则此时面积为 minHeight * len(heights)
+// 2. 存在于最矮柱子左边区域
+// 3. 存在于最矮柱子右边区域
