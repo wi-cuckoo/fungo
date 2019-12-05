@@ -100,3 +100,49 @@ func (t *TreeNode) InOrderTraversal() []int {
 	}
 	return nodes
 }
+
+// PreOrderTraversalItera 实现前序遍历 - 迭代版本
+func (t *TreeNode) PreOrderTraversalItera() []int {
+	if t == nil {
+		return []int{}
+	}
+	nodes := make([]int, 0, 10)
+	stack := make([]*TreeNode, 0, 10)
+	stack = append(stack, t)
+	for len(stack) > 0 {
+		// 出栈
+		ln := len(stack)
+		p := stack[ln-1]
+		nodes = append(nodes, p.Val)
+		stack = stack[:ln-1]
+		if p.Right != nil {
+			stack = append(stack, p.Right)
+		}
+		if p.Left != nil {
+			stack = append(stack, p.Left)
+		}
+	}
+	return nodes
+}
+
+// InOrderTraversalItera 实现中序遍历 - 迭代版本
+func (t *TreeNode) InOrderTraversalItera() []int {
+	if t == nil {
+		return []int{}
+	}
+	nodes := make([]int, 0, 10)
+	stack := make([]*TreeNode, 0, 10)
+	cur := t
+	for cur != nil || len(stack) > 0 {
+		for cur != nil {
+			stack = append(stack, cur)
+			cur = cur.Left
+		}
+		// 出栈
+		p := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		nodes = append(nodes, p.Val)
+		cur = p.Right
+	}
+	return nodes
+}
