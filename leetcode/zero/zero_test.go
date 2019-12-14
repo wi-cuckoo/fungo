@@ -323,3 +323,18 @@ func TestPermuteUnique(t *testing.T) {
 	}
 	t.Log(res)
 }
+
+func TestIsMatch(t *testing.T) {
+	egs := map[[2]string]bool{
+		{"aa", "*"}:        true,
+		{"adceb", "a*b"}:   true,
+		{"acdcb", "a*c?b"}: false,
+		{"cb", "?a"}:       false,
+		{"a", "a*"}:        true,
+	}
+	for sp, b := range egs {
+		if b != isMatch(sp[0], sp[1]) {
+			t.Errorf("if %s match %s %t\n", sp[0], sp[1], b)
+		}
+	}
+}

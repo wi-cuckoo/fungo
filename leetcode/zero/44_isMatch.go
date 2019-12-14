@@ -1,5 +1,7 @@
 package zero
 
+import "fmt"
+
 /*
 给定一个字符串 (s) 和一个字符模式 (p) ，实现一个支持 '?' 和 '*' 的通配符匹配。
 
@@ -51,6 +53,46 @@ p = "a*c?b"
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
+// 用动态规划解
+// 考虑 s 的前 i 个字符能否匹配上 p 的前 j 个字符，用一个二维数组来记录
+// 有几种情况需要说明，初始的 s 为空或 p 为空以及两者都为空是比较简单
+// 当 s 与 p 都不为空的时候，需要计算 dp[i][j] 分三种情况
+// 其中 s[i-1] 表示 s 的第 i 个字符，p[j-1] 表示 p 的第 j 个字符
+// * s[i-1] == p[j-1] || p[j-1] == '?'，则 dp[i][j] = dp[i-1][j-1]
+// * p[j-1] == '*'，则 dp[i][j] 取决于 dp[i-1][j-1] || dp[i-1][j] || dp[i][j-1]
+// * 其他，则 dp[i][j] 无法匹配，置为 false
 func isMatch(s string, p string) bool {
-	return false
+	// dp[i][j] 表示 s 的前 i 个字符能否匹配上 p 的前 j 个字符
+	dp := make([][]bool, len(s)+1)
+	for i := 0; i < len(s)+1; i++ {
+		dp[i] = make([]bool, len(p)+1)
+		for j := 0; j < len(p)+1; j++ {
+			// 都为空字符的时候
+			if i == 0 && j == 0 {
+				dp[i][j] = true
+				continue
+			}
+			// s 为空，而 p 不为空的时候
+			if i == 0 {
+				dp[i][j] = dp[i][j-1] && p[j-1] == '*'
+				continue
+			}
+			// s 不为空，而 p 为空的情况
+			if j == 0 {
+				dp[i][j] = false
+				continue
+			}
+			// s 不为空，p 也不为空
+			switch {
+			case s[i-1] == p[j-1] || p[j-1] == '?':
+				dp[i][j] = dp[i-1][j-1]
+			case p[j-1] == '*':
+				dp[i][j] = dp[i-1][j-1] || dp[i-1][j] || dp[i][j-1]
+			default:
+				dp[i][j] = false
+			}
+		}
+	}
+	fmt.Println(dp)
+	return dp[len(s)][len(p)]
 }
