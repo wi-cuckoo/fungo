@@ -18,24 +18,26 @@
 
 package one
 
+import "github.com/wi-cuckoo/fungo/model"
+
 /**
  * 还是使用中序遍历的方式，反过来生成树
  * 以数组中间节点为根节点，其左侧为左子树，右侧为右子树
  * 对左右两边的分片后的数组同样运用上述方法，只到剩下一个节点或者没有节点
  */
-func sortedArrayToBST(nums []int) *TreeNode {
+func sortedArrayToBST(nums []int) *model.TreeNode {
 	if len(nums) == 0 {
 		return nil
 	}
 	mid := len(nums) / 2
 	if mid > 0 {
-		return &TreeNode{
+		return &model.TreeNode{
 			Val:   nums[mid],
 			Left:  sortedArrayToBST(nums[:mid]),
 			Right: sortedArrayToBST(nums[mid+1:]),
 		}
 	}
-	return &TreeNode{
+	return &model.TreeNode{
 		Val: nums[0],
 	}
 }

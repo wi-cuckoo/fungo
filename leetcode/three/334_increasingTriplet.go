@@ -19,6 +19,10 @@
 
 package three
 
+// 考虑使用最长上升子序列的方法来解，本题只需要判断这个最长上升子序列长度是否大于等于3即可
+// 对于最长上升子序列，我们通过维护一个升序队列来实现，参见 300 题，当发现队列满足长度条件
+// 后就可返回 true，否则最后返回false
+
 func increasingTriplet(nums []int) bool {
 	if len(nums) < 3 {
 		return false

@@ -26,7 +26,7 @@ func getSkyline(buildings [][]int) [][]int {
 		}
 		return a[0] < b[0]
 	})
-	h, pre := NewPQ([]int{0}), 0
+	h, pre := newPQ([]int{0}), 0
 	res := make([][]int, 0)
 	for _, d := range dots {
 		x, y := d[0], d[1]
@@ -50,7 +50,7 @@ type pq struct {
 }
 
 // NewPQ ...
-func NewPQ(nums []int) *pq {
+func newPQ(nums []int) *pq {
 	return &pq{
 		nums: nums,
 	}

@@ -12,14 +12,16 @@
 
 package two
 
-func reverseList(head *ListNode) *ListNode {
-	tail := &ListNode{
+import "github.com/wi-cuckoo/fungo/model"
+
+func reverseList(head *model.ListNode) *model.ListNode {
+	tail := &model.ListNode{
 		Val:  head.Val,
 		Next: nil,
 	}
 	for head.Next != nil {
 		head = head.Next
-		n := &ListNode{
+		n := &model.ListNode{
 			Val:  head.Val,
 			Next: tail,
 		}
@@ -28,8 +30,8 @@ func reverseList(head *ListNode) *ListNode {
 	return tail
 }
 
-func reverseList2(head *ListNode) *ListNode {
-	var p *ListNode
+func reverseList2(head *model.ListNode) *model.ListNode {
+	var p *model.ListNode
 	q := head
 	for q != nil {
 		n := q.Next
@@ -39,7 +41,7 @@ func reverseList2(head *ListNode) *ListNode {
 	return p
 }
 
-func isPalindrome(head *ListNode) bool {
+func isPalindrome(head *model.ListNode) bool {
 	tail := reverseList2(head)
 	for tail != nil && head != nil {
 		if tail.Val != head.Val {

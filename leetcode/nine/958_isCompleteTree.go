@@ -25,6 +25,8 @@
 
 package nine
 
+import "github.com/wi-cuckoo/fungo/model"
+
 /**
  * Definition for a binary tree node.
  * type TreeNode struct {
@@ -33,12 +35,12 @@ package nine
  *     Right *TreeNode
  * }
  */
-func isCompleteTree(root *TreeNode) bool {
+func isCompleteTree(root *model.TreeNode) bool {
 	if root == nil {
 		return false
 	}
 
-	queue := []*TreeNode{root}
+	queue := []*model.TreeNode{root}
 	for len(queue) != 0 {
 		node := queue[0]
 		queue = queue[1:]

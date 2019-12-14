@@ -28,13 +28,6 @@ func TestLengthOfLIS(t *testing.T) {
 		t.Error("length should be 4")
 	}
 	t.Log(l)
-
-	nums = []int{3, 5, 6, 2, 5, 4, 19, 5, 6, 7, 12}
-	l = lengthOfLISV2(nums)
-	if l != 6 {
-		t.Error("length should be 6")
-	}
-	t.Log(l)
 }
 
 func TestIncreasingTriplet(t *testing.T) {

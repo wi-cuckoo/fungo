@@ -69,6 +69,9 @@ func strWithout3a3b(A int, B int) string {
 	return string(buf)
 }
 
+// 判断是否往已生成的字符串末尾加 a 还是加 b，有两种情况
+// * 如果倒数连续两个字符是一样的，为 a 则加 b，为 b 则加 a
+// * 否则根据剩余可写的 A 与 B 的数量来决定，A 多加 a，B 多加 b
 func strWithout3a3bV2(A int, B int) string {
 	buf := make([]byte, 0, A+B)
 	for A > 0 || B > 0 {
@@ -90,11 +93,12 @@ func strWithout3a3bV2(A int, B int) string {
 }
 
 // https://leetcode-cn.com/problems/maximize-sum-of-array-after-k-negations/
+// 贪心法，每次取整个数组中最小的数来来取反，使得本次操作后能得到最大和
 func largestSumAfterKNegations(A []int, K int) int {
 	for ; K > 0; K-- {
 		t := 0
 		for i := 1; i < len(A); i++ {
-			if A[i] > A[t] {
+			if A[i] < A[t] {
 				t = i
 			}
 		}

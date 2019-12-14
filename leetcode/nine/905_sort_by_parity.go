@@ -17,6 +17,7 @@
 1 <= A.length <= 5000
 0 <= A[i] <= 5000
 */
+
 package nine
 
 func sortArrayByParity(A []int) []int {

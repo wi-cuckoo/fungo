@@ -23,7 +23,9 @@
 
 package one
 
-func isSymmetric(root *TreeNode) bool {
+import "github.com/wi-cuckoo/fungo/model"
+
+func isSymmetric(root *model.TreeNode) bool {
 	if root == nil {
 		return true
 	}
@@ -43,7 +45,7 @@ func isSymmetric(root *TreeNode) bool {
 }
 
 // 对左子树采用前序遍历
-func leftEach(root *TreeNode, nums []int) []int {
+func leftEach(root *model.TreeNode, nums []int) []int {
 	if root == nil {
 		nums = append(nums, 0)
 		return nums
@@ -55,7 +57,7 @@ func leftEach(root *TreeNode, nums []int) []int {
 }
 
 // 对右子树采用变形的前序遍历
-func rightEach(root *TreeNode, nums []int) []int {
+func rightEach(root *model.TreeNode, nums []int) []int {
 	if root == nil {
 		nums = append(nums, 0)
 		return nums

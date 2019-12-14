@@ -8,13 +8,13 @@ import (
 )
 
 func TestReverseList(t *testing.T) {
-	l1 := &ListNode{
+	l1 := &model.ListNode{
 		Val: 1,
-		Next: &ListNode{
+		Next: &model.ListNode{
 			Val: 1,
-			Next: &ListNode{
+			Next: &model.ListNode{
 				Val: 2,
-				Next: &ListNode{
+				Next: &model.ListNode{
 					Val:  1,
 					Next: nil,
 				},

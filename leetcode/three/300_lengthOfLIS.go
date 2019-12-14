@@ -15,41 +15,12 @@
 
 package three
 
-import "fmt"
-
-func lengthOfLIS(nums []int) int {
-	if len(nums) == 0 {
-		return 0
-	}
-	dp := make([]int, len(nums))
-	dp[0] = 1
-	for i := 1; i < len(nums); i++ {
-		if nums[i] == nums[i-1] {
-			dp[i] = dp[i-1]
-			continue
-		}
-		dp[i] = 1
-		for j := i - 1; j >= 0; j-- {
-			if nums[i] == nums[j] && dp[j] > dp[i] {
-				dp[i] = dp[j]
-			}
-			if nums[i] > nums[j] && dp[j]+1 > dp[i] {
-				dp[i] = dp[j] + 1
-			}
-		}
-	}
-	fmt.Println(dp)
-	for i := 1; i < len(dp); i++ {
-		if dp[i] > dp[0] {
-			dp[0] = dp[i]
-		}
-	}
-	return dp[0]
-}
-
-// fuck 动态规划是个骗局
 // 维护一个上升队列
-func lengthOfLISV2(nums []int) int {
+// 当遇到比队尾元素大的元素时，进行入队操作
+// 当遇到比队尾元素小的元素时，通过二分查找找到一个可以被替换的元素并替换掉
+// 这里有一个容易想不清楚的地方，就是替换后明显导致该队列并非真正的最长上升
+// 子序列排列了。确实如此，但我们求的长度，所以可以证明这个长度时不会错的
+func lengthOfLIS(nums []int) int {
 	if len(nums) == 0 {
 		return 0
 	}

@@ -33,7 +33,7 @@ func searchInsert(nums []int, target int) int {
 		if nums[mid] == target {
 			return mid
 		}
-		if nums[mid] > target {
+		if nums[mid] < target {
 			l = mid + 1
 		} else {
 			r = mid - 1

@@ -19,7 +19,9 @@
 
 package one
 
-func maxDepth(root *TreeNode) int {
+import "github.com/wi-cuckoo/fungo/model"
+
+func maxDepth(root *model.TreeNode) int {
 	if root == nil {
 		return 0
 	}

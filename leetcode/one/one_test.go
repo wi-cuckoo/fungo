@@ -7,9 +7,9 @@ import (
 )
 
 func TestListToArray(t *testing.T) {
-	head := &ListNode{
+	head := &model.ListNode{
 		Val: 1,
-		Next: &ListNode{
+		Next: &model.ListNode{
 			Val:  2,
 			Next: nil,
 		},
