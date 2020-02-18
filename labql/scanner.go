@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strings"
 )
 
 // Scanner represents a lexical scanner for InfluxQL.
@@ -21,7 +22,7 @@ func NewScanner(r io.Reader) *Scanner {
 // Scan returns the next token and position from the underlying reader.
 // Also returns the literal text read for strings, numbers, and duration tokens
 // since these token types can have different literal representations.
-func (s *Scanner) Scan() (tok Token, pos Pos, lit string) {
+func (s *Scanner) Scan() (Token, Pos, string) {
 	// Read next code point.
 	ch0, pos := s.r.read()
 
@@ -31,8 +32,9 @@ func (s *Scanner) Scan() (tok Token, pos Pos, lit string) {
 	if isWhitespace(ch0) {
 		return s.scanWhitespace()
 	}
-	if isLetter(ch0) {
-		return s.scanString()
+	if isIdentChar(ch0) {
+		_, pos, lit := s.scanString()
+		return Lookup(lit), pos, lit
 	}
 
 	// Otherwise parse individual characters.
@@ -75,7 +77,6 @@ func (s *Scanner) scanWhitespace() (tok Token, pos Pos, lit string) {
 			_, _ = buf.WriteRune(ch)
 		}
 	}
-
 	return WS, pos, buf.String()
 }
 
@@ -150,6 +151,14 @@ func (s *BufScanner) Unscan() { s.n++ }
 func (s *BufScanner) curr() (tok Token, pos Pos, lit string) {
 	buf := &s.buf[(s.i-s.n+len(s.buf))%len(s.buf)]
 	return buf.tok, buf.pos, buf.lit
+}
+
+// Lookup returns the token associated with a given string.
+func Lookup(ident string) Token {
+	if tok, ok := keywords[strings.ToUpper(ident)]; ok {
+		return tok
+	}
+	return STRING
 }
 
 // reader represents a buffered rune reader used by the scanner.
@@ -293,38 +302,24 @@ func ScanDelimited(r io.RuneScanner, start, end rune, escapes map[rune]rune, esc
 	}
 }
 
-// ScanString reads a quoted string from a rune reader.
+// ScanString reads a continous string from a rune reader.
 func ScanString(r io.RuneScanner) (string, error) {
-	ending, _, err := r.ReadRune()
-	if err != nil {
-		return "", errBadString
-	}
+	// ending, _, err := r.ReadRune()
+	// if err != nil {
+	// 	return "", errBadString
+	// }
 
 	var buf bytes.Buffer
 	for {
 		ch0, _, err := r.ReadRune()
-		if ch0 == ending {
-			return buf.String(), nil
-		} else if err != nil || ch0 == '\n' {
+		if err != nil {
 			return buf.String(), errBadString
-		} else if ch0 == '\\' {
-			// If the next character is an escape then write the escaped char.
-			// If it's not a valid escape then return an error.
-			ch1, _, _ := r.ReadRune()
-			if ch1 == 'n' {
-				_, _ = buf.WriteRune('\n')
-			} else if ch1 == '\\' {
-				_, _ = buf.WriteRune('\\')
-			} else if ch1 == '"' {
-				_, _ = buf.WriteRune('"')
-			} else if ch1 == '\'' {
-				_, _ = buf.WriteRune('\'')
-			} else {
-				return string(ch0) + string(ch1), errBadEscape
-			}
-		} else {
-			_, _ = buf.WriteRune(ch0)
 		}
+		if !isIdentChar(ch0) {
+			r.UnreadRune()
+			return buf.String(), nil
+		}
+		buf.WriteRune(ch0)
 	}
 }
 

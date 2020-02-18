@@ -25,7 +25,13 @@ func (p *Parser) Scan() (tok Token, pos Pos, lit string) { return p.s.Scan() }
 
 // ScanIgnoreWhitespace scans the next non-whitespace and non-comment token.
 func (p *Parser) ScanIgnoreWhitespace() (Token, Pos, string) {
-	return p.Scan()
+	for {
+		tok, pos, lit := p.Scan()
+		if tok == WS || tok == COMMENT {
+			continue
+		}
+		return tok, pos, lit
+	}
 }
 
 // ParseExpr parses an expression.
@@ -82,9 +88,8 @@ func (p *Parser) parseUnaryExpr() (Expr, error) {
 		}
 
 		// Expect an RPAREN at the end.
-		if tok, _, _ := p.ScanIgnoreWhitespace(); tok != RPAREN {
-			// return nil, newParseError(tokstr(tok, lit), []string{")"}, pos)
-			return nil, nil
+		if tok, pos, _ := p.ScanIgnoreWhitespace(); tok != RPAREN {
+			return nil, fmt.Errorf("found %s expect ), at line %d, char %d", tok, pos.Line+1, pos.Char+1)
 		}
 
 		return &ParenExpr{Expr: expr}, nil

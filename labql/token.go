@@ -18,6 +18,7 @@ const (
 	OR  // OR
 	EQ  // =
 	NEQ // !=
+	IN  // IN
 	operatorEnd
 
 	LPAREN // (
@@ -35,8 +36,15 @@ var tokens = [...]string{
 	OR:     "OR",
 	EQ:     "=",
 	NEQ:    "!=",
+	IN:     "IN",
 	LPAREN: "(",
 	RPAREN: ")",
+}
+
+var keywords = map[string]Token{
+	"AND": AND,
+	"OR":  OR,
+	"IN":  IN,
 }
 
 // String returns the string representation of the token.
@@ -54,7 +62,7 @@ func (t Token) Precedence() int {
 		return 1
 	case AND:
 		return 2
-	case EQ, NEQ:
+	case EQ, NEQ, IN:
 		return 3
 	}
 	return 0

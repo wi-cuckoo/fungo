@@ -14,7 +14,12 @@ func (*BinaryExpr) expr() {}
 
 // String returns a string representation of the binary expression.
 func (e *BinaryExpr) String() string {
-	return fmt.Sprintf("%s %s %s", e.LHS.String(), e.Op.String(), e.RHS.String())
+	switch e.Op {
+	case AND, OR:
+		return fmt.Sprintf("%s %s %s", e.LHS, e.Op, e.RHS)
+	default:
+		return fmt.Sprintf("(key = %s AND value %s %s)", e.LHS, e.Op, e.RHS)
+	}
 }
 
 // ParenExpr represents a parenthesized expression.
