@@ -27,80 +27,24 @@ target = 13
 
 package zero
 
-import "fmt"
-
 func searchMatrix(matrix [][]int, target int) bool {
-	if len(matrix) < 1 || len(matrix[0]) < 1 {
+	// 将二维数组考虑成有序一维数组
+	if len(matrix) < 1 {
 		return false
 	}
-	// 先二分搜索行，找到位于哪一行
-	l, r := 0, len(matrix)-1
+	m, n := len(matrix), len(matrix[0])
+	l, r := 0, m*n-1
 	for l <= r {
 		mid := (l + r) / 2
-		if matrix[mid][0] < target {
-			l = mid + 1
-			continue
+		i, j := mid/n, mid%n
+		if matrix[i][j] == target {
+			return true
 		}
-		if matrix[mid][0] > target {
+		if matrix[i][j] > target {
 			r = mid - 1
-			continue
+		} else {
+			l = mid + 1
 		}
-		return true
-	}
-	if l > 0 {
-		l--
-	}
-	fmt.Println(l, r)
-	m, n := 0, len(matrix[l])-1
-	for m <= n {
-		mid := (m + n) / 2
-		if matrix[l][mid] < target {
-			m = mid + 1
-			continue
-		}
-		if matrix[l][mid] > target {
-			n = mid - 1
-			continue
-		}
-		return true
 	}
 	return false
 }
-
-/*
-func searchMatrix(matrix [][]int, target int) bool {
-	// 处理一下异常情况
-	h := len(matrix)
-	if h == 0 {
-		return false
-	}
-	w := len(matrix[0])
-	if w == 0 {
-		return false
-	}
-
-	// 先用线性查找查找target可能存在的那一行，可以优化成二分查找
-	// 该行具有以下特征，matrix[line][0] <= target <= matrix[line][w-1]
-	line := 0
-	for i := 0; i < h; i++ {
-		if matrix[i][w-1] == target {
-			return true
-		}
-		if matrix[i][w-1] > target {
-			line = i
-			break
-		}
-	}
-	//
-	for i := 0; i < w; i++ {
-		if matrix[line][i] == target {
-			return true
-		}
-		if matrix[line][i] > target {
-			break
-		}
-	}
-
-	return false
-}
-*/

@@ -22,35 +22,21 @@
 
 package zero
 
-import "fmt"
-
+// slide window
 func lengthOfLongestSubstring(s string) int {
-	if len(s) == 0 {
-		return 0
-	}
-	// cache 记录某个字符最近一次出现的位置
-	cache := map[byte]int{
-		s[0]: 0,
-	}
-	// dp 每一项都是一个两位数组，记录以 s[i] 字母结尾的最长无重复子串的首位索引
-	dp := make([][]int, len(s))
-	dp[0] = []int{0, 0}
-	for i := 1; i < len(s); i++ {
-		idx, ok := cache[s[i]]
-		if !ok || idx < dp[i-1][0] {
-			dp[i] = []int{dp[i-1][0], i}
-		} else {
-			dp[i] = []int{idx + 1, i}
+	table := [128]int{}
+	fmax := func(i, j int) int {
+		if i > j {
+			return i
 		}
-		cache[s[i]] = i
+		return j
 	}
-	fmt.Println(dp)
-	l := 0
-	for _, d := range dp {
-		dl := d[1] - d[0] + 1
-		if l < dl {
-			l = dl
-		}
+	l, r, max := 0, 0, 0
+	for r = 0; r < len(s); r++ {
+		idx := s[r] - '\000'
+		l = fmax(table[idx], l)
+		max = fmax(max, r-l+1)
+		table[idx] = r + 1 // 记录下该字母最后一次出现的位置索引
 	}
-	return l
+	return max
 }
