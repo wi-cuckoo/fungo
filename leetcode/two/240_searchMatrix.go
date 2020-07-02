@@ -61,6 +61,7 @@ func searchLine(nums []int, target int) bool {
 
 /*
  * 注意审题，每一列的元素从上到下也是有序的，这样一来我们可以阶梯式的搜索
+ * 只能从右上角和左下角开始走，这样才会出现往不同方向走出现增大或减小的情况
  */
 func searchMatrixV2(matrix [][]int, target int) bool {
 	if len(matrix) < 1 {

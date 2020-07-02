@@ -338,3 +338,18 @@ func TestIsMatch(t *testing.T) {
 		}
 	}
 }
+
+func TestLengthOfLongestSubstring(t *testing.T) {
+	egs := map[string]int{
+		"aabaab!bb": 3,
+		"":          0,
+		" ":         1,
+		"abcabcbb":  3,
+		"a":         1,
+	}
+	for e, t2 := range egs {
+		if t1 := lengthOfLongestSubstring(e); t1 != t2 {
+			t.Fatalf("expect %d for %s, got %d", t2, e, t1)
+		}
+	}
+}
