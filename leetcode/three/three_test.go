@@ -98,3 +98,13 @@ func TestValidUtf8(t *testing.T) {
 		t.Error("should be false, fuck")
 	}
 }
+
+func TestKthSmallest(t *testing.T) {
+	matrix := [][]int{
+		{1, 5, 8},
+		{10, 12, 13},
+		{11, 13, 15},
+	}
+	n := kthSmallest(matrix, 3)
+	t.Log(n)
+}

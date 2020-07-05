@@ -353,3 +353,7 @@ func TestLengthOfLongestSubstring(t *testing.T) {
 		}
 	}
 }
+
+func TestLongestValidParentheses(t *testing.T) {
+	t.Log(longestValidParentheses("()()))))()()("))
+}
