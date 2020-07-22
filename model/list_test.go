@@ -17,3 +17,10 @@ func TestNewListNode(t *testing.T) {
 		t.Errorf("invalid linked nodes length, should be %d, not %d", len(nums), i)
 	}
 }
+
+func TestReverseList(t *testing.T) {
+	nums := []int{1, 3}
+	head := NewListNode(nums)
+	tail := ReverseList(head)
+	tail.Print()
+}

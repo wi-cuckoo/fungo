@@ -35,3 +35,15 @@ func NewListNode(nums []int) *ListNode {
 	}
 	return head.Next
 }
+
+// ReverseList ...
+func ReverseList(root *ListNode) *ListNode {
+	p, q := root, root.Next
+	p.Next = nil
+	for q != nil {
+		cur := q.Next
+		q.Next = p
+		p, q = q, cur
+	}
+	return p
+}
