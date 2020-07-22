@@ -76,3 +76,13 @@ func serverCon(con net.Conn) {
 		con.Write([]byte("I'm sb too"))
 	}
 }
+
+// IPPacket ...
+func IPPacket() {
+	netaddr, _ := net.ResolveIPAddr("ip4", "127.0.0.1")
+	conn, _ := net.ListenIP("ip4:icmp", netaddr)
+
+	buf := make([]byte, 1024)
+	numRead, _, _ := conn.ReadFrom(buf)
+	fmt.Printf("%s \n", string(buf[:numRead]))
+}
