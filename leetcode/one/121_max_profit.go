@@ -21,63 +21,13 @@
 package one
 
 import (
-	"fmt"
 	"math"
 )
-
-func maxProfit1(prices []int) int {
-	if len(prices) < 2 {
-		return 0
-	}
-	fn := make([]int, 0, 2) // mean price of buy and sell
-	for i := 1; i < len(prices); i++ {
-		if len(fn) == 0 {
-			if prices[i] > prices[i-1] {
-				fn = append(fn, i-1, i)
-			}
-			continue
-		}
-		s1 := prices[fn[1]] - prices[fn[0]]
-		s2 := prices[i] - prices[fn[0]]
-		s3 := prices[i] - prices[fn[1]+1]
-		l := fn[1] + 1
-		for j := fn[1] + 1; j < i; j++ {
-			if s := prices[i] - prices[j]; s > s3 {
-				s3 = s
-				l = j
-			}
-		}
-
-		if max(s1, s2, s3) == s3 {
-			fn[0], fn[1] = l, i
-		}
-		if max(s1, s2, s3) == s2 {
-			fn[1] = i
-		}
-
-		fmt.Println(fn, i, l, s1, s2, s3)
-
-	}
-	if len(fn) == 0 {
-		return 0
-	}
-	return prices[fn[1]] - prices[fn[0]]
-}
-
-func max(nums ...int) int {
-	n := nums[0]
-	for _, v := range nums {
-		if n < v {
-			n = v
-		}
-	}
-	return n
-}
 
 // 1. 维护一个最低买入价与每次卖出得到的最高利润
 // 2. 当前股价低于最低价时更新最低价
 // 3. 当前卖出价格减去买入的最低价结果大于维护的最高利润，则更新该最高利润
-func maxProfitV2(nums []int) int {
+func maxProfit(nums []int) int {
 	minPrice, maxProfit := math.MaxInt32, 0
 	for _, p := range nums {
 		if p < minPrice {
