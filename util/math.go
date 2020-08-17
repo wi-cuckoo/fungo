@@ -19,3 +19,11 @@ func Min(a int, nums ...int) int {
 	}
 	return a
 }
+
+// Abs return a positive num
+func Abs(a int) int {
+	if a < 0 {
+		return 0 - a
+	}
+	return a
+}
