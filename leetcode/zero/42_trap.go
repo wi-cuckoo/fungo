@@ -1,5 +1,9 @@
 package zero
 
+import (
+	"github.com/wi-cuckoo/fungo/util"
+)
+
 /*
 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
 ![](https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/22/rainwatertrap.png)
@@ -81,4 +85,28 @@ func trapV2(height []int) int {
 		}
 	}
 	return sum
+}
+
+// 双指针法: 对与 trapV2 中的方法还可以进一步优化
+// 对于 i 点能接多少水取决于左右两边最高柱子中较矮的那个
+// 我们可以在遍历过程中维护两个变量, lmax: 到目前为止左侧最高的柱子，rmax: 到目前为止右侧最高的柱子
+// 当从左往右遍历到 i 点时，对于 i 点来说，lmax 是可信的，rmax 是不可信的，如果是 lmax < rmax
+// 那么可以确定 i 点能接多少水了（因为右侧 rmax 只可能更大），而如果 lmax > rmax 那么我们就可以确定
+// 从右往左遍历的当前点
+func trapV3(height []int) int {
+	lmax, rmax := 0, 0
+	l, r := 0, len(height)-1
+	ans := 0
+	for l <= r {
+		if lmax < rmax {
+			ans += util.Max(0, lmax-height[l])
+			lmax = util.Max(lmax, height[l])
+			l++
+			continue
+		}
+		ans += util.Max(0, rmax-height[r])
+		rmax = util.Max(rmax, height[r])
+		r--
+	}
+	return ans
 }
