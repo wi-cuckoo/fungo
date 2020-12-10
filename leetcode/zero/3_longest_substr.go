@@ -33,7 +33,7 @@ func lengthOfLongestSubstring(s string) int {
 	}
 	l, r, max := 0, 0, 0
 	for r = 0; r < len(s); r++ {
-		idx := s[r] - '\000'
+		idx := s[r]
 		l = fmax(table[idx], l)
 		max = fmax(max, r-l+1)
 		table[idx] = r + 1 // 记录下该字母最后一次出现的位置索引
