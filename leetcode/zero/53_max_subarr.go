@@ -13,8 +13,6 @@ package zero
 如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。
 */
 
-import "math"
-
 // 1. 动态规划解
 // * 只有一个数时，最大和显而易见
 // * 当以第 i 个数结尾的连续子数组最大和为 sum[i], 则 第 i+1 数结尾时
@@ -41,47 +39,29 @@ func max(nums ...int) int {
 	return n
 }
 
-// 2. 分治法求解
-// 将数组一分为二则最大子序和有三种情况
-// * 子序列存在于左边子数组中
-// * 子序列存在于右边子数组中
-// * 子序列跨左右两个子数组
-// 对于跨数组的情况最好处理，对左数组从右往左计算最大和，对右数组从左往右计算最大和
-// 而对于前两种情况则递归求解即可，最后比较三种情况得出的值，取最大即可
-// 时间复杂度为 O(logN) 级别
-// solution by divide-and-conquer
+// 分冶法
 func maxSubArrayV2(nums []int) int {
-	if len(nums) < 1 {
-		return math.MinInt32
-	}
-	if len(nums) == 1 {
-		return nums[0]
-	}
-	mid := (len(nums) - 1) / 2
-	left := maxSubArrayV2(nums[:mid])
-	right := maxSubArrayV2(nums[mid+1:])
-	midSum := maxSubArrayCrossMid(mid, nums)
-	return max(left, right, midSum)
+	return get(nums, 0, len(nums)-1).mSum
 }
 
-func maxSubArrayCrossMid(mid int, nums []int) int {
-	lsum, rsum := math.MinInt32, math.MinInt32
-	sum := 0
-	for i := mid; i >= 0; i-- {
-		sum += nums[i]
-		if lsum < sum {
-			lsum = sum
-		}
+func pushUp(l, r Status) Status {
+	iSum := l.iSum + r.iSum
+	lSum := max(l.lSum, l.iSum+r.lSum)
+	rSum := max(r.rSum, r.iSum+l.rSum)
+	mSum := max(max(l.mSum, r.mSum), l.rSum+r.lSum)
+	return Status{lSum, rSum, mSum, iSum}
+}
+
+func get(nums []int, l, r int) Status {
+	if l == r {
+		return Status{nums[l], nums[l], nums[l], nums[l]}
 	}
-	sum = 0
-	for i := mid + 1; i < len(nums); i++ {
-		sum += nums[i]
-		if rsum < sum {
-			rsum = sum
-		}
-	}
-	if rsum < 0 {
-		return lsum
-	}
-	return lsum + rsum
+	m := (l + r) >> 1
+	lSub := get(nums, l, m)
+	rSub := get(nums, m+1, r)
+	return pushUp(lSub, rSub)
+}
+
+type Status struct {
+	lSum, rSum, mSum, iSum int
 }
