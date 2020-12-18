@@ -33,3 +33,11 @@ func TestIsBipartite(t *testing.T) {
 	}
 	t.Log(isBipartite(graph))
 }
+
+func TestMaxProfit(t *testing.T) {
+	nums := []int{1, 3, 2, 8, 4, 9}
+	p := maxProfit(nums, 2)
+	if p != 8 {
+		t.Error(p)
+	}
+}
