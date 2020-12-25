@@ -1,5 +1,9 @@
 package interview
 
+import (
+	"github.com/wi-cuckoo/fungo/model"
+)
+
 /*
 题目描述：
 在给定的网格中，每个单元格可以有以下三个值之一：
