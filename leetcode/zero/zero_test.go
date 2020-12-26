@@ -357,3 +357,13 @@ func TestLengthOfLongestSubstring(t *testing.T) {
 func TestLongestValidParentheses(t *testing.T) {
 	t.Log(longestValidParentheses("()()))))()()("))
 }
+
+func TestMaximalRectangle(t *testing.T) {
+	matrix := [][]byte{
+		{'1', '0', '1', '0', '0'},
+		{'1', '0', '1', '1', '1'},
+		{'1', '1', '1', '1', '1'},
+		{'1', '0', '0', '1', '0'},
+	}
+	t.Log(maximalRectangle(matrix))
+}
