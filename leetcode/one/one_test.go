@@ -95,3 +95,8 @@ func TestCanCompleteCircuit(t *testing.T) {
 	gas, cost := []int{5, 8, 2, 8}, []int{6, 5, 6, 6}
 	t.Log(canCompleteCircuit(gas, cost) == 3)
 }
+
+func TestMaxProfit4(t *testing.T) {
+	t.Log(maxProfit4(2, []int{2, 4, 1}))
+	t.Log(maxProfit4(2, []int{3, 2, 6, 5, 0, 3}))
+}
