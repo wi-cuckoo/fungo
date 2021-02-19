@@ -27,7 +27,6 @@ import (
 )
 
 // 解题思路：使用双指针+滑动窗口，合法的窗口为窗口长度减去窗口内最多出现字符的个数，差值不超过 K
-
 // 我的代码，比较笨
 func characterReplacement(s string, k int) int {
 	l, r := 0, 0
