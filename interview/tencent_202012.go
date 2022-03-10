@@ -95,8 +95,8 @@ func heapSort(nums []int) []int {
 // 假定 i < j < h 有序
 func findNodes(k int, i, j, h int) int {
 	n := 1
-	for i := 0; i < k; i++ {
-		n = n << 1
+	for x := 0; x < k; x++ {
+		n <<= 1
 	}
 	l, r := 1, n-1
 	for l <= r {
