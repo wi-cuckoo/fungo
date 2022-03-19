@@ -24,22 +24,14 @@ import "github.com/wi-cuckoo/fungo/model"
 // 当 p2 到达末尾节点时，p1节点的下一个节点就是需要删除的
 
 func removeNthFromEnd(head *model.ListNode, n int) *model.ListNode {
-	p1, p2 := head, head
-	if p1 == nil {
-		return p1
+	dummy := &model.ListNode{Next: head}
+	p1, p2 := dummy, head
+	for ; n > 0; n-- {
+		p2 = p2.Next
 	}
-	for p2.Next != nil {
-		if n > 0 {
-			n--
-			p2 = p2.Next
-			continue
-		}
+	for p2 != nil {
 		p1, p2 = p1.Next, p2.Next
 	}
-	// fmt.Println(p1.Val, p2.Val, n)
-	if n != 0 {
-		return head.Next
-	}
 	p1.Next = p1.Next.Next
-	return head
+	return dummy.Next
 }
