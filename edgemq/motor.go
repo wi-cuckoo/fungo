@@ -2,56 +2,79 @@ package main
 
 import (
 	"bufio"
-	"fmt"
+	"log"
 	"math/rand"
 	"net"
 	"net/http"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 func init() {
 	rand.Seed(time.Now().Unix())
 }
 
-var cmdCh chan byte = make(chan byte, 10)
-
 func main() {
-	http.HandleFunc("/fuck", func(w http.ResponseWriter, r *http.Request) {
-		q := r.URL.Query()
-		cmd := q.Get("cmd")
-		if len(cmd) == 1 {
-			cmdCh <- cmd[0]
-		}
-		w.Write([]byte("OJBK"))
-		w.Header().Add("content-type", "text/plain")
-	})
-	go http.ListenAndServe("192.168.3.39:4399", nil)
+	e := NewEdged(":4399", ":9999")
+	e.Serve()
+}
 
-	ln, err := net.Listen("tcp", "192.168.3.39:9999")
-	if err != nil {
+type Edged struct {
+	ch       chan byte
+	up, down net.Listener
+}
+
+func NewEdged(upAddr, downAddr string) *Edged {
+	e := new(Edged)
+	var err error
+	if e.up, err = net.Listen("tcp", upAddr); err != nil {
 		panic(err)
 	}
+	if e.down, err = net.Listen("tcp", downAddr); err != nil {
+		panic(err)
+	}
+	e.ch = make(chan byte, 8)
 
-	fmt.Println("serve on ", ln.Addr().String())
-	for {
-		conn, err := ln.Accept()
-		if err != nil {
-			break
+	return e
+}
+
+func (e *Edged) Serve() {
+	go e.serveDownStream()
+
+	r := gin.Default()
+	r.PUT("/pub/motor/:cmd", func(c *gin.Context) {
+		cmd := c.Param("cmd")
+		if len(cmd) == 1 {
+			e.ch <- cmd[0]
 		}
-		fmt.Printf("accept connection %s -> %s\n", conn.RemoteAddr(), conn.LocalAddr())
-		go serveCon(conn)
+		c.String(http.StatusOK, "ojbk")
+	})
+
+	panic(r.RunListener(e.up))
+}
+
+func (e *Edged) serveDownStream() {
+	for {
+		conn, err := e.down.Accept()
+		if err != nil {
+			log.Printf("[edged] accept conn fail: %s\n", err.Error())
+			continue
+		}
+		go e.handleDownConn(conn)
 	}
 }
 
-func serveCon(conn net.Conn) {
+func (e *Edged) handleDownConn(conn net.Conn) {
+	log.Printf("accept connection %s -> %s\n", conn.RemoteAddr(), conn.LocalAddr())
 	defer func() {
-		fmt.Printf("close connection %s -> %s\n", conn.RemoteAddr(), conn.LocalAddr())
+		log.Printf("close connection %s -> %s\n", conn.RemoteAddr(), conn.LocalAddr())
 		conn.Close()
 	}()
 
 	if c, ok := conn.(*net.TCPConn); ok {
-		fmt.Println("set keepalive")
 		c.SetKeepAlive(true)
+		c.SetKeepAlivePeriod(time.Second * 8)
 	}
 
 	wb := bufio.NewWriter(conn)
@@ -60,20 +83,57 @@ func serveCon(conn net.Conn) {
 		if _, err := conn.Read(recv); err != nil {
 			break
 		}
-		fmt.Println("recv msg: ", string(recv))
+		log.Println("recv msg: ", string(recv))
 
 		var c byte
 		select {
-		case c = <-cmdCh:
+		case c = <-e.ch:
 		case <-time.After(time.Second * 10):
 			c = 'S'
 		}
 
 		if _, err := wb.Write([]byte{c, '\r', '\n'}); err != nil {
-			fmt.Printf("got err: %s, close connection\n", err.Error())
+			log.Printf("got err: %s, close connection\n", err.Error())
 			break
 		}
 		wb.Flush()
-		fmt.Println("sent command")
+		log.Println("sent command")
 	}
+}
+
+// not support concurrence
+type ring struct {
+	buf        []byte
+	n          int
+	tail, head int
+}
+
+func newRing(n int) *ring {
+	return &ring{
+		buf: make([]byte, n),
+		n:   n,
+	}
+}
+
+func (r *ring) available() bool {
+	r.head %= r.n
+	r.tail %= r.n
+	return r.head != r.tail
+}
+
+func (r *ring) get() byte {
+	r.head = r.head % r.n
+	c := r.buf[r.head]
+	r.head++
+	return c
+}
+
+func (r *ring) push(c byte) {
+	r.tail = r.tail % r.n
+	r.buf[r.tail] = c
+	r.tail++
+}
+
+func (r *ring) clear() {
+	r.head, r.tail = 0, 0
 }
