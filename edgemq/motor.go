@@ -2,8 +2,8 @@ package main
 
 import (
 	"bufio"
+	_ "embed"
 	"log"
-	"math/rand"
 	"net"
 	"net/http"
 	"time"
@@ -11,9 +11,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func init() {
-	rand.Seed(time.Now().Unix())
-}
+//go:embed ace.html
+var homePage []byte
 
 func main() {
 	e := NewEdged(":4399", ":9999")
@@ -49,6 +48,9 @@ func (e *Edged) Serve() {
 			e.ch <- cmd[0]
 		}
 		c.String(http.StatusOK, "ojbk")
+	})
+	r.GET("/", func(c *gin.Context) {
+		c.Data(http.StatusOK, "text/html", homePage)
 	})
 
 	panic(r.RunListener(e.up))
