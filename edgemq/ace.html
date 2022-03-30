@@ -14,7 +14,7 @@
                         <samp>[root]# {{ line }}</samp> 
                     </p>
             </div>
-            <div style="margin: 50% auto; text-align: center;">
+            <div style="margin: 76% auto; text-align: center;">
                 <div>
                     <button type="button" class="btn btn-default bt-lg" @click="run('F')">
                         <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
@@ -47,7 +47,7 @@
                 },
                 methods: {
                     run(cmd) {
-                        this.logs.push(`publish a command [${cmd}]\t${Date.now()}`)
+                        this.logs.push(`publish a command [${cmd}]\t${parseInt(Date.now()/1000)}`)
                         if (this.logs.length > 4) {
                             this.logs.shift()
                         }
