@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <script src="https://unpkg.com/vue@next"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container-fluid" id="app">
+            <div style="opacity: 0.5; margin-top: 20px; position: absolute;">
+                    <p style="margin: 0;" v-for="line in logs">
+                        <samp>[root]# {{ line }}</samp> 
+                    </p>
+            </div>
+            <div style="margin: 50% auto; text-align: center;">
+                <div>
+                    <button type="button" class="btn btn-default bt-lg" @click="run('F')">
+                        <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-default bt-lg" @click="run('L')">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    </button>                
+                    <button type="button" class="btn btn-default bt-lg" @click="run('S')" style="margin: 5px;">
+                        <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-default bt-lg" @click="run('R')">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-default bt-lg" @click="run('B')">
+                        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <script>
+            const Motor = {
+                data () {
+                    return {
+                        logs: ['connected to server successfully'],
+                    }
+                },
+                methods: {
+                    run(cmd) {
+                        this.logs.push(`publish a command [${cmd}]\t${Date.now()}`)
+                        if (this.logs.length > 4) {
+                            this.logs.shift()
+                        }
+                    }
+                }
+            }
+            Vue.createApp(Motor).mount('#app')
+        </script>
+    </body>
+</html>

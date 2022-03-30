@@ -34,7 +34,7 @@ func NewEdged(upAddr, downAddr string) *Edged {
 	if e.down, err = net.Listen("tcp", downAddr); err != nil {
 		panic(err)
 	}
-	e.ch = make(chan byte, 8)
+	e.ch = make(chan byte, 2)
 
 	return e
 }
@@ -99,41 +99,4 @@ func (e *Edged) handleDownConn(conn net.Conn) {
 		wb.Flush()
 		log.Println("sent command")
 	}
-}
-
-// not support concurrence
-type ring struct {
-	buf        []byte
-	n          int
-	tail, head int
-}
-
-func newRing(n int) *ring {
-	return &ring{
-		buf: make([]byte, n),
-		n:   n,
-	}
-}
-
-func (r *ring) available() bool {
-	r.head %= r.n
-	r.tail %= r.n
-	return r.head != r.tail
-}
-
-func (r *ring) get() byte {
-	r.head = r.head % r.n
-	c := r.buf[r.head]
-	r.head++
-	return c
-}
-
-func (r *ring) push(c byte) {
-	r.tail = r.tail % r.n
-	r.buf[r.tail] = c
-	r.tail++
-}
-
-func (r *ring) clear() {
-	r.head, r.tail = 0, 0
 }
