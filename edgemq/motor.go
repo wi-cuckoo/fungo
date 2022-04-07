@@ -48,12 +48,13 @@ func (e *Edged) Serve() {
 			c.String(http.StatusBadRequest, "no cmd")
 			return
 		}
-		select {
-		case e.ch <- cmd[0]:
-			c.String(http.StatusOK, "ojbk")
-		default:
-			c.String(http.StatusInsufficientStorage, "no capacity")
+		for i := 0; i < len(cmd); i++ {
+			select {
+			case e.ch <- cmd[i]:
+			default:
+			}
 		}
+		c.String(http.StatusOK, "ojbk")
 	})
 	r.GET("/", func(c *gin.Context) {
 		c.Data(http.StatusOK, "text/html", homePage)
