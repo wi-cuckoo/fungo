@@ -44,10 +44,16 @@ func (e *Edged) Serve() {
 	r := gin.Default()
 	r.PUT("/pub/motor/:cmd", func(c *gin.Context) {
 		cmd := c.Param("cmd")
-		if len(cmd) == 1 {
-			e.ch <- cmd[0]
+		if len(cmd) < 1 {
+			c.String(http.StatusBadRequest, "no cmd")
+			return
 		}
-		c.String(http.StatusOK, "ojbk")
+		select {
+		case e.ch <- cmd[0]:
+			c.String(http.StatusOK, "ojbk")
+		default:
+			c.String(http.StatusInsufficientStorage, "no capacity")
+		}
 	})
 	r.GET("/", func(c *gin.Context) {
 		c.Data(http.StatusOK, "text/html", homePage)

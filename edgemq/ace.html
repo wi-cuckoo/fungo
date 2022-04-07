@@ -37,12 +37,19 @@
                     </button>
                 </div>
             </div>
+            <div style="margin: 10% auto; text-align: center;">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon3">Go Fastly!!!</span>
+                    <input type="text" class="form-control"  v-model.number="step" aria-describedby="basic-addon3">
+                </div>
+            </div>
         </div>
         <script>
             const Motor = {
                 data () {
                     return {
                         logs: ['connected to server successfully'],
+                        step: 1
                     }
                 },
                 methods: {
@@ -51,7 +58,13 @@
                         if (this.logs.length > 4) {
                             this.logs.shift()
                         }
-                        axios.put(`/pub/motor/${cmd}`)
+                        let maxStep = 10
+                        if (maxStep < this.step ) {
+                            this.step = maxStep
+                        }
+                        for (i = 0; i < this.step; i++) {
+                            axios.put(`/pub/motor/${cmd}`)
+                        }
                     }
                 }
             }
