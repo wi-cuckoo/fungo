@@ -100,8 +100,8 @@ func (e *Edged) handleSubConn(conn net.Conn) {
 		return
 	}
 
-	t := time.NewTicker(time.Millisecond * 100)
 	var last byte = 'S'
+	t := time.NewTicker(time.Millisecond * 100)
 	for range t.C {
 		var c byte
 		select {
@@ -109,6 +109,9 @@ func (e *Edged) handleSubConn(conn net.Conn) {
 			last = c
 		default:
 			c = last
+			if last == 'S' {
+				continue
+			}
 		}
 
 		log.Printf("[%s]write command: %c\n", connID, c)
@@ -116,5 +119,6 @@ func (e *Edged) handleSubConn(conn net.Conn) {
 			log.Printf("[%s]got err: %s, close connection\n", connID, err.Error())
 			break
 		}
+
 	}
 }
