@@ -33,7 +33,7 @@ func NewEdged(pubAddr, subAddr string) *Edged {
 	if e.sub, err = net.Listen("tcp", subAddr); err != nil {
 		panic(err)
 	}
-	e.ch = make(chan byte, 2)
+	e.ch = make(chan byte, 8)
 
 	return e
 }
