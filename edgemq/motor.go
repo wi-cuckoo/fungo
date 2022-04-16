@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	_ "embed"
+	"fmt"
 	"log"
 	"net"
 	"net/http"
@@ -75,25 +76,27 @@ func (e *Edged) serveSubStream() {
 }
 
 func (e *Edged) handleSubConn(conn net.Conn) {
-	log.Printf("accept connection %s -> %s\n", conn.RemoteAddr(), conn.LocalAddr())
+	connID := fmt.Sprintf("%s-%s", conn.RemoteAddr(), conn.LocalAddr())
+	log.Printf("accept connection %s\n", connID)
 	defer func() {
-		log.Printf("close connection %s -> %s\n", conn.RemoteAddr(), conn.LocalAddr())
+		log.Printf("close connection %s\n", connID)
 		conn.Close()
 	}()
 
 	if c, ok := conn.(*net.TCPConn); ok {
+		log.Printf("[%s]set keepalive\n", connID)
 		c.SetKeepAlive(true)
-		c.SetKeepAlivePeriod(time.Second * 8)
+		c.SetKeepAlivePeriod(time.Second * 2)
 	}
 
 	// connect authorization
 	passwd := make([]byte, 4)
 	if _, err := conn.Read(passwd); err != nil {
-		log.Printf("conn read err: %s", err.Error())
+		log.Printf("[%s]conn read err: %s", connID, err.Error())
 		return
 	}
 	if !bytes.Equal(passwd, []byte("ojbk")) {
-		log.Printf("conn authorize fail, bad passwd: %s", string(passwd))
+		log.Printf("[%s]conn authorize fail, bad passwd: %s", connID, string(passwd))
 		return
 	}
 
@@ -105,9 +108,9 @@ func (e *Edged) handleSubConn(conn net.Conn) {
 			c = 'S'
 		}
 
-		log.Printf("write command: %c\n", c)
+		log.Printf("[%s]write command: %c\n", connID, c)
 		if _, err := conn.Write([]byte{c}); err != nil {
-			log.Printf("got err: %s, close connection\n", err.Error())
+			log.Printf("[%s]got err: %s, close connection\n", connID, err.Error())
 			break
 		}
 	}
