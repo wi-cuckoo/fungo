@@ -34,7 +34,7 @@ func NewEdged(pubAddr, subAddr string) *Edged {
 	if e.sub, err = net.Listen("tcp", subAddr); err != nil {
 		panic(err)
 	}
-	e.ch = make(chan byte, 8)
+	e.ch = make(chan byte, 1)
 
 	return e
 }
@@ -100,12 +100,15 @@ func (e *Edged) handleSubConn(conn net.Conn) {
 		return
 	}
 
-	for {
+	t := time.NewTicker(time.Millisecond * 100)
+	var last byte = 'S'
+	for range t.C {
 		var c byte
 		select {
 		case c = <-e.ch:
-		case <-time.After(time.Second * 10):
-			c = 'S'
+			last = c
+		default:
+			c = last
 		}
 
 		log.Printf("[%s]write command: %c\n", connID, c)
