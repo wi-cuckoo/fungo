@@ -100,25 +100,28 @@ func (e *Edged) handleSubConn(conn net.Conn) {
 		return
 	}
 
-	var last byte = 'S'
-	t := time.NewTicker(time.Millisecond * 100)
-	for range t.C {
+	quit := make(chan struct{})
+	go func() {
+		for {
+			b := make([]byte, 1)
+			if _, err := conn.Read(b); err != nil {
+				break
+			}
+		}
+		quit <- struct{}{}
+	}()
+
+	for {
 		var c byte
 		select {
 		case c = <-e.ch:
-			last = c
-		default:
-			c = last
-			if last == 'S' {
-				continue
-			}
+		case <-quit:
+			return
 		}
-
 		log.Printf("[%s]write command: %c\n", connID, c)
 		if _, err := conn.Write([]byte{c}); err != nil {
 			log.Printf("[%s]got err: %s, close connection\n", connID, err.Error())
 			break
 		}
-
 	}
 }
