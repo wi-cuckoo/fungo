@@ -30,10 +30,10 @@ func main() {
 }
 
 type Edged struct {
-	ch          chan byte
-	closeStream chan struct{}
-	frameCh     chan *Frame
-	pub, sub    net.Listener
+	ch       chan byte
+	streamOn bool
+	frameCh  chan *Frame
+	pub, sub net.Listener
 }
 
 func NewEdged(pubAddr, subAddr string) *Edged {
@@ -46,7 +46,7 @@ func NewEdged(pubAddr, subAddr string) *Edged {
 		panic(err)
 	}
 	e.ch = make(chan byte, 1)
-	e.closeStream = make(chan struct{})
+	e.streamOn = true
 	e.frameCh = make(chan *Frame, 128)
 	return e
 }
@@ -60,9 +60,10 @@ func (e *Edged) Serve() {
 		switch op {
 		case "on":
 			e.pushCmd('O')
+			e.streamOn = true
 		case "off":
 			e.pushCmd('C')
-			e.stopStream()
+			e.streamOn = false
 		}
 	})
 	r.PUT("/pub/motor/:cmd", func(c *gin.Context) {
@@ -78,10 +79,8 @@ func (e *Edged) Serve() {
 	})
 	r.GET("/stream", func(c *gin.Context) {
 		c.Header("Content-Type", STREAM_CONTENT_TYPE)
-		for {
+		for e.streamOn {
 			select {
-			case <-e.closeStream:
-				return
 			case <-c.Done():
 				return
 			case f := <-e.frameCh:
@@ -112,13 +111,6 @@ func (e *Edged) serveSubStream() {
 func (e *Edged) pushCmd(c byte) {
 	select {
 	case e.ch <- c:
-	default:
-	}
-}
-
-func (e *Edged) stopStream() {
-	select {
-	case e.closeStream <- struct{}{}:
 	default:
 	}
 }
