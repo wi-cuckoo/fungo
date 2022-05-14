@@ -3,13 +3,22 @@ package main
 import (
 	"bytes"
 	_ "embed"
+	"encoding/binary"
 	"fmt"
+	"io"
 	"log"
 	"net"
 	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
+)
+
+const (
+	PART_BOUNDARY       = "123456789000000000000987654321"
+	STREAM_CONTENT_TYPE = "multipart/x-mixed-replace;boundary=" + PART_BOUNDARY
+	STREAM_BOUNDARY     = "\r\n--" + PART_BOUNDARY + "\r\n"
+	STREAM_PART         = "Content-Type: image/jpeg\r\n\r\n"
 )
 
 //go:embed ace.html
@@ -21,8 +30,10 @@ func main() {
 }
 
 type Edged struct {
-	ch       chan byte
-	pub, sub net.Listener
+	ch          chan byte
+	closeStream chan struct{}
+	frameCh     chan *Frame
+	pub, sub    net.Listener
 }
 
 func NewEdged(pubAddr, subAddr string) *Edged {
@@ -35,7 +46,8 @@ func NewEdged(pubAddr, subAddr string) *Edged {
 		panic(err)
 	}
 	e.ch = make(chan byte, 1)
-
+	e.closeStream = make(chan struct{})
+	e.frameCh = make(chan *Frame, 128)
 	return e
 }
 
@@ -43,6 +55,16 @@ func (e *Edged) Serve() {
 	go e.serveSubStream()
 
 	r := gin.Default()
+	r.PUT("/pub/cam/:op", func(c *gin.Context) {
+		op := c.Param("op")
+		switch op {
+		case "on":
+			e.ch <- 'O'
+		case "off":
+			e.ch <- 'C'
+			e.closeStream <- struct{}{}
+		}
+	})
 	r.PUT("/pub/motor/:cmd", func(c *gin.Context) {
 		cmd := c.Param("cmd")
 		if len(cmd) < 1 {
@@ -56,6 +78,21 @@ func (e *Edged) Serve() {
 			}
 		}
 		c.String(http.StatusOK, "ojbk")
+	})
+	r.GET("/stream", func(c *gin.Context) {
+		c.Header("Content-Type", STREAM_CONTENT_TYPE)
+		for {
+			select {
+			case <-e.closeStream:
+				return
+			case <-c.Done():
+				return
+			case f := <-e.frameCh:
+				c.Writer.Write([]byte(STREAM_BOUNDARY))
+				c.Writer.Write([]byte(STREAM_PART))
+				c.Writer.Write(f.Buf)
+			}
+		}
 	})
 	r.GET("/", func(c *gin.Context) {
 		c.Data(http.StatusOK, "text/html", homePage)
@@ -103,10 +140,18 @@ func (e *Edged) handleSubConn(conn net.Conn) {
 	quit := make(chan struct{})
 	go func() {
 		for {
-			b := make([]byte, 1)
-			if _, err := conn.Read(b); err != nil {
+			n, err := readFrameLen(conn)
+			if err != nil {
+				log.Printf("readFrameLen fail: %s\n", err.Error())
 				break
 			}
+			log.Printf("readFrameLen got: %d\n", n)
+			frame, err := readFrame(conn, int(n))
+			if err != nil {
+				log.Printf("readFrame fail: %s\n", err.Error())
+				break
+			}
+			e.frameCh <- &Frame{Buf: frame, Len: n}
 		}
 		quit <- struct{}{}
 	}()
@@ -124,4 +169,25 @@ func (e *Edged) handleSubConn(conn net.Conn) {
 			break
 		}
 	}
+}
+
+type Frame struct {
+	Len    uint32 // Length of the buffer in bytes
+	Width  uint32 // Width of the buffer in pixels
+	Height uint32 // Height of the buffer in pixels
+	Buf    []byte // Pointer to the pixel data
+	// pixformat_t format; //  Format of the pixel data
+	// int64 timestamp;   // Timestamp since boot of the first DMA buffer of the frame
+}
+
+func readFrameLen(r io.Reader) (uint32, error) {
+	buf := make([]byte, 4)
+	_, err := io.ReadFull(r, buf)
+	return binary.BigEndian.Uint32(buf), err
+}
+
+func readFrame(r io.Reader, n int) ([]byte, error) {
+	buf := make([]byte, n)
+	_, err := io.ReadFull(r, buf)
+	return buf, err
 }
