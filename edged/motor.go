@@ -59,10 +59,10 @@ func (e *Edged) Serve() {
 		op := c.Param("op")
 		switch op {
 		case "on":
-			e.ch <- 'O'
+			e.pushCmd('O')
 		case "off":
-			e.ch <- 'C'
-			e.closeStream <- struct{}{}
+			e.pushCmd('C')
+			e.stopStream()
 		}
 	})
 	r.PUT("/pub/motor/:cmd", func(c *gin.Context) {
@@ -72,10 +72,7 @@ func (e *Edged) Serve() {
 			return
 		}
 		for i := 0; i < len(cmd); i++ {
-			select {
-			case e.ch <- cmd[i]:
-			default:
-			}
+			e.pushCmd(cmd[i])
 		}
 		c.String(http.StatusOK, "ojbk")
 	})
@@ -109,6 +106,20 @@ func (e *Edged) serveSubStream() {
 			continue
 		}
 		go e.handleSubConn(conn)
+	}
+}
+
+func (e *Edged) pushCmd(c byte) {
+	select {
+	case e.ch <- c:
+	default:
+	}
+}
+
+func (e *Edged) stopStream() {
+	select {
+	case e.closeStream <- struct{}{}:
+	default:
 	}
 }
 
@@ -151,7 +162,11 @@ func (e *Edged) handleSubConn(conn net.Conn) {
 				log.Printf("readFrame fail: %s\n", err.Error())
 				break
 			}
-			e.frameCh <- &Frame{Buf: frame, Len: n}
+			select {
+			case e.frameCh <- &Frame{Buf: frame, Len: n}:
+			default:
+			}
+
 		}
 		quit <- struct{}{}
 	}()

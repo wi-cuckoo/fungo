@@ -88,7 +88,10 @@
                 },
                 computed: {
                     stream_url() {
-                        return `${location.protocol}//${location.host}/stream`
+                        if (this.opened) {
+                            return `${location.protocol}//${location.host}/stream`
+                        }
+                        return ""
                     }
                 },
                 methods: {
@@ -106,7 +109,11 @@
                     },
                     change_stream() {
                         let cmd = this.opened? 'off': 'on'
-                        axios.put(`/pub/cam/${cmd}`)
+                        axios.put(`/pub/cam/${cmd}`).then(res => {
+                            if (this.opened) {
+                                window.stop()
+                            }
+                        })
                         this.opened = !this.opened
                     }
                 }
